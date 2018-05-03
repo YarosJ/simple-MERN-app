@@ -1,0 +1,4 @@
+# file: ~/.gitignore_global
+.idea/
+node_modules/
+package-lock.json

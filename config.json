@@ -1,0 +1,17 @@
+{
+  "apiPrefix": "http://localhost:3000",
+  "serverPort": "3000",
+  "db":{
+    "name": "solv",
+    "host": "localhost",
+    "port": 27017
+  },
+  "admin": {
+    "name":"Yaroslaw",
+    "email":"jaroslawjuk@outlook.com"
+  },
+  "app": {
+    "name":"solvSPA",
+    "url":""
+  }
+}
