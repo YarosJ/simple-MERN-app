@@ -1,3 +1,7 @@
+require('babel-register')({
+    "presets": ["es2015"]
+});
+
 import express from 'express';
 import session from 'express-session';
 
