@@ -40,6 +40,6 @@ app.use(passport.session());
 app.use('/testimonials', testimonials);
 app.use('/users', users);
 app.use('/', users);
-http.createServer(app).listen(serverPort);
+http.createServer(app).listen(process.env.PORT || serverPort);
 
 module.exports = app;

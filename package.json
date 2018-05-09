@@ -30,6 +30,7 @@
     "debug": "^3.0.1",
     "express": "^4.15.4",
     "express-session": "^1.15.6",
+    "heroku": "^7.0.35",
     "mongodb": "^2.2.31",
     "mongoose": "^4.13.12",
     "node-sass": "^4.5.3",
