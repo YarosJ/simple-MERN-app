@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import axios from "axios/index";
-import validateField from "../../Validate";
+import validateField from "../../../helpers/Validate";
 import {Redirect} from 'react-router';
 
 export class Register extends Component {

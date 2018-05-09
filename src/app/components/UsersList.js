@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 // import ModalWindow from "./ModalWindow";
 import axios from "axios/index";
 import {connect} from "react-redux";
-import {getCookie} from "../../Cookie";
+import {getCookie} from "../../../helpers/Cookie";
 import SelectPanel from "./SelectPanel";
 
 class UsersList extends Component {

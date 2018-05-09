@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Link, NavLink} from 'react-router-dom';
-import {getCookie} from "../../Cookie";
+import {getCookie} from "../../../helpers/Cookie";
 import axios from "axios/index";
 import {connect} from "react-redux";
 
@@ -42,7 +42,7 @@ class Header extends Component {
                         {
                             this.checkAdmin() ?
                                 <div className="center-top">
-                                    <Link to="/admin/users"><img src="../../images/admin/gears-configuration-tool.png" style={{marginTop: '-15px', width: '50px'}} alt=""/></Link>
+                                    <Link to="/admin/users"><img src="../../images/gears-configuration-tool.png" style={{marginTop: '-15px', width: '50px'}} alt=""/></Link>
                                     <Link to="/admin/users">Admin Panel</Link>
                                 </div>
                                 :

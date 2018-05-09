@@ -9,17 +9,17 @@ class AdminToolbar extends Component {
                 <ul>
                     <li>
                         <NavLink exact to="/admin/users" activeClassName='active'>
-                            <img src="../../images/admin/computer.png" alt="Users"/>
+                            <img src="../../images/computer.png" alt="Users"/>
                         </NavLink>
                     </li>
                     <li>
                         <NavLink exact to="/admin/users" activeClassName='active'>
-                            <img src="../../images/admin/team.png" alt="Users"/>
+                            <img src="../../images/team.png" alt="Users"/>
                         </NavLink>
                     </li>
                     <li>
                         <NavLink exact to="/admin/employees" activeClassName='active'>
-                            <img src="../../images/admin/curriculum.png" alt="Employees"/>
+                            <img src="../../images/curriculum.png" alt="Employees"/>
                         </NavLink>
                     </li>
                 </ul>

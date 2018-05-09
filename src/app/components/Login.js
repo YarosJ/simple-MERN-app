@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import {Redirect} from 'react-router';
 import {connect} from "react-redux";
 import axios from "axios/index";
-import validateField from '../../Validate'
+import validateField from '../../../helpers/Validate'
 
 export class Login extends Component {
 

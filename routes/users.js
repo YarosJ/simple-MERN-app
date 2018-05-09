@@ -1,24 +1,20 @@
 import express from 'express';
-
 import passport from 'passport';
+import * as db from '../helpers/DataBaseUtils';
+import usersController from "../controllers/usersController";
 
 const router = express.Router();
-
-import * as db from '../utils/DataBaseUtils';
-
-import checkAdminInRequest from '../helpers/checkAdminInRequest';
+const controller = new usersController();
 
 db.setUpConnection();
 
-router.get('/', (req, res) => {
-    db.listUsers().then(data => res.send(data));
-});
+router.get('/', (req, res) => controller.user_list_get(req, res));
 
-router.post('/register', function (req, res) {
-    db.createUser(req.body).then(data => res.send(data)).catch(err => {
-        res.send(500);
-    });
-});
+router.post('/register', (req, res) => controller.user_create_post(req, res));
+
+router.put('/:id', (req, res) => controller.user_update_put(req, res));
+
+router.delete('/:id', (req, res) => controller.user_delete_post(req, res));
 
 router.post('/login', function (req, res, next) {
     passport.authenticate('local', function (err, user, info) {
@@ -35,27 +31,11 @@ router.post('/login', function (req, res, next) {
 });
 
 router.get('/logout', function (req, res) {
-    if(req.isAuthenticated()){
+    if (req.isAuthenticated()) {
         req.logout();
         res.redirect('/');
     } else {
         res.sendStatus(200);
-    }
-});
-
-router.put('/:id', (req, res) => {
-    if (checkAdminInRequest(req)) {
-        db.updateUser(req.body, req.params.id).then(data => res.send(data));
-    } else {
-        res.sendStatus(403);
-    }
-});
-
-router.delete('/:id', (req, res) => {
-    if(checkAdminInRequest(req)) {
-        db.deleteUser(req.params.id).then(() => res.sendStatus(200));
-    } else {
-        res.sendStatus(403);
     }
 });
 

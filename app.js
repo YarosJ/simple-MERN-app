@@ -3,12 +3,12 @@ import session from 'express-session';
 
 const MongoStore = require('connect-mongo')(session);
 
-import passport from './auth';
+import passport from './helpers/auth';
 import cookieParser from 'cookie-parser';
 import http from 'http';
 import bodyParser from 'body-parser';
 import {serverPort} from './config.json';
-import {mongooseConnection} from './utils/DataBaseUtils';
+import {mongooseConnection} from './helpers/DataBaseUtils';
 
 const app = express();
 

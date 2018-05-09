@@ -1,4 +1,4 @@
-import {setCookie, deleteCookie} from "../../Cookie";
+import {setCookie, deleteCookie} from "../../../helpers/Cookie";
 
 const initialState = {
     role: '',

@@ -10,7 +10,7 @@ import maleLogo from '../../images/male1.png';
 import femaleLogo from '../../images/female1.png';
 
 import {VelocityComponent} from 'velocity-react';
-import {getCookie} from "../../Cookie";
+import {getCookie} from "../../../helpers/Cookie";
 
 class GenderLogo extends Component {
     render() {
