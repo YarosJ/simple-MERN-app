@@ -13,6 +13,7 @@ class UsersController {
     }
 
     user_create_post(req, res) {
+        // this.User.count({"rights": 'superAdmin'}, (count) => sss = count);
 
         const user = new this.User({
             email: req.body.email,
@@ -35,7 +36,7 @@ class UsersController {
     }
 
     user_delete_post(req, res) {
-        if(checkAdminInRequest(req)) {
+        if (checkAdminInRequest(req)) {
             this.User.findById(req.params.id).remove().then(() => res.sendStatus(200));
         } else {
             res.sendStatus(403);

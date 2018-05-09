@@ -17,7 +17,7 @@ const UserSchema = new Schema({
     },
     rights: {
         type: String,
-        default: 'user'
+        default: 'admin'
     },
     createdAt: {type: Date}
 });

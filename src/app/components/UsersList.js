@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-// import ReactDOM from "react-dom";
-// import ModalWindow from "./ModalWindow";
 import axios from "axios/index";
 import {connect} from "react-redux";
 import {getCookie} from "../../../helpers/Cookie";
