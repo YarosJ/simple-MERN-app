@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import {setCookie} from '../../Cookie';
+import {connect} from "react-redux";
+
 class Footer extends Component {
 
-    setEmailCookie(e) {
-        setCookie('email', e.currentTarget.parentNode.previousSibling.value, 7);
-        // document.cookie = `login=${e.currentTarget.parentNode.previousSibling.value}; path=/`;
+    setEmail(e) {
+        this.props.onSetEmail(e.currentTarget.parentNode.previousSibling.value);
     }
 
     render() {
@@ -43,7 +43,7 @@ class Footer extends Component {
                         <p>Your Email Address</p>
                         <input type="text" size="40"/>
                         <Link to="/login">
-                            <button onClick={this.setEmailCookie.bind(this)}>Sign Up</button>
+                            <button onClick={this.setEmail.bind(this)}>Sign Up</button>
                         </Link>
                     </div>
                     <div className="footer-item">
@@ -105,4 +105,23 @@ class Footer extends Component {
     }
 }
 
-export default Footer;
+export default connect(
+    state => ({
+        session: state.session
+    }),
+
+    dispatch => ({
+
+        onSetEmail: (email) => {
+
+            dispatch({type: 'REMOVE_SESSION'});
+
+            dispatch({
+                type: 'SET_SESSION',
+                payload: {email: email}
+            });
+
+        }
+
+    })
+)(Footer);

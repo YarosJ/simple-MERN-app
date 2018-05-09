@@ -6,6 +6,8 @@ const router = express.Router();
 
 import * as db from '../utils/DataBaseUtils';
 
+import checkAdminInRequest from '../helpers/checkAdminInRequest';
+
 db.setUpConnection();
 
 router.get('/', (req, res) => {
@@ -13,9 +15,8 @@ router.get('/', (req, res) => {
 });
 
 router.post('/register', function (req, res) {
-    db.createUser(req.body).then(data => res.send({rights: data.rights})).catch(err => {
-        console.log(err);
-        res.send(404);
+    db.createUser(req.body).then(data => res.send(data)).catch(err => {
+        res.send(500);
     });
 });
 
@@ -27,21 +28,35 @@ router.post('/login', function (req, res, next) {
 
         req.logIn(user, function (err) {
             if (err) return next(err);
-            res.cookie('role', user.rights);
-            return res.redirect('/');
+            return res.send(user);
         });
 
     })(req, res, next);
 });
 
 router.get('/logout', function (req, res) {
-    res.cookie('role', 'guest');
-    req.logout();
-    res.redirect('/');
+    if(req.isAuthenticated()){
+        req.logout();
+        res.redirect('/');
+    } else {
+        res.sendStatus(200);
+    }
 });
 
-// router.delete('/:id', (req, res) => {
-//     db.deleteUser(req.params.id).then(() => res.sendStatus(200));
-// });
+router.put('/:id', (req, res) => {
+    if (checkAdminInRequest(req)) {
+        db.updateUser(req.body, req.params.id).then(data => res.send(data));
+    } else {
+        res.sendStatus(403);
+    }
+});
+
+router.delete('/:id', (req, res) => {
+    if(checkAdminInRequest(req)) {
+        db.deleteUser(req.params.id).then(() => res.sendStatus(200));
+    } else {
+        res.sendStatus(403);
+    }
+});
 
 export default router;

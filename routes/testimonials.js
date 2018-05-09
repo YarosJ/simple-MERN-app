@@ -4,6 +4,8 @@ const router = express.Router();
 
 import * as db from '../utils/DataBaseUtils';
 
+import checkAdminInRequest from '../helpers/checkAdminInRequest';
+
 db.setUpConnection();
 
 router.get('/', (req, res) => {
@@ -11,17 +13,15 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-    // console.log(req.session.passport.user.rights);
-    if (req.isAuthenticated()) {
+    if (checkAdminInRequest(req)) {
         db.createTestimonial(req.body).then(data => res.send(data));
     } else {
         res.sendStatus(403);
     }
-
 });
 
 router.put('/:id', (req, res) => {
-    if (req.isAuthenticated()) {
+    if (checkAdminInRequest(req)) {
         db.updateTestimonial(req.body, req.params.id).then(data => res.send(data));
     } else {
         res.sendStatus(403);
@@ -29,7 +29,7 @@ router.put('/:id', (req, res) => {
 });
 
 router.delete('/:id', (req, res) => {
-    if (req.isAuthenticated()) {
+    if (checkAdminInRequest(req)) {
         db.deleteTestimonial(req.params.id).then(() => res.sendStatus(200));
     } else {
         res.sendStatus(403);

@@ -1,7 +1,7 @@
 
 export function getCookie(name) {
     let v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
-    return v ? v[2] : null;
+    return v ? v[2] : '';
 }
 
 export function setCookie(name, value, days) {

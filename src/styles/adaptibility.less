@@ -2,8 +2,17 @@
 
   #header {
     height: auto;
-    margin-top: 7px;
-    margin-bottom: 7px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+
+    .nav-overlay {
+      height: 60px;
+      left: 0;
+    }
+
+    &.admin-header .nav-overlay {
+      background: #2e3e4d;
+    }
 
     .container {
       width: 95%;
@@ -31,6 +40,21 @@
         width: 100%;
       }
     }
+  }
+
+  .right-inline:hover {
+    .hover-nav:first-child a {
+      background: transparent;
+      color: #515862;
+      &:hover {
+        background: #3e9dd1;
+      }
+    }
+  }
+
+  .nav .hover-nav:first-child a {
+    background: #3e9dd1;
+    color: #c5f4ff;
   }
 
   .nav-overlay {
@@ -63,6 +87,10 @@
 
   .nav {
 
+    .active {
+      height: initial;
+    }
+
     li {
       margin: auto;
       height: 40px;
@@ -90,7 +118,6 @@
     .home a {
       height: initial;
       background: #3e9dd1;
-
     }
   }
 

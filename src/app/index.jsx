@@ -16,69 +16,65 @@ import Works from "./components/Works";
 import Offers from "./components/Offers";
 import Login from "./components/Login";
 import Register from "./components/Register";
-import Admin from "./components/Admin";
+import AdminPanel from "./components/AdminPanel";
 
 const store = createStore(reducer);
 
 import {Router, Route, Link} from 'react-router-dom';
 import createBrowserHistory from 'history/createBrowserHistory';
-import UsersPanel from "./components/UsersPanel";
+import AdminToolbar from "./components/AdminToolbar";
 
 const history = createBrowserHistory();
+
 ReactDOM.render(
     <Router history={history}>
-        <div>
+        <Provider store={store}>
+            <div>
 
-            <Route path="/" component={Header}/>
-            {/* HOME */}
+                <Route path="/" component={Header}/>
+                {/* HOME */}
 
-            <Provider store={store}>
                 <Route exact path="/" component={Slider}/>
-            </Provider>
 
-            <Route exact path="/" component={ServicesTitle}/>
-            <Route exact path="/" component={Services}/>
-            <Route exact path="/" component={Works}/>
-            <Route exact path="/" component={Offers}/>
+                <Route exact path="/" component={ServicesTitle}/>
+                <Route exact path="/" component={Services}/>
+                <Route exact path="/" component={Works}/>
+                <Route exact path="/" component={Offers}/>
 
-            <Provider store={store}>
                 <Route exact path="/" component={TestimonialsCarousel}/>
-            </Provider>
 
-            {/* PORTFOLIO */}
+                {/* PORTFOLIO */}
 
-            <Route exact path="/portfolio" component={Works}/>
-            <Route exact path="/portfolio" component={Services}/>
+                <Route exact path="/portfolio" component={Works}/>
+                <Route exact path="/portfolio" component={Services}/>
 
-            {/* ABOUT */}
+                {/* ABOUT */}
 
-            <Route exact path="/about" component={Offers}/>
-            <Route exact path="/about" render={() => <br/>}/>
+                <Route exact path="/about" component={Offers}/>
+                <Route exact path="/about" render={() => <br/>}/>
 
-            {/* CONTACT */}
+                {/* CONTACT */}
 
-            <Provider store={store}>
                 <Route exact path="/contact" component={TestimonialsCarousel}/>
-            </Provider>
 
-            {/* LOGIN */}
+                {/* LOGIN */}
 
-            <Route exact path="/login" component={Login}/>
+                <Route exact path="/login" component={Login}/>
 
-            {/* REGISTER */}
+                {/* REGISTER */}
 
-            <Route exact path="/register" component={Register}/>
+                <Route exact path="/register" component={Register}/>
 
-            {/* ADMIN */}
+                {/* ADMIN */}
 
-            <Route path="/admin" component={Admin}/>
-            <Provider store={store}>
-                <Route exact path="/admin/users" component={UsersPanel}/>
-            </Provider>
+                <div className="admin">
+                    <Route path="/admin" component={AdminToolbar}/>
+                    <Route path="/admin" render={(props) => <AdminPanel {...props} {...{store: store}} />}/>
+                </div>
 
-            <Footer/>
-        </div>
+                <Footer/>
+            </div>
+        </Provider>
     </Router>,
     document.getElementsByClassName("wrapper")[0]
 );
-

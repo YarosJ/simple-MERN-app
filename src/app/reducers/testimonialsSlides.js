@@ -31,8 +31,9 @@ export default function testimonialsSlides(state = initialState, action) {
             });
 
         case 'REMOVE_TESTIMONIALS_SLIDE':
-            state.splice(action.payload, 1);
-            return state;
+            let st = JSON.parse(JSON.stringify(state));
+            st.splice(action.payload, 1);
+            return st;
 
         default:
             return state;

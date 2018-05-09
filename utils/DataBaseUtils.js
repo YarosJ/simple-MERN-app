@@ -55,12 +55,11 @@ export function createUser(data) {
         rights: data.rights,
         createdAt: new Date()
     });
-console.log(user);
     return user.save();
 }
 
-export function updateUser(data) {
-    return User.findOneAndUpdate({email: data.email}, data, { 'new': true });
+export function updateUser(data, _id) {
+    return User.findOneAndUpdate({_id: _id}, data, { 'new': true });
 }
 
 export function deleteUser(id) {

@@ -179,14 +179,22 @@ class TestimonialsCarousel extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            current: 0,
-            canChange: false
+            current: 0
         };
     }
 
     componentWillMount() {
         this.props.onGetSlides();
-        if (getCookie('role') === 'admin') this.setState({canChange: true});
+        if (this.props.testimonialsSlides) this.setState({canChange: true});
+    }
+
+    checkAdmin() {
+        if (!!this.props.session.role) {
+            if (!!this.props.session.role.match(/admin/gi)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     add() {
@@ -211,16 +219,16 @@ class TestimonialsCarousel extends Component {
             }}>
                 <hr/>
                 <div className="testimonials-slider">
-                    {this.state.canChange &&
+                    {this.checkAdmin() &&
                     <div className="control-testimonials-item delete-item" onClick={this.remove.bind(this)}>-</div>}
-                    {this.state.canChange &&
+                    {this.checkAdmin() &&
                     <div className="control-testimonials-item add-item" onClick={this.add.bind(this)}>+</div>}
                     <Carousel switcher={TestimonialsSwitcher}
                               slide={TestimonialsSlide}
                               requiredId={true}
                               getCurrent={current => this.state.current = current}
                               onUpdateSlide={this.props.onUpdateSlide}
-                              canChange={this.state.canChange}>
+                              canChange={this.checkAdmin()}>
                         {this.props.testimonialsSlides}
                     </Carousel>
                 </div>
@@ -231,7 +239,8 @@ class TestimonialsCarousel extends Component {
 
 export default connect(
     state => ({
-        testimonialsSlides: state.testimonialsSlides
+        testimonialsSlides: state.testimonialsSlides,
+        session: state.session
     }),
 
     dispatch => ({

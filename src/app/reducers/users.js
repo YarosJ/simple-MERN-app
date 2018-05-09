@@ -1,34 +1,29 @@
-const initialState = [
-    {
-        id: null,
-        email: null,
-        role: null
-    }
-]
+const initialState = []
 
-export default function testimonialsSlides(state = initialState, action) {
+export default function users(state = initialState, action) {
 
     switch (action.type) {
-        case 'SET_TESTIMONIALS_SLIDES':
+        case 'SET_USERS':
             return action.payload;
 
-        case 'ADD_TESTIMONIALS_SLIDE':
+        case 'ADD_USER':
             return [
                 ...state,
                 action.payload
             ];
 
-        case 'UPDATE_TESTIMONIALS_SLIDE':
+        case 'UPDATE_USER':
             return state.map(item => {
-                if(item._id === action.payload._id){
-                    return { ...item, ...action.payload }
+                if (item._id === action.payload._id) {
+                    return {...item, ...action.payload}
                 }
                 return item;
             });
 
-        case 'REMOVE_TESTIMONIALS_SLIDE':
-            state.splice(action.payload, 1);
-            return state;
+        case 'REMOVE_USER':
+            let st = JSON.parse(JSON.stringify(state));
+            st.splice(action.payload, 1);
+            return st;
 
         default:
             return state;

@@ -204,8 +204,7 @@ button {
     }
   }
 
-  .home {
-
+  .active {
     height: 79px;
     .transition-04s;
     background: url(../images/home-bg1.png) no-repeat center bottom;
@@ -218,8 +217,7 @@ button {
   }
 
   &:hover {
-    .home {
-
+    .active {
       background: transparent;
       color: @medium-gray;
 
@@ -1335,51 +1333,140 @@ footer {
   }
 }
 
-.admin-toolbar {
+.admin {
   display: flex;
-  margin-left: 0;
-  width: 15%;
-  background: #2e3e4e;
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
-  margin-top: 35px;
-  margin-bottom: 35px;
 
-  ul {
-    margin-right: auto;
-    margin-left: auto;
-    margin: auto;
+  .admin-toolbar {
+    display: flex;
+    margin-left: 0;
+    background: #f98560;
 
-    li {
-      margin-top: 10px;
-      margin-bottom: 10px;
-      margin: 15px;
+    ul {
+      margin: auto;
+      margin-top: 0;
 
-      a {
-        color: #23afc9;
-        font: 500 15px/25px "Ubuntu", sans-serif;
+      li {
+        margin: 15px;
+        a img {
+          width: 40px;
+          opacity: .8;
+          transition: .5s;
+
+          &:hover {
+            opacity: 1;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+          }
+        }
       }
+    }
+  }
+
+  .admin-panel {
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  .users-list {
+    border-collapse: separate;
+    border-spacing: 0 15px;
+    width: 90%;
+    margin: auto;
+    margin-bottom: 20px;
+    margin-top: 10px;
+
+    thead tr {
+      background: #fff;
+      border-color: #fff;
+
+      th {
+        padding: 8px;
+        text-align: left;
+      }
+    }
+
+    tr {
+      transition: .3s;
+      border: solid;
+      background: #f98561;
+      border-color: #f98561;
+      border-radius: 2px;
+      opacity: .8;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+      font: 600 15px/16px sans-serif;
+
+      &:hover {
+        opacity: 1;
+      }
+
+      td {
+        padding: 5px;
+        margin: auto;
+      }
+    }
+
+    .delete-user {
+      user-select: none;
+      cursor: pointer;
+      transition: .5s;
+      font: 1000 17px/13px sans-serif;
+      color: #dcdcdc;
+
+      &:hover {
+        color: #7d0202;
+      }
+
+      img {
+        width: 12px;
+      }
+    }
+  }
+
+  select {
+    cursor: pointer;
+    transition: 1s;
+    border-radius: 2px;
+    padding: 5px;
+    font: 600 12px/12px sans-serif;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+    background: #2e3e4e;
+    color: gainsboro;
+    border-color: #2e3e4e;
+
+    & > option {
+      font: 600 12px/12px sans-serif;
     }
   }
 }
 
-.admin-panel {
-  width: 85%;
-  margin-right: 0;
-  height: 800px;
-  background: #c5f4ff;
-}
+.admin-header {
+  background: #2e3e4e;
 
-.admin {
-  display: flex;
-  .admin-panel {
-    width: 80%;
-    margin-right: 5%;
-    margin-left: 5%;
-    height: 500px;
-    margin-top: 35px;
-    margin-bottom: 35px;
-    border-radius: 10px;
-    background: #c5f4ff;
+  .center-top a {
+    color: #f98560;
+  }
+
+  .right-inline:hover {
+    .hover-nav:first-child a {
+      background: transparent;
+      &:hover {
+        color: #f98560;
+        background: #161c23;
+      }
+    }
+  }
+
+  .nav .hover-nav:first-child a {
+    color: #f98560;
+    background: #161c23;
+  }
+
+  .nav .hover-nav:hover a {
+    color: #f98560;
+    background: #161c23;
+    transition: background 1s;
+  }
+
+  .nav a {
+    color: #dcdcdc;
   }
 }

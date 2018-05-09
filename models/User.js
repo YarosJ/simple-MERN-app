@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+mongoose.Promise = require('bluebird');
 const Schema = mongoose.Schema;
 const bcrypt = require('bcryptjs');
 
@@ -16,7 +17,7 @@ const UserSchema = new Schema({
     },
     rights: {
         type: String,
-        default: 'admin'
+        default: 'user'
     },
     createdAt: {type: Date}
 });
@@ -41,6 +42,6 @@ UserSchema.methods = {
 
 };
 
-UserSchema.plugin(passportLocalMongoose);
+UserSchema.plugin(passportLocalMongoose, { usernameField : 'email' });
 
 module.exports = mongoose.model('User', UserSchema);
