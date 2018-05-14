@@ -1,11 +1,12 @@
 const webpack = require('webpack');
 const path = require('path');
-const debug = require('debug');
-
+// const debug = require('debug');
+const debug = false;
 const BUILD_DIR = path.resolve(__dirname, 'src/public');
 const APP_DIR = path.resolve(__dirname, 'src/app');
 const STYLES_DIR = path.resolve(__dirname, 'src/styles');
 const SRC = path.resolve(__dirname, 'src');
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
 var config = {
   context: path.join(__dirname, "src"),
@@ -61,9 +62,10 @@ var config = {
   },
 
   plugins: debug ? [] : [
-    new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false }),
+      new UglifyJsPlugin({
+          sourceMap: true
+      })
   ],
 }
 

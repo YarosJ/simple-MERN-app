@@ -1,46 +1,49 @@
 import mongoose from "mongoose";
 import '../models/Testimonial';
-import checkAdminInRequest from "../helpers/checkAdminInRequest";
 
 class UsersController {
 
-    constructor(props) {
+    constructor() {
         this.User = mongoose.model('User');
     }
 
-    user_list_get(req, res) {
+    GetUsers(req, res) {
         this.User.find().then(data => res.send(data));
     }
 
-    user_create_post(req, res) {
-        // this.User.count({"rights": 'superAdmin'}, (count) => sss = count);
+    CreateUser(req, res) {
+        this.User.count({"rights": 'superAdmin'}).exec((err, count) => {
 
-        const user = new this.User({
-            email: req.body.email,
-            password: req.body.password,
-            rights: req.body.rights,
-            createdAt: new Date()
-        });
+            const user = new this.User({
+                email: req.body.email,
+                password: req.body.password,
+                rights: count === 0 ? "superAdmin" : req.body.rights,
+                createdAt: new Date()
+            });
 
-        user.save().then(data => res.send(data)).catch(err => {
-            res.send(500);
+            user.save().then(data => res.send(data)).catch(err => {
+                res.send(500);
+            });
+
         });
     }
 
-    user_update_put(req, res) {
-        if (checkAdminInRequest(req)) {
-            this.User.findOneAndUpdate({_id: req.params.id}, req.body, {'new': true}).then(data => res.send(data));
-        } else {
-            res.sendStatus(403);
-        }
+    UpdateUser(req, res) {
+        this.User.findOneAndUpdate({_id: req.params.id}, req.body, {'new': true}).then(data => res.send(data));
     }
 
-    user_delete_post(req, res) {
-        if (checkAdminInRequest(req)) {
-            this.User.findById(req.params.id).remove().then(() => res.sendStatus(200));
-        } else {
-            res.sendStatus(403);
-        }
+    DeleteUser(req, res) {
+        this.User.count({"rights": 'superAdmin'}).exec((err, count) => {
+            if (count !== 1) {
+                this.User.findById(req.params.id).remove().then(() => res.sendStatus(200)); //!!----------
+            } else {
+                this.User.findOne({"rights": 'superAdmin'}).exec((error, user) => {
+                    if (user._id != req.params.id) {
+                        this.User.findById(req.params.id).remove().then(() => res.sendStatus(200)); //!!------------
+                    } else res.sendStatus(403);
+                });
+            }
+        });
     }
 }
 

@@ -20,14 +20,14 @@ import AdminPanel from "./components/AdminPanel";
 
 const store = createStore(reducer);
 
-import {Router, Route, Link} from 'react-router-dom';
+import {Route, HashRouter} from 'react-router-dom';
 import createBrowserHistory from 'history/createBrowserHistory';
 import AdminToolbar from "./components/AdminToolbar";
 
 const history = createBrowserHistory();
 
 ReactDOM.render(
-    <Router history={history}>
+    <HashRouter history={history}>
         <Provider store={store}>
             <div>
 
@@ -75,6 +75,6 @@ ReactDOM.render(
                 <Footer/>
             </div>
         </Provider>
-    </Router>,
+    </HashRouter>,
     document.getElementsByClassName("wrapper")[0]
 );

@@ -1,20 +1,17 @@
 import express from 'express';
 import passport from 'passport';
-import * as db from '../helpers/DataBaseUtils';
 import usersController from "../controllers/usersController";
 
 const router = express.Router();
 const controller = new usersController();
 
-db.setUpConnection();
+router.get('/', (req, res) => controller.GetUsers(req, res));
 
-router.get('/', (req, res) => controller.user_list_get(req, res));
+router.post('/register', (req, res) => controller.CreateUser(req, res));
 
-router.post('/register', (req, res) => controller.user_create_post(req, res));
+router.put('/:id', (req, res) => controller.UpdateUser(req, res));
 
-router.put('/:id', (req, res) => controller.user_update_put(req, res));
-
-router.delete('/:id', (req, res) => controller.user_delete_post(req, res));
+router.delete('/:id', (req, res) => controller.DeleteUser(req, res));
 
 router.post('/login', function (req, res, next) {
     passport.authenticate('local', function (err, user, info) {
