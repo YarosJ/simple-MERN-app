@@ -24,7 +24,6 @@ class UsersController {
             user.save().then(data => res.send(data)).catch(err => {
                 res.send(500);
             });
-
         });
     }
 
@@ -33,13 +32,14 @@ class UsersController {
     }
 
     DeleteUser(req, res) {
+        let currentUser = this.User.findById(req.params.id);
         this.User.count({"rights": 'superAdmin'}).exec((err, count) => {
             if (count !== 1) {
-                this.User.findById(req.params.id).remove().then(() => res.sendStatus(200)); //!!----------
+                currentUser.remove().then(() => res.sendStatus(200));
             } else {
                 this.User.findOne({"rights": 'superAdmin'}).exec((error, user) => {
                     if (user._id != req.params.id) {
-                        this.User.findById(req.params.id).remove().then(() => res.sendStatus(200)); //!!------------
+                        currentUser.remove().then(() => res.sendStatus(200));
                     } else res.sendStatus(403);
                 });
             }

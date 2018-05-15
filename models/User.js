@@ -31,12 +31,10 @@ UserSchema.virtual('password')
 UserSchema.methods = {
 
     encryptPassword: function (password) {
-        console.log(password);
         return bcrypt.hashSync(password, this.salt);
     },
 
     validPassword: function (password) {
-        console.log(bcrypt.compareSync(password, this.hashedPassword));
         return bcrypt.compareSync(password, this.hashedPassword);
     }
 

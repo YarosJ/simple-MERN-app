@@ -5,7 +5,7 @@ const debug = false;
 const BUILD_DIR = path.resolve(__dirname, 'view/public');
 const APP_DIR = path.resolve(__dirname, 'view/app');
 const STYLES_DIR = path.resolve(__dirname, 'view/styles');
-const SRC = path.resolve(__dirname, 'src');
+const SRC = path.resolve(__dirname, 'view');
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
 var config = {
