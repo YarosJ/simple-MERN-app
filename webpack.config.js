@@ -2,14 +2,14 @@ const webpack = require('webpack');
 const path = require('path');
 // const debug = require('debug');
 const debug = false;
-const BUILD_DIR = path.resolve(__dirname, 'src/public');
-const APP_DIR = path.resolve(__dirname, 'src/app');
-const STYLES_DIR = path.resolve(__dirname, 'src/styles');
+const BUILD_DIR = path.resolve(__dirname, 'view/public');
+const APP_DIR = path.resolve(__dirname, 'view/app');
+const STYLES_DIR = path.resolve(__dirname, 'view/styles');
 const SRC = path.resolve(__dirname, 'src');
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
 var config = {
-  context: path.join(__dirname, "src"),
+  context: path.join(__dirname, "view"),
   devtool: debug ? "inline-sourcemap" : false,
   entry: APP_DIR + '/index.jsx',
   watch: true,

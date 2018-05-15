@@ -3,7 +3,7 @@ import session from 'express-session';
 
 const MongoStore = require('connect-mongo')(session);
 
-import passport from './helpers/authentication/auth';
+import passport from './helpers/authentication/Auth';
 import cookieParser from 'cookie-parser';
 import http from 'http';
 import bodyParser from 'body-parser';
@@ -15,9 +15,9 @@ const app = express();
 import testimonials from './routes/testimonials';
 import users from './routes/users';
 import * as db from "./helpers/DataBaseUtils";
-import authenticationMiddleware from "./helpers/authentication/authenticationMiddleware";
+import authenticationMiddleware from "./helpers/authentication/AuthenticationMiddleware";
 
-app.use(express.static(__dirname + '/src'));
+app.use(express.static(__dirname + '/view'));
 
 app.use(cookieParser());
 
