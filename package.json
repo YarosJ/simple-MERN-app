@@ -33,6 +33,7 @@
     "debug": "^3.0.1",
     "express": "^4.15.4",
     "express-session": "^1.15.6",
+    "file-loader": "^1.1.11",
     "heroku": "^7.0.35",
     "mongodb": "^2.2.31",
     "mongoose": "^4.13.12",
@@ -58,7 +59,7 @@
     "webpack-stream": "^4.0.0"
   },
   "scripts": {
-    "server": "nodemon --watch . --exec babel-node app.js",
+    "server": "nodemon --exec babel-node app.js",
     "react": "webpack",
     "start": "concurrently \"npm run react\" \"npm run server\""
   },
