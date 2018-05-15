@@ -59,7 +59,7 @@
     "webpack-stream": "^4.0.0"
   },
   "scripts": {
-    "server": "nodemon --exec babel-node app.js",
+    "server": "babel-node app.js",
     "react": "webpack",
     "start": "concurrently \"npm run react\" \"npm run server\""
   },
