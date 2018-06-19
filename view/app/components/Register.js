@@ -98,7 +98,7 @@ export default connect(
                 .then((response) => {
                     dispatch({
                         type: 'SET_SESSION',
-                        payload: {email: response.data.email, role: response.data.rights}
+                        payload: {email: response.data.email, role: response.data.role}
                     });
                 })
                 .catch((error) => {

@@ -1,36 +1,30 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {Route, BrowserRouter} from 'react-router-dom';
 import {Provider} from 'react-redux'
 import {createStore} from 'redux';
 
 import reducer from './reducers/';
-
 import '../styles/index.less';
 
 import TestimonialsCarousel from "./components/TestimonialsCarousel";
 import Slider from "./components/Slider";
-import Footer from "./components/Footer";
-import Header from "./components/Header";
-import {Services, ServicesTitle} from "./components/Services";
-import Works from "./components/Works";
-import Offers from "./components/Offers";
+import Footer from "./components/mainPage/Footer";
+import Header from "./components/mainPage/Header";
+import {Services, ServicesTitle} from "./components/mainPage/Services";
+import Works from "./components/mainPage/Works";
+import Offers from "./components/mainPage/Offers";
 import Login from "./components/Login";
 import Register from "./components/Register";
-import AdminPanel from "./components/AdminPanel";
+import AdminPanel from "./components/adminPanel/AdminPanel";
+import AdminToolbar from "./components/adminPanel/AdminToolbar";
 
 const store = createStore(reducer);
 
-import {Route, HashRouter} from 'react-router-dom';
-import createBrowserHistory from 'history/createBrowserHistory';
-import AdminToolbar from "./components/AdminToolbar";
-
-const history = createBrowserHistory();
-
 ReactDOM.render(
-    <HashRouter history={history}>
+    <BrowserRouter>
         <Provider store={store}>
             <div>
-
                 <Route path="/" component={Header}/>
                 {/* HOME */}
 
@@ -75,6 +69,6 @@ ReactDOM.render(
                 <Footer/>
             </div>
         </Provider>
-    </HashRouter>,
+    </BrowserRouter>,
     document.getElementsByClassName("wrapper")[0]
 );

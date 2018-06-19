@@ -20,11 +20,13 @@ class Carousel extends Component {
             } else {
                 i = 0;
             }
+            console.log("000");
             this.setState({current: i});
         }, 7000);
     }
 
     stop() {
+        console.log("222");
         clearInterval(this.interval);
     }
 
@@ -42,7 +44,7 @@ class Carousel extends Component {
 
     moveTo = switcher => {
         this.setState({current: parseInt(switcher.currentTarget.attributes["data-key"].value)});
-    }
+    };
 
     render() {
 

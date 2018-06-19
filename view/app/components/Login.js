@@ -117,11 +117,12 @@ export default connect(
         onLogin: (data) => {
             axios.post('/users/login', data)
                 .then((response) => {
+                    console.log(response.data);
                     dispatch({
                         type: 'SET_SESSION',
                         payload: {
                             email: response.data.email,
-                            role: response.data.rights
+                            role: response.data.role
                         }
                     });
                 })

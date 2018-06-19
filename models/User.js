@@ -15,10 +15,7 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
-    rights: {
-        type: String,
-        default: 'user'
-    },
+    // roles: { type: mongoose.Schema.Types.ObjectId, ref: 'Role' },
     createdAt: {type: Date}
 });
 

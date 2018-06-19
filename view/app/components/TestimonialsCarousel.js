@@ -108,17 +108,17 @@ class SlideElement extends Component {
 
     edit = (e) => {
         if (this.props.canChange) this.setState({edit: true, target: e.currentTarget});
-    }
+    };
 
     save = () => {
         this.props.onUpdateSlide({[this.props.name]: this.state.target.getElementsByTagName("p")[0].innerText}, this.props._id);
         this.setState({edit: false});
-    }
+    };
 
     cancel = () => {
         this.state.target.getElementsByTagName("p")[0].innerText = this.props.children;
         this.setState({edit: false});
-    }
+    };
 
     defaultRender() {
         let Tag = this.props.tag;

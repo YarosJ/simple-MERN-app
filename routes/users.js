@@ -2,38 +2,47 @@ import express from 'express';
 import passport from 'passport';
 import usersController from "../controllers/usersController";
 
-const router = express.Router();
-const controller = new usersController();
+let rt = (acl) => {
 
-router.get('/', (req, res) => controller.GetUsers(req, res));
+    const router = express.Router();
+    const controller = new usersController();
 
-router.post('/register', (req, res) => controller.CreateUser(req, res));
+    router.get('/', (req, res) => controller.GetUsers(req, res, acl));
 
-router.put('/:id', (req, res) => controller.UpdateUser(req, res));
+    router.post('/register', (req, res) => controller.CreateUser(req, res, acl));
 
-router.delete('/:id', (req, res) => controller.DeleteUser(req, res));
+    router.put('/:id', (req, res) => controller.UpdateUser(req, res, acl));
 
-router.post('/login', function (req, res, next) {
-    passport.authenticate('local', function (err, user, info) {
+    router.delete('/:id', (req, res) => controller.DeleteUser(req, res));
 
-        if (err) return next(err);
-        if (!user) return res.redirect('/');
+    router.post('/login', function (req, res, next) {
+        passport.authenticate('local', function (err, user, info) {
 
-        req.logIn(user, function (err) {
             if (err) return next(err);
-            return res.send(user);
-        });
+            if (!user) return res.redirect('/');
 
-    })(req, res, next);
-});
+            req.logIn(user, function (err) {
 
-router.get('/logout', function (req, res) {
-    if (req.isAuthenticated()) {
-        req.logout();
-        res.redirect('/');
-    } else {
-        res.sendStatus(200);
-    }
-});
+                if (err) return next(err);
 
-export default router;
+                acl.userRoles(user._id.toString(), (err, roles) => {
+                    return res.send({email: user.email, role: roles[0]});
+                });
+            });
+
+        })(req, res, next);
+    });
+
+    router.get('/logout', function (req, res) {
+        if (req.isAuthenticated()) {
+            req.logout();
+            res.redirect('/');
+        } else {
+            res.sendStatus(200);
+        }
+    });
+
+    return router;
+}
+
+export default rt;

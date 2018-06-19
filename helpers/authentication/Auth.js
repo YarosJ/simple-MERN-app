@@ -4,7 +4,7 @@ const passport = require('passport'),
 import User from '../../models/User';
 
 passport.serializeUser(function (user, done) {
-    done(null, {_id: user.id, email: user.email, rights: user.rights});
+    done(null, {_id: user.id, email: user.email}); //, rights: user.rights
 });
 
 passport.deserializeUser(function (id, done) {
