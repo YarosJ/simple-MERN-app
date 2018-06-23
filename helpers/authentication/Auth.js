@@ -4,7 +4,7 @@ const passport = require('passport'),
 import User from '../../models/User';
 
 passport.serializeUser(function (user, done) {
-    done(null, {_id: user.id, email: user.email}); //, rights: user.rights
+    done(null, {_id: user.id, email: user.email});
 });
 
 passport.deserializeUser(function (id, done) {
@@ -14,26 +14,19 @@ passport.deserializeUser(function (id, done) {
 });
 
 export default passport.use(new LocalStrategy(
-    { usernameField: 'email'},
+    {usernameField: 'email'},
     function (email, password, done) {
-        User.findOne({ email: email}, function (err, user) {
-            if (err) {
-                console.log(err);
+        User.findOne({email: email}, function (err, user) {
+
+            if (err)
                 return done(err);
-            }
-            if (!user) {
-                console.log("!user");
+
+            if (!user)
                 return done(null, false, {message: 'Incorrect email.'});
-            }
-            if (!user.validPassword(password)) {
-                console.log("!password");
+
+            if (!user.validPassword(password))
                 return done(null, false, {message: 'Incorrect password.'});
-            }
-            if (user && !user.validPassword(password)) {
-                console.log("user && !password");
-                return done("Redirect to enter password");
-            }
-            console.log("done");
+
             return done(null, user);
         });
     }

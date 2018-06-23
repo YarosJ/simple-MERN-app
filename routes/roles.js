@@ -1,25 +1,23 @@
 import express from 'express';
 import rolesController from '../controllers/rolesController';
+import authenticationMiddleware from '../helpers/authentication/AuthenticationMiddleware';
 
-let rt = (Acl) => {
+let rt = (acl) => {
+
     const router = express.Router();
-    const roles = new rolesController(Acl);
+    const roles = new rolesController(acl);
 
-    router.get('/', (req, res) => roles.GetRoles(req, res));
+    router.get('/', authenticationMiddleware(acl), (req, res) => roles.GetRoles(req, res));
 
-    router.get('/:role/rolePermissions', (req, res) => roles.GetRolePermissions(req, res));
+    router.get('/:role/rolePermissions', authenticationMiddleware(acl), (req, res) => roles.GetRolePermissions(req, res));
 
-    router.get('/:id/roles', (req, res) => roles.GetUserRoles(req, res));
+    router.post('/', authenticationMiddleware(acl), (req, res) => roles.AddAllow(req, res));
 
-    router.post('/', (req, res) => roles.AddPermissions(req, res));
+    router.delete('/:role/resources/:resource/permissions/:permission', authenticationMiddleware(acl), (req, res) => roles.DeleteAllow(req, res));
 
-    router.get('/:id/permissions', (req, res) => roles.GetUserPermissions(req, res));
-
-    router.delete('/delete/role', (req, res) => roles.RemoveRole(req, res));
-
-    router.post('/delete/permission', (req, res) => roles.RemovePermissions(req, res));
+    router.delete('/:role/resources/:resource', authenticationMiddleware(acl), (req, res) => roles.DeleteAllow(req, res));
 
     return router;
-}
+};
 
 export default rt;

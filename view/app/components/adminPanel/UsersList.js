@@ -70,7 +70,7 @@ export default connect(
             });
         },
 
-        onUpdateUser: (role, _id) => { //===========================================================
+        onUpdateUser: (role, _id) => {
             axios.put('/users/' + _id, role)
                 .then((response) => {
                     dispatch({type: 'UPDATE_USER', payload: response.data});
@@ -82,7 +82,7 @@ export default connect(
 
         onDeleteUser: (_id, id) => {
             axios.delete('/users/' + _id)
-                .then((response) => {
+                .then((response) => { //------------------------------------------- floating message
                     dispatch({type: 'REMOVE_USER', payload: id});
                 })
                 .catch((error) => {

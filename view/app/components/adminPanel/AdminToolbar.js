@@ -8,7 +8,7 @@ class AdminToolbar extends Component {
             <div className="admin-toolbar">
                 <ul>
                     <li>
-                        <NavLink exact to="/admin/users" activeClassName='active'>
+                        <NavLink exact to="/admin/dashboard" activeClassName='active'>
                             <img src="../../../images/computer.png" alt="Users"/>
                         </NavLink>
                     </li>

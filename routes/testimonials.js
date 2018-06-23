@@ -1,15 +1,21 @@
 import express from 'express';
 import testimonialsController from '../controllers/testimonialsController';
+import authenticationMiddleware from '../helpers/authentication/AuthenticationMiddleware';
 
-const router = express.Router();
-const controller = new testimonialsController();
+let rt = (acl) => {
 
-router.get('/', (req, res) => controller.GetTestimonials(req, res));
+    const router = express.Router();
+    const controller = new testimonialsController();
 
-router.post('/', (req, res) => controller.CreateTestimonial(req, res));
+    router.get('/', authenticationMiddleware(acl), (req, res) => controller.GetTestimonials(req, res));
 
-router.put('/:id', (req, res) => controller.UpdateTestimonial(req, res));
+    router.post('/', authenticationMiddleware(acl), (req, res) => controller.CreateTestimonial(req, res));
 
-router.delete('/:id', (req, res) => controller.DeleteTestimonial(req, res));
+    router.put('/:id', authenticationMiddleware(acl), (req, res) => controller.UpdateTestimonial(req, res));
 
-export default router;
+    router.delete('/:id', authenticationMiddleware(acl), (req, res) => controller.DeleteTestimonial(req, res));
+
+    return router;
+};
+
+export default rt;

@@ -1,18 +1,17 @@
 export default function authenticationMiddleware(myAcl) {
 
     return function (req, res, next) {
-        // if (req.isAuthenticated()) {
-        //     myAcl.userRoles(req.session.passport.user._id, function (err, roles) {
-        //         console.log(roles);
-        //         console.log(req.isAuthenticated());
-        //         console.log(req.originalUrl);
-        //     });
-        // }
+        let userId;
+        if (req.isAuthenticated()) {
+            userId = req.session.passport.user._id;
+        } else {
+            userId = 'guest123456789abcdefghkl';
+        }
 
-        myAcl.isAllowed(req.session.passport.user._id, req.originalUrl, req.method, (err, permissions) => {
-            console.log(permissions);
+        myAcl.isAllowed(userId, req.baseUrl + req.route.path, req.method, (err, permissions) => {
+            // console.log(userId);
+            // console.log(permissions, req.baseUrl + req.route.path, req.method);
             if (permissions) {
-                console.log(permissions);
                 next();
             } else if (!res.statusCode) res.sendStatus(403);
         });

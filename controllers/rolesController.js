@@ -16,24 +16,12 @@ class RolesController {
         this.myAcl.whatResources(req.params.role, (err, resources) => res.send(resources));
     }
 
-    GetUserRoles(req, res) {
-        this.myAcl.userRoles(req.session.passport.user._id, (err, roles) => console.log(roles));
+    AddAllow(req, res) {
+        this.myAcl.allow(req.body.role, req.body.resource, req.body.permission, (err) => err ? res.sendStatus(500) : res.send(req.body));
     }
 
-    GetUserPermissions(req, res) {
-        this.myAcl.allowedPermissions(req.session.passport.user._id, '*', (err, obj) => console.log(obj));
-    }
-
-    AddPermissions(req, res) {
-        this.myAcl.allow(req.body.roles, req.body.resources, req.body.permissions, (err) => err ? res.sendStatus(500) : res.send(req.body));
-    }
-
-    RemoveRole(req, res) {
-        this.myAcl.removeRole(req.body.role, (err) => console.log(null));
-    }
-
-    RemovePermissions(req, res) {
-        this.myAcl.removeAllow(req.body.roles, req.body.resources, req.body.permissions, (err) => err ? res.sendStatus(500) : res.send(req.body));
+    DeleteAllow(req, res) {
+        this.myAcl.removeAllow(req.params.role, req.params.resource, req.params.permission, (err) => err ? res.sendStatus(500) : res.send(req.params));
     }
 
 }

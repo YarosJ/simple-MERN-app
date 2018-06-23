@@ -10,18 +10,9 @@ class UsersController {
 
     GetUsers(req, res, acl) {
 
-        // this.User.find({})
-        //     .populate('roles')
-        //     .exec(function(error, posts) {
-        //         console.log(JSON.stringify(posts, null, "\t"))
-        //     });
-
         this.User.find().then(data => {
             try {
                 let result = data.map((user) => {
-                    // console.log(user);
-                    // acl.whatResources(deasyncPromise(acl.userRoles(user._id.toString()))[0], (err, resourceName) => console.log(resourceName, '*********'));
-
                     return {role: deasyncPromise(acl.userRoles(user._id.toString()))[0], ...user._doc};
                 });
                 res.send(result);
@@ -34,26 +25,28 @@ class UsersController {
 
     CreateUser(req, res, acl) {
 
-        // this.User.count({"rights": 'superAdmin'}).exec((err, count) => {
+        this.User.count().exec((err, count) => {
 
-        const user = new this.User({
-            email: req.body.email,
-            password: req.body.password,
-            // roles: '5affc5baf9ce900830f14295',
-            // rights: count === 0 ? "superAdmin" : req.body.rights,
-            createdAt: new Date()
-        });
-
-        user.save().then(data => {
-            data.role = 'user';
-            acl.addUserRoles(data._id.toString(), data.role, (err) => {
-                if (err) console.log(err);
-                res.send({email: data.email, role: data.role});
+            const user = new this.User({
+                email: req.body.email,
+                password: req.body.password,
+                createdAt: new Date()
             });
-        }).catch(err => {
-            res.send(500);
+
+            console.log(count);
+
+            user.save().then(data => {
+                data.role = 'user';
+                acl.addUserRoles(data._id.toString(), count === 0 ? "superAdmin" : data.role, (err) => {
+                    if (err) console.log(err);
+                    res.send({email: data.email, role: data.role});
+                });
+            }).catch(err => {
+                res.send(500);
+            });
+
         });
-        // });
+
     }
 
     UpdateUser(req, res, acl) {
@@ -64,8 +57,8 @@ class UsersController {
                 acl.removeUserRoles(userId, roles, (err) =>
                     acl.addUserRoles(req.params.id, req.body.role, (err) => {
                         if (!err) {
-                            res.sendStatus(200);
-                        } else console.log(err, req.params.id, req.body.role);
+                            res.send({role: req.body.role, _id: userId, email: req.body.email, createdAt: req.body.createdAt});
+                        } else console.log(err);
                     })
                 )
             );
@@ -89,18 +82,11 @@ class UsersController {
     DeleteUser(req, res) {
         this.User.findById(req.params.id).then(user => {
 
-            /**
-             *
-             * ##############
-             * ##############
-             * ##############
-             *
-             */
-
-            if (' ACL.USER_ROLES!!! user.rights' !== 'superAdmin') {
+            if ('ACL.USER_ROLES && ACL.USER_ROLES' !== 'superAdmin') {
                 //  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
                 user.remove().then(() => res.sendStatus(200));
+
             } else res.sendStatus(403);
         });
     }

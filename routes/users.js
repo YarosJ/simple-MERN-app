@@ -1,25 +1,26 @@
 import express from 'express';
 import passport from 'passport';
 import usersController from "../controllers/usersController";
+import authenticationMiddleware from '../helpers/authentication/AuthenticationMiddleware';
 
 let rt = (acl) => {
 
     const router = express.Router();
     const controller = new usersController();
 
-    router.get('/', (req, res) => controller.GetUsers(req, res, acl));
+    router.get('/', authenticationMiddleware(acl), (req, res) => controller.GetUsers(req, res, acl));
 
     router.post('/register', (req, res) => controller.CreateUser(req, res, acl));
 
-    router.put('/:id', (req, res) => controller.UpdateUser(req, res, acl));
+    router.put('/:id', authenticationMiddleware(acl), (req, res) => controller.UpdateUser(req, res, acl));
 
-    router.delete('/:id', (req, res) => controller.DeleteUser(req, res));
+    router.delete('/:id', authenticationMiddleware(acl), (req, res) => controller.DeleteUser(req, res));
 
     router.post('/login', function (req, res, next) {
         passport.authenticate('local', function (err, user, info) {
 
             if (err) return next(err);
-            if (!user) return res.redirect('/');
+            if (!user) return res.send(info);
 
             req.logIn(user, function (err) {
 
@@ -43,6 +44,6 @@ let rt = (acl) => {
     });
 
     return router;
-}
+};
 
 export default rt;

@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import axios from "axios/index";
 import {connect} from "react-redux";
 import Permission from "./Permission.js";
+import AddPermissionModal from './AddPermissionModal';
+import ReactDOM from "react-dom";
 
 class PermissionsList extends Component {
 
@@ -14,7 +16,10 @@ class PermissionsList extends Component {
     }
 
     addResource(role, e) {
-        this.props.onAddResource(e.currentTarget.previousSibling.value, role);
+        ReactDOM.render(
+            <AddPermissionModal store={this.props.store} title={e.currentTarget.previousSibling.value}
+                                role={role}/>,
+            document.getElementById('modal'));
     }
 
     selectRole(e) {
@@ -37,21 +42,21 @@ class PermissionsList extends Component {
                     )}
                 </select>
 
-                <p>
+                <p className='add'>
                     <input type="text" size="40"/>
                     <button onClick={this.addResource.bind(this, this.state.role)}>Add Resource</button>
                 </p>
 
-                <ul>
+                <div>
                     {
                         this.props.permissions.map((role, index) =>
-                            <Permission key={index} role={this.state.role} title={role[0]}
-                                        onRemoveResource={this.props.onRemoveResource}>
+                            <Permission key={index} role={this.state.role}
+                                        title={role[0]} store={this.props.store}>
                                 {role[1]}
                             </Permission>
                         )
                     }
-                </ul>
+                </div>
             </div>
         );
     }
@@ -64,9 +69,7 @@ export default connect(
     }),
 
     dispatch => ({
-
         onGetRoles: () => {
-
             axios.get('/roles')
                 .then((response) => {
                     dispatch({type: 'SET_ROLES', payload: response.data});
@@ -76,21 +79,12 @@ export default connect(
         },
 
         onGetPermissions: (role) => {
-
             axios.get(`/roles/${role}/rolePermissions`)
                 .then((response) => {
                     dispatch({type: 'SET_PERMISSIONS', payload: Object.entries(response.data)});
                 }).catch((error) => {
                 console.log(error);
             });
-        },
-
-        onAddResource: (resource, role) => {
-            dispatch({type: 'ADD_RESOURCE_TO_ROLE', payload: {resource: resource, role: role}});
-        },
-
-        onRemoveResource: (resource, role) => {
-            dispatch({type: 'REMOVE_RESOURCE_FROM_ROLE', payload: {resource: resource, role: role}});
         }
     }),
 )(PermissionsList);

@@ -4,6 +4,8 @@ import {Redirect} from 'react-router';
 import {connect} from "react-redux";
 import axios from "axios/index";
 import validateField from '../../../helpers/Validate'
+import {ToastContainer, toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export class Login extends Component {
 
@@ -40,8 +42,7 @@ export class Login extends Component {
             this.props.onLogin({
                 password: this.state.password,
                 email: this.state.email
-            });
-            this.setState({redirect: true});
+            }, this);
         } else {
             console.log('password:' + validationStatus.passwordStatus);
             console.log('email:' + validationStatus.emailStatus);
@@ -49,11 +50,9 @@ export class Login extends Component {
     }
 
     hasEmail() {
-        if (!!this.props.session.email && this.props.session.email !== 'undefined') {
-            return true;
-        }
-        return false;
+        return !!this.props.session.email && this.props.session.email !== 'undefined';
     }
+
 
     componentWillMount() {
         if (this.hasEmail()) this.setState({email: this.props.session.email});
@@ -86,7 +85,8 @@ export class Login extends Component {
                     <label style={{
                         color: 'red',
                         fontSize: '16px',
-                        marginTop: '0px'}}>{this.state.validationStatus.emailStatus}</label>}
+                        marginTop: '0px'
+                    }}>{this.state.validationStatus.emailStatus}</label>}
                     <label>Password:</label>
                     <input type="password" name="password"
                            value={this.state.password}
@@ -98,10 +98,12 @@ export class Login extends Component {
                     <label style={{
                         color: 'red',
                         fontSize: '16px',
-                        marginTop: '0px'}}>{this.state.validationStatus.passwordStatus}</label>}
+                        marginTop: '0px'
+                    }}>{this.state.validationStatus.passwordStatus}</label>}
                     <input type="submit" value="Log In"/>
                 </form>
                 <Link to="/register">REGISTER</Link>
+                <ToastContainer/>
             </div>
         );
     }
@@ -114,17 +116,21 @@ export default connect(
 
     dispatch => ({
 
-        onLogin: (data) => {
+        onLogin: (data, _this) => {
             axios.post('/users/login', data)
                 .then((response) => {
-                    console.log(response.data);
-                    dispatch({
-                        type: 'SET_SESSION',
-                        payload: {
-                            email: response.data.email,
-                            role: response.data.role
-                        }
-                    });
+                    if (!response.data.message) {
+                        dispatch({
+                            type: 'SET_SESSION',
+                            payload: {
+                                email: response.data.email,
+                                role: response.data.role
+                            }
+                        });
+                        _this.setState({redirect: true});
+                    } else {
+                        toast.error(response.data.message);
+                    }
                 })
                 .catch((error) => {
                     console.log(error);

@@ -20,13 +20,13 @@ class Carousel extends Component {
             } else {
                 i = 0;
             }
-            console.log("000");
+            console.log("setInterval");
             this.setState({current: i});
         }, 7000);
     }
 
     stop() {
-        console.log("222");
+        console.log("clearInterval");
         clearInterval(this.interval);
     }
 
