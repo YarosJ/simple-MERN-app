@@ -1,0 +1,352 @@
+@light-orange: #f98561;
+@white: #fff;
+@medium-gray: #515862;
+
+.top-left-right-0 {
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.transition-04s {
+  -webkit-transition: .4s;
+  -o-transition: .4s;
+  transition: .4s;
+}
+
+.border-radius-2px-transparent {
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;
+  border-color: transparent;
+}
+
+#header {
+  overflow: hidden;
+  display: flex;
+  height: 78px;
+  .top-left-right-0;
+  padding: 0;
+
+  .container {
+    height: inherit;
+  }
+
+  .left-inline {
+    height: 100%;
+  }
+}
+
+.container {
+  width: 950px;
+  text-align: center;
+  display: inline-block;
+  margin: auto;
+}
+
+.container .left-inline {
+  float: left;
+  display: flex;
+}
+
+/* ------------------ */
+
+.center-top {
+  height: 21px;
+  display: inline-block;
+  margin: auto auto auto 20px;
+
+  a {
+    color: #606060;
+    letter-spacing: .2px;
+    font: 400 20px "Bree Serif";
+    line-height: 1;
+  }
+
+  a:first-child {
+    margin-right: 6px;
+  }
+}
+
+.right-inline {
+  float: right;
+  display: flex;
+}
+
+.nav {
+
+  button:first-child {
+    width: 66px;
+    height: 25px;
+    background-color: @light-orange;
+    color: @white;
+    text-align: center;
+    .border-radius-2px-transparent;
+    font: 400 14px/20px Ubuntu, sans-serif;
+  }
+
+  li {
+    padding-right: 19px;
+    display: flex;
+    line-height: 80px;
+
+    &:first-child a {
+      font-weight: 700;
+      font-size: 15px;
+      line-height: 75px;
+      padding-right: 1px;
+    }
+
+    &:last-child {
+      margin-right: 0;
+      width: 149px;
+      padding: 0;
+
+      button {
+        height: 39px;
+        width: 37px;
+        border: none;
+        background: transparent url(../../../../images/search.png) no-repeat center top;
+        margin: auto 0;
+      }
+
+      input {
+        transition: .7s;
+        font-size: 12px;
+        font-weight: 500;
+        width: 40px;
+        height: 15px;
+        border: none;
+        background-color: transparent;
+        margin: auto 4px auto auto;
+
+        &:focus {
+          transition: .7s;
+          width: 110px;
+          height: 24px;
+          box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1), 0 0 5px rgba(81, 167, 232, 0.5);
+          -webkit-border-radius: 2px;
+          -moz-border-radius: 2px;
+          -o-border-radius: 2px;
+          border-radius: 2px;
+          background-color: white;
+          background: transparent;
+        }
+      }
+    }
+  }
+
+  .hover-nav:hover {
+    a {
+      height: 79px;
+      .transition-04s;
+      background: url(../../../../images/home-bg1.png) no-repeat center bottom;
+      -webkit-background-size: 100% 534px;
+      -moz-background-size: 100% 534px;
+      -o-background-size: 100% 534px;
+      background-size: 100% 534px;
+      color: #c5f4ff;
+    }
+  }
+
+  .active {
+    height: 79px;
+    .transition-04s;
+    background: url(../../../../images/home-bg1.png) no-repeat center bottom;
+    -webkit-background-size: 100% 534px;
+    -moz-background-size: 100% 534px;
+    -o-background-size: 100% 534px;
+    background-size: 100% 534px;
+    color: #c5f4ff;
+
+  }
+
+  &:hover {
+    .active {
+      background: transparent;
+      color: @medium-gray;
+
+    }
+  }
+
+  .hover-nav {
+    padding-left: 0;
+  }
+
+  a {
+    color: @medium-gray;
+    margin: auto;
+    font: 400 14px Ubuntu, sans-serif;
+    line-height: 80px;
+    width: 75px;
+  }
+}
+
+.burger-shower {
+  display: none;
+}
+
+.admin-header {
+  background: #2e3e4e;
+
+  .center-top a {
+    color: #f98560;
+  }
+
+  .right-inline:hover {
+    .hover-nav:first-child a {
+      background: transparent;
+      &:hover {
+        color: #f98560;
+        background: #161c23;
+      }
+    }
+  }
+
+  .nav .hover-nav:first-child a {
+    color: #f98560;
+    background: #161c23;
+  }
+
+  .nav .hover-nav:hover a {
+    color: #f98560;
+    background: #161c23;
+    transition: background 1s;
+  }
+
+  .nav a {
+    color: #dcdcdc;
+  }
+}
+
+@media (max-width: 1000px) {
+
+  #header {
+    height: auto;
+    padding-top: 12px;
+    padding-bottom: 12px;
+
+    .nav-overlay {
+      height: 60px;
+      left: 0;
+    }
+
+    &.admin-header .nav-overlay {
+      background: #2e3e4d;
+    }
+
+    .container {
+      width: 95%;
+      height: auto;
+
+      .left-inline {
+        margin-top: 5px;
+        height: auto;
+        position: relative;
+        z-index: 10;
+      }
+
+      ul.nav {
+        position: relative;
+        z-index: 1;
+        display: block;
+        margin-top: -300px;
+        width: 100%;
+        transition: .5s;
+        transition-timing-function: ease-in-out;
+      }
+
+      .burger-shower:checked ~ ul.nav {
+        margin-top: 10px;
+        width: 100%;
+      }
+    }
+  }
+
+  .right-inline:hover {
+    .hover-nav:first-child a {
+      background: transparent;
+      color: #515862;
+      &:hover {
+        color: #dcdcdc;
+        background: #3e9dd1;
+      }
+    }
+  }
+
+  .nav-overlay {
+    position: absolute;
+    top: -10px;
+    width: 100%;
+    height: 46px;
+    background: #f4f4f4;
+    z-index: 5;
+  }
+
+  .nav-burger {
+    position: relative;
+    z-index: 10;
+    width: 30px;
+    height: 30px;
+    background: url("../../../../images/menu2.png") no-repeat center top;
+    background-size: 100%;
+    cursor: pointer;
+    transition: .5s;
+    transition-timing-function: ease-in-out;
+  }
+
+  .burger-shower:checked ~ .nav-burger {
+    opacity: .6;
+    -webkit-transform: rotateZ(-360deg);
+    -ms-transform: rotateZ(-360deg);
+    transform: rotateZ(-360deg);
+  }
+
+  .nav {
+
+    .active {
+      height: initial;
+      background: #3e9dd1;
+    }
+
+    li {
+      margin: auto;
+      height: 40px;
+
+      li:first-child {
+        margin-top: 0;
+      }
+
+      li:last-child {
+        float: right;
+      }
+    }
+
+    a {
+      width: 100%;
+    }
+
+    .hover-nav:hover {
+      a {
+        height: initial;
+        background: #3e9dd1;
+      }
+    }
+
+    .home a {
+      height: initial;
+      background: #3e9dd1;
+    }
+  }
+
+  .container .nav li a {
+    margin: auto;
+    line-height: 40px;
+    font-size: 18px;
+  }
+
+  .container {
+    width: auto;
+  }
+}

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import ReactDOM from "react-dom";
-
 import {VelocityComponent} from 'velocity-react';
+import './ModalWindow.less';
 
 class ModalWindow extends Component {
 

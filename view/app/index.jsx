@@ -7,17 +7,17 @@ import {createStore} from 'redux';
 import reducer from './reducers/';
 import '../styles/index.less';
 
-import TestimonialsCarousel from "./components/TestimonialsCarousel";
-import Slider from "./components/Slider";
-import Footer from "./components/mainPage/Footer";
-import Header from "./components/mainPage/Header";
-import {Services, ServicesTitle} from "./components/mainPage/Services";
-import Works from "./components/mainPage/Works";
-import Offers from "./components/mainPage/Offers";
-import Login from "./components/Login";
-import Register from "./components/Register";
+import TestimonialsCarousel from "./components/mainPage/Testimonials/TestimonialsCarousel";
+import Slider from "./components/mainPage/Slider/Slider";
+import Footer from "./components/mainPage/Footer/Footer";
+import Header from "./components/mainPage/Header/Header";
+import {Services, ServicesTitle} from "./components/mainPage/Services/Services";
+import Works from "./components/mainPage/Works/Works";
+import Offers from "./components/mainPage/Offers/Offers";
+import Login from "./components/Authentication/Login";
+import Register from "./components/Authentication/Register";
 import AdminPanel from "./components/adminPanel/AdminPanel";
-import AdminToolbar from "./components/adminPanel/AdminToolbar";
+import AdminToolbar from "./components/adminPanel/AdminToolbar/AdminToolbar";
 
 const store = createStore(reducer);
 

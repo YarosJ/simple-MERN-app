@@ -1,0 +1,84 @@
+@main-color: #f4f4f4;
+@medium-gray: #515862;
+@light-orange: #f98561;
+
+.transition-04s {
+  -webkit-transition: .4s;
+  -o-transition: .4s;
+  transition: .4s;
+}
+
+#testimonials_form {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  z-index: 15;
+  color: @medium-gray;
+  font-size: 22px;
+  font-weight: 400;
+  text-align: justify;
+  margin: auto;
+}
+
+#testimonials_form {
+
+  p:nth-child(2) {
+    margin-top: 15px;
+  }
+
+  textarea {
+    width: 80%;
+    min-height: 60px;
+    margin-left: 10%;
+    margin-right: 10%;
+    border-color: @medium-gray;
+    border: solid 3px;
+  }
+
+  .edit-controls {
+    display: table;
+    margin: auto;
+    margin-bottom: 10px;
+  }
+
+  .form-images {
+    display: flex;
+    margin: auto;
+    width: 70%;
+
+    @media (max-width: 366px) {
+      display: grid;
+    }
+  }
+
+  img {
+    .transition-04s;
+    border: solid;
+    border-width: 1px;
+    margin: auto;
+    border-radius: 100%;
+    background: @light-orange;
+    border-color: @main-color;
+    opacity: .9;
+    cursor: pointer;
+
+    &:hover {
+      transition: 0s;
+      opacity: 1;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      border-color: @light-orange;
+    }
+  }
+
+  .selected {
+    opacity: 1;
+    border-color: @main-color;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+
+    &:hover {
+      border-color: @main-color;
+    }
+  }
+}

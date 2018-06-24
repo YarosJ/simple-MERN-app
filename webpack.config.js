@@ -54,8 +54,8 @@ var config = {
         ]
     },
     devServer: {
-        host: 'localhost', // Defaults to `localhost`
-        port: 3000, // Defaults to 8080,
+        host: 'localhost',
+        port: 3000,
         proxy: {
             '^/api/*': {
                 target: 'http://localhost:3000/',

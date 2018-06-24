@@ -1,6 +1,31 @@
 @import url(normalize.less);
-@import url(style.less);
 @import url(fonts.less);
-@import url(effects.less);
-@import url(adaptibility.less);
 
+body {
+  background-color: #f4f4f4;
+  font: 11px Ubuntu, Arial, sans-serif;
+}
+
+button {
+  outline: none;
+  border-style: solid;
+  border-width: 1px;
+
+  &:hover {
+    opacity: .8;
+    transition: .5s;
+    border-color: transparent;
+  }
+
+  &:active {
+    background: linear-gradient(#333c43, #333c43) #2e3e4f;
+    border-color: transparent;
+  }
+}
+
+.velocity-element {
+  opacity: 0;
+  transition: .3s;
+  z-index: 100;
+  position: absolute;
+}

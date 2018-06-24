@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import {Provider} from 'react-redux';
 import {Route} from 'react-router-dom';
-import UsersList from "./UsersList";
-import TestimonialsCarousel from "../TestimonialsCarousel";
-import PermissionsList from "./PermissionsList";
-import Dashboard from "./Dashboard";
+import UsersList from "./Users/UsersList";
+import TestimonialsCarousel from "../mainPage/Testimonials/TestimonialsCarousel";
+import PermissionsList from "./Permissions/PermissionsList";
+import Dashboard from "./Dashboard/Dashboard";
+import './AdminPanel.less';
 
 class AdminPanel extends Component {
 

@@ -1,0 +1,164 @@
+@light-orange: #f98561;
+
+.none-user-select {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+.margin-padding-0 {
+  margin: 0;
+  padding: 0;
+}
+
+.top-left-right-0 {
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.transition-1s {
+  -webkit-transition: 1s;
+  -o-transition: 1s;
+  transition: 1s;
+}
+
+.border-radius-5px {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+}
+
+.slider {
+  text-align: center;
+  width: 100%;
+  color: #cccece;
+  margin: 0 auto;
+
+  .items {
+    display: flex;
+    margin: auto;
+  }
+
+  .viewport {
+    width: 100%;
+    display: table;
+    position: relative;
+    overflow: hidden;
+    margin-top: -2px;
+    .none-user-select;
+  }
+
+  .slidewrapper {
+    position: relative;
+    .margin-padding-0;
+    white-space: nowrap;
+    transition: all 1s;
+  }
+
+  .slidewrapper ul, .slidewrapper li {
+    .margin-padding-0;
+  }
+
+  .slidewrapper li {
+    position: relative;
+    width: 100%;
+    list-style: none;
+    display: inline-block;
+  }
+
+  .slidewrapper .container {
+    position: absolute;
+    .top-left-right-0;
+  }
+
+  h1 {
+    margin-top: 103px;
+    text-transform: uppercase;
+    width: 100%;
+    margin-bottom: 13px;
+    font: 400 60px 'Bebas Neue', sans-serif;
+    line-height: 1;
+  }
+
+  h3 {
+    width: 627px;
+    text-align: center;
+    margin: auto auto 44px;
+    font: 400 14px/17px Ubuntu, sans-serif;
+  }
+
+  .items {
+    right: 108px;
+    bottom: 30px;
+    position: absolute;
+
+    ul {
+      margin-right: 13px;
+      margin-top: -48px;
+    }
+
+    li {
+      background: transparent url(../../../../images/circle.png) no-repeat center top;
+      margin-right: 4px;
+      width: 17px;
+      height: 17px;
+      cursor: pointer;
+      .transition-1s;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+    }
+
+    .selected-switcher {
+      background: transparent url(../../../../images/circle-selected.png) no-repeat center top;
+    }
+  }
+}
+
+.slide-img {
+  height: 492px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.learn-more {
+  display: inline-block;
+  background-color: @light-orange;
+  color: #ffebca;
+  text-transform: uppercase;
+  .border-radius-5px;
+  border-color: #97665b;
+  padding: 10px 57px;
+  font: 400 25px 'Ubuntu Condensed', sans-serif;
+}
+
+@media (max-width: 768px) {
+
+  .slider {
+
+    .items {
+      right: 50%;
+      transform: translateX(50%);
+    }
+
+    .slidewrapper li {
+      white-space: normal;
+      h3 {
+        width: auto;
+      }
+    }
+
+    .slider-switchers {
+      display: flex;
+
+      ul {
+        margin-right: auto;
+        margin-left: auto;
+        float: none;
+      }
+    }
+  }
+}

@@ -1,0 +1,152 @@
+@medium-gray: #515862;
+@blue: #2190c1;
+@white: #fff;
+
+.border-radius-2px-transparent {
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;
+  border-color: transparent;
+}
+
+#offers {
+  background-color: #f4f4f4;
+  text-align: center;
+  height: 320px;
+
+  .container {
+    width: 955px;
+  }
+}
+
+#offers-title {
+  margin-top: 34px;
+
+  h1 {
+    color: @blue;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    font: 400 40px/40px "Bebas Neue", sans-serif;
+  }
+
+  h3 {
+    width: 715px;
+    color: @medium-gray;
+    margin: auto auto 37px;
+    font: 400 12px/15px Ubuntu, sans-serif;
+  }
+}
+
+.offers-item {
+  text-align: left;
+  width: 187px;
+  height: 138px;
+  float: left;
+  margin: auto auto 25px 17px;
+
+  h4 {
+    color: #2b99cc;
+    margin-bottom: 9px;
+    font: 400 17px "Bree Serif", sans-serif;
+    line-height: 1;
+  }
+
+  p {
+    color: @medium-gray;
+    margin-bottom: 13px;
+    font: 400 11px/15.5px Ubuntu, sans-serif;
+  }
+
+  p a {
+    font-size: 13px;
+  }
+
+  button {
+    float: right;
+    width: 55px;
+    height: 25px;
+    background-color: @blue;
+    color: @white;
+    .border-radius-2px-transparent;
+    font: 400 12px Ubuntu, sans-serif;
+  }
+}
+
+.offers-item {
+  &:nth-child(1) {
+    margin-right: 36px;
+  }
+
+  &:nth-child(2) {
+    margin-right: 30px;
+  }
+
+  &:nth-child(3) {
+    margin-right: 48px;
+  }
+
+  &:first-child p {
+    margin-bottom: 9px;
+  }
+
+  &:nth-child(3) p {
+    margin-bottom: 12px;
+  }
+
+  &:nth-child(3) button {
+    width: 58px;
+  }
+}
+
+@media (max-width: 1000px) {
+
+  #offers {
+    height: auto;
+
+    .container {
+      min-height: 400px;
+      width: 70%;
+      display: block;
+    }
+
+    .items {
+      display: block;
+    }
+
+    .items .offers-item {
+      margin: auto;
+      margin-bottom: 20px;
+      width: auto;
+      max-width: 230px;
+    }
+
+    .items .offers-item {
+
+      &:nth-child(odd) {
+        float: left;
+        clear: both;
+      }
+
+      &:nth-child(even) {
+        float: right;
+      }
+    }
+  }
+
+  #offers-title h3 {
+    width: auto;
+  }
+}
+
+@media (max-width: 768px) {
+
+  #offers .container {
+    width: 90%;
+
+    .items .offers-item {
+      float: none;
+      max-width: 70%;
+    }
+  }
+}
