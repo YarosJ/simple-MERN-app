@@ -7,7 +7,7 @@ const debugControllers = require('debug')('controllers');
 class UsersController {
 
     constructor() {
-        this.User = mongoose.model('User');
+        this.User = mongoose.model('User1');
     }
 
     GetUsers(req, res, acl) {

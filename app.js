@@ -43,7 +43,6 @@ mongoose.connect(process.env.DB || `mongodb://${db.host}:${db.port}/${db.name}`,
     reconnectTries: Number.MAX_VALUE,
     reconnectInterval: 1000
 });
-// mongoose.connect(`mongodb://Yaroslaw:19981798@ds119060.mlab.com:19060/solv-express`, {useMongoClient: true});
 
 mongoose.connection.on('connected', function () {
 

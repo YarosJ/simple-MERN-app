@@ -37,4 +37,4 @@ UserSchema.methods = {
 
 UserSchema.plugin(passportLocalMongoose, {usernameField: 'email'});
 
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model('User1', UserSchema);
