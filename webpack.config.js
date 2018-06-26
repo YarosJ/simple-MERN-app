@@ -63,6 +63,9 @@ const config = {
     },
 
     plugins: debug ? [] : [
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
+        }),
         new webpack.optimize.OccurrenceOrderPlugin(),
         new UglifyJsPlugin({
             sourceMap: true
