@@ -7,12 +7,13 @@ class TestimonialsWindow extends Component {
 
     constructor(props) {
         super(props);
-
-        this.gender = 'male';
+        this.state = {
+            gender: 'male'
+        };
     }
 
     newSlideData() {
-        return ({title: this.title.value, body: this.body.value, autor: this.autor.value, gender: this.gender});
+        return ({title: this.title.value, body: this.body.value, autor: this.autor.value, gender: this.state.gender});
     }
 
     closeWindow(target) {
@@ -39,8 +40,10 @@ class TestimonialsWindow extends Component {
                 </p>
 
                 <div className="form-images">
-                    <img src={this.props.children.male} onClick={() => this.gender = 'male'}/>
-                    <img src={this.props.children.female} onClick={() => this.gender = 'female'}/>
+                    <img className={this.state.gender === 'male' ? 'selected' : ''} src={this.props.children.male}
+                         onClick={() => this.setState({gender: 'male'})}/>
+                    <img className={this.state.gender === 'female' ? 'selected' : ''} src={this.props.children.female}
+                         onClick={() => this.setState({gender: 'female'})}/>
                 </div>
 
                 <div className="edit-controls">

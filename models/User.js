@@ -15,7 +15,6 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
-    // roles: { type: mongoose.Schema.Types.ObjectId, ref: 'Role' },
     createdAt: {type: Date}
 });
 
@@ -34,9 +33,8 @@ UserSchema.methods = {
     validPassword: function (password) {
         return bcrypt.compareSync(password, this.hashedPassword);
     }
-
 };
 
-UserSchema.plugin(passportLocalMongoose, { usernameField : 'email' });
+UserSchema.plugin(passportLocalMongoose, {usernameField: 'email'});
 
 module.exports = mongoose.model('User', UserSchema);

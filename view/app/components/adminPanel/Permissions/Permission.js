@@ -3,17 +3,19 @@ import ReactDOM from "react-dom";
 import './Permissions.less';
 import axios from "axios/index";
 import {connect} from "react-redux";
-import {ToastContainer, toast} from 'react-toastify';
+import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AddPermissionModal from './AddPermissionModal';
+import ModalWindow from "../../ModalWindow";
 
 class Permission extends Component {
 
     deletePermission(method, title, role) {
-        toast("Wow so easy !");
-        if (confirm('Are you sure you want to delete this?')) {
-            this.props.onDeletePermission(method, title, role);
-        }
+        ReactDOM.render(
+            <ModalWindow type="confirm" onConfirm={() => this.props.onDeletePermission(method, title, role)}>
+                <p> Are you sure you want to delete this method? </p>
+            </ModalWindow>,
+            document.getElementById('modal'));
     }
 
     showModal(title, role) {
@@ -38,7 +40,6 @@ class Permission extends Component {
                         )
                     }
                     <p className='plus' onClick={this.showModal.bind(this, this.props.title, this.props.role)}>+</p>
-                    <ToastContainer/>
                 </div>
             </div>
         );
@@ -65,10 +66,11 @@ export default connect(
         },
 
         onDeletePermission: (method, title, role) => {
-            let resource = title.replace('/', '%2F');
+            let resource = title.replace(new RegExp('/', 'g'), '%2F');
             axios.delete(`/roles/${role}/resources/${resource}/permissions/${method}`)
                 .then((response) => {
                     dispatch({type: 'REMOVE_PERMISSION_FROM_ROLE', payload: response.data});
+                    toast.success('Success!');
                 })
                 .catch((error) => {
                     console.log(error);

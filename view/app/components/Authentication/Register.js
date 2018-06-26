@@ -3,7 +3,8 @@ import {connect} from "react-redux";
 import axios from "axios/index";
 import validateField from "../../../../helpers/Validate";
 import {Redirect} from 'react-router';
-import './Register.less';
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export class Register extends Component {
 
@@ -42,9 +43,6 @@ export class Register extends Component {
                 email: this.state.email
             });
             this.setState({redirect: true});
-        } else {
-            console.log('password:' + validationStatus.passwordStatus);
-            console.log('email:' + validationStatus.emailStatus);
         }
     }
 
@@ -93,19 +91,16 @@ export default connect(
     }),
 
     dispatch => ({
-
         onRegister: (data) => {
             axios.post('/users/register', data)
                 .then((response) => {
-                    dispatch({
-                        type: 'SET_SESSION',
-                        payload: {email: response.data.email, role: response.data.role}
-                    });
+                    if (response.data.message) {
+                        toast.error(response.data.message);
+                    } else toast.success('Success. You may log in!');
                 })
                 .catch((error) => {
                     console.log(error);
                 });
         }
-
     })
 )(Register);

@@ -13,32 +13,49 @@ class Carousel extends Component {
     }
 
     start() {
-        let i = this.state.current;
         this.interval = setInterval(() => {
-            if (this.state.current < this.state.length - 1) {
-                i++;
-            } else {
-                i = 0;
-            }
-            console.log("setInterval");
-            this.setState({current: i});
+            this.nextSlide();
         }, 7000);
     }
 
     stop() {
-        console.log("clearInterval");
         clearInterval(this.interval);
+        this.interval = false;
     }
 
-    componentWillMount() {
+    nextSlide(stopNext) {
+        if (stopNext) clearInterval(this.interval);
+        if (this.state.current < this.state.length - 1) {
+            this.setState({current: ++this.state.current});
+        } else {
+            this.setState({current: 0});
+        }
+    }
+
+    previousSlide(stopNext) {
+        if (stopNext) clearInterval(this.interval);
+        if (this.state.current > 0) {
+            this.setState({current: --this.state.current});
+        } else {
+            this.setState({current: this.state.length - 1});
+        }
+    }
+
+    recountLength() {
         this.setState({length: parseInt(this.props.children.length)});
+        if (this.state.current > this.state.length - 1) {
+            this.previousSlide();
+        }
     }
 
     componentDidMount() {
+        if (this.props.onRef) this.props.onRef(this);
+        this.setState({length: parseInt(this.props.children.length)});
         this.start();
     }
 
     componentWillUnmount() {
+        if (this.props.onRef) this.props.onRef(undefined);
         this.stop();
     }
 

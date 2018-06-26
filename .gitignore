@@ -1,5 +1,6 @@
 # file: ~/.gitignore_global
 .idea/
 node_modules/
+build/
 package-lock.json
 src/public/

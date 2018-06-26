@@ -12,8 +12,10 @@ class ModalWindow extends Component {
     }
 
     closeWindow(target) {
-        this.setState({active: false});
-        setTimeout(() => ReactDOM.unmountComponentAtNode(ReactDOM.findDOMNode(target).parentNode), this.transitionTime + 300);
+        if (this.state.active) {
+            this.setState({active: false});
+            setTimeout(() => ReactDOM.unmountComponentAtNode(ReactDOM.findDOMNode(target).parentNode), this.transitionTime + 300);
+        }
     }
 
     render() {
@@ -50,6 +52,35 @@ class ModalWindow extends Component {
 
                                 {this.props.children}
 
+                            </div>
+                        </div>
+                    </VelocityComponent>
+                );
+            case 'confirm':
+                return (
+                    <VelocityComponent animation={{opacity: this.state.active ? 1 : 0}} duration={this.transitionTime}>
+                        <div className="velocity-element">
+                            <div id="overlay" onClick={() => {
+                                this.closeWindow(this);
+                            }}/>
+                            <div id="modal_form" className="modal_html modal_confirm">
+                                <span className="modal_close" onClick={() => {
+                                    this.closeWindow(this);
+                                }}> x </span>
+
+                                {this.props.children}
+
+                                <div className="controls">
+                                    <button onClick={() => {
+                                        this.props.onConfirm();
+                                        this.closeWindow(this);
+                                    }}>{this.props.yes || 'Yes'}
+                                    </button>
+                                    <button onClick={() => {
+                                        this.closeWindow(this);
+                                    }}>{this.props.no || 'No'}
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </VelocityComponent>

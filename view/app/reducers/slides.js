@@ -25,7 +25,7 @@ const initialState = [
         image: slide5,
         text: "Lorem ipsum..."
     },
-]
+];
 
 export default function slides(state = initialState, action) {
 
@@ -35,7 +35,7 @@ export default function slides(state = initialState, action) {
                 ...state,
                 action.payload
             ];
-            break;
+
         default:
             return state;
     }

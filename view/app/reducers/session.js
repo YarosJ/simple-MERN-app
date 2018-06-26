@@ -3,7 +3,7 @@ import {setCookie, deleteCookie} from "../../../helpers/Cookie";
 const initialState = {
     role: '',
     email: ''
-}
+};
 
 export default function session(state = initialState, action) {
 

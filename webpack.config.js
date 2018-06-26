@@ -4,11 +4,9 @@ const debug = require('debug');
 // const debug = false;
 const BUILD_DIR = path.resolve(__dirname, 'view/public');
 const APP_DIR = path.resolve(__dirname, 'view/app');
-const STYLES_DIR = path.resolve(__dirname, 'view/styles');
-const SRC = path.resolve(__dirname, 'view');
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
-var config = {
+const config = {
     context: path.join(__dirname, "view"),
     devtool: debug ? "inline-sourcemap" : false,
     entry: APP_DIR + '/index.jsx',
@@ -70,6 +68,6 @@ var config = {
             sourceMap: true
         })
     ],
-}
+};
 
 module.exports = config;

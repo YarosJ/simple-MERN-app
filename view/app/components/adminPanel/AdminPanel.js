@@ -4,7 +4,6 @@ import {Route} from 'react-router-dom';
 import UsersList from "./Users/UsersList";
 import TestimonialsCarousel from "../mainPage/Testimonials/TestimonialsCarousel";
 import PermissionsList from "./Permissions/PermissionsList";
-import Dashboard from "./Dashboard/Dashboard";
 import './AdminPanel.less';
 
 class AdminPanel extends Component {
@@ -14,7 +13,6 @@ class AdminPanel extends Component {
             <div className="admin-panel">
                 <Provider store={this.props.store}>
                     <div>
-                        <Route exact path="/admin/dashboard" component={Dashboard}/>
                         <Route exact path="/admin/users" component={UsersList}/>
                         <Route exact path="/admin/employees" component={TestimonialsCarousel}/>
                         <Route exact path="/admin/permissions"

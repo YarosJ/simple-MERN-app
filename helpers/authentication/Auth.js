@@ -1,7 +1,8 @@
-const passport = require('passport'),
-    LocalStrategy = require('passport-local').Strategy;
-
 import User from '../../models/User';
+
+const passport = require('passport'),
+    LocalStrategy = require('passport-local').Strategy,
+    debugPassport = require('debug')('auth');
 
 passport.serializeUser(function (user, done) {
     done(null, {_id: user.id, email: user.email});
@@ -18,8 +19,10 @@ export default passport.use(new LocalStrategy(
     function (email, password, done) {
         User.findOne({email: email}, function (err, user) {
 
-            if (err)
+            if (err) {
+                debugPassport(err);
                 return done(err);
+            }
 
             if (!user)
                 return done(null, false, {message: 'Incorrect email.'});

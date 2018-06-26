@@ -3,6 +3,8 @@ import ModalWindow from "../../ModalWindow";
 import {Checkbox, CheckboxGroup} from 'react-checkbox-group';
 import axios from "axios/index";
 import {connect} from "react-redux";
+import ReactDOM from "react-dom";
+import './AddPermissionModal.less';
 
 class AddPermissionModal extends Component {
 
@@ -11,6 +13,10 @@ class AddPermissionModal extends Component {
         this.state = {
             addMethod: null
         };
+    }
+
+    closeWindow(target) {
+        ReactDOM.unmountComponentAtNode(ReactDOM.findDOMNode(target).parentNode);
     }
 
     handleOptionChange(changeEvent) {
@@ -23,24 +29,46 @@ class AddPermissionModal extends Component {
         return (
             <ModalWindow type="html">
                 <CheckboxGroup
+                    className="checkboxGroup"
                     checkboxDepth={2} // This is needed to optimize the checkbox group
                     name="methods"
                     value={this.state.addMethod}
                     onChange={this.handleOptionChange.bind(this)}>
-                    <label><Checkbox value="get"/> Get</label>
-                    <label><Checkbox value="view"/> View</label>
-                    <label><Checkbox value="create"/> Create</label>
-                    <label><Checkbox value="edit"/> Edit</label>
-                    <label><Checkbox value="put"/> Put</label>
-                    <label><Checkbox value="post"/> Post</label>
-                    <label><Checkbox value="delete"/> Delete</label>
-                    <label><Checkbox value="*"/> All</label>
+                    <div className="inputGroup">
+                        <Checkbox id="get" value="GET"/>
+                        <label htmlFor="get">Get</label>
+                    </div>
+
+                    <div className="inputGroup">
+                        <Checkbox id="post" value="POST"/>
+                        <label htmlFor="post">Post</label>
+                    </div>
+
+                    <div className="inputGroup">
+                        <Checkbox id="put" value="PUT"/>
+                        <label htmlFor="put">Put</label>
+                    </div>
+
+                    <div className="inputGroup">
+                        <Checkbox id="delete" value="DELETE"/>
+                        <label htmlFor="delete">Delete</label>
+                    </div>
                 </CheckboxGroup>
-                <p>
-                    <button onClick={() => this.props.onAddPermission(this.props.title, this.props.role, this.state.addMethod)}>
+
+                <p className="permissionControls">
+                    <button
+                        onClick={() => {
+                            this.props.onAddPermission(this.props.title, this.props.role, this.state.addMethod)
+                            this.closeWindow(this);
+                        }}>
                         Ok
                     </button>
-                    <button>Cancel</button>
+                    <button
+                        onClick={() => {
+                            this.closeWindow(this);
+                        }}>
+                        Cancel
+                    </button>
                 </p>
             </ModalWindow>
         );

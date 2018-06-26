@@ -127,7 +127,8 @@ class SlideElement extends Component {
         return (
             <Tag className={this.props.name}>
                 <p className="active-field"
-                   contentEditable="true">
+                   contentEditable="true"
+                   suppressContentEditableWarning="true">
                     {this.props.children}
                 </p>
                 <div className="edit-controls">
@@ -181,7 +182,7 @@ class TestimonialsCarousel extends Component {
     }
 
     componentWillMount() {
-        this.props.onGetSlides();
+        this.props.onGetSlides(this);
         if (this.props.testimonialsSlides) this.setState({canChange: true});
     }
 
@@ -207,6 +208,10 @@ class TestimonialsCarousel extends Component {
         this.props.onGetSlides();
     }
 
+    componentDidUpdate() {
+        if (this.carousel) this.carousel.recountLength();
+    }
+
     render() {
         return (
             <div id="testimonials" onClick={(e) => {
@@ -225,7 +230,8 @@ class TestimonialsCarousel extends Component {
                               requiredId={true}
                               getCurrent={current => this.state.current = current}
                               onUpdateSlide={this.props.onUpdateSlide}
-                              canChange={this.checkAdmin()}>
+                              canChange={this.checkAdmin()}
+                              onRef={ref => (this.carousel = ref)}>
                         {this.props.testimonialsSlides}
                     </Carousel>
                 </div>

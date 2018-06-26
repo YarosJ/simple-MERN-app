@@ -4,7 +4,7 @@ import {Redirect} from 'react-router';
 import {connect} from "react-redux";
 import axios from "axios/index";
 import validateField from '../../../../helpers/Validate'
-import {ToastContainer, toast} from 'react-toastify';
+import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './Login.less';
 
@@ -104,7 +104,6 @@ export class Login extends Component {
                     <input type="submit" value="Log In"/>
                 </form>
                 <Link to="/register">REGISTER</Link>
-                <ToastContainer/>
             </div>
         );
     }

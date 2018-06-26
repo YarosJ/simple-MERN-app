@@ -45,11 +45,11 @@ class Gallery extends Component {
         return (
             <VelocityComponent animation={{opacity: this.state.active ? 1 : 0}} duration={this.transitionTime}>
                 <div className="gallery velocity-element fixed">
-                    <Carousel switcher={Miniature} slide={Slide}>
+                    <Carousel switcher={Miniature} slide={Slide} onRef={ref => (this.carousel = ref)}>
                         {this.props.children}
                     </Carousel>
-                    <div className="control-gallery-item arrow-left"/>
-                    <div className="control-gallery-item arrow-right"/>
+                    <div className="control-gallery-item arrow-left" onClick={() => this.carousel.previousSlide(true)}/>
+                    <div className="control-gallery-item arrow-right" onClick={() => this.carousel.nextSlide(true)}/>
                     <div className="control-gallery-item score"/>
                     <span className="modal_close" onClick={() => this.closeWindow(this)}>x</span>
                 </div>

@@ -9,8 +9,6 @@ export default function authenticationMiddleware(myAcl) {
         }
 
         myAcl.isAllowed(userId, req.baseUrl + req.route.path, req.method, (err, permissions) => {
-            // console.log(userId);
-            // console.log(permissions, req.baseUrl + req.route.path, req.method);
             if (permissions) {
                 next();
             } else if (!res.statusCode) res.sendStatus(403);

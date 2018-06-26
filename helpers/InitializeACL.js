@@ -2,6 +2,8 @@ import deasyncPromise from 'deasync-promise';
 
 export default function (myAcl) {
 
+    const debugACL = require('debug')('acl');
+
     const allows = [
         {
             roles: ['guest'],
@@ -22,7 +24,8 @@ export default function (myAcl) {
                     resources: ['/roles/:role/rolePermissions'], permissions: ['GET']
                 },
                 {
-                    resources: ['/users/:id', '/testimonials/', '/testimonials/:id'],
+                    resources: ['/users/:id', '/testimonials/', '/testimonials/:id',
+                        '/roles/', '/roles/:role/resources/:resource/permissions/:permission'],
                     permissions: ['PUT', 'DELETE', 'POST']
                 }
             ]
@@ -30,32 +33,28 @@ export default function (myAcl) {
         {
             roles: ['superAdmin'],
             allows: [
-                {resources: '/users/:id', permissions: ['*']}
+                {resources: '/users/:id', permissions: ['PUT']}
             ]
         }
     ];
 
     myAcl.allow(allows, (err) => {
 
-            console.log('    Structure of ACL:    ');
-
-            console.log(allows);
-
-            console.log('    Inheritance:    ');
+            debugACL('Structure of ACL:');
+            debugACL(JSON.stringify(allows, null, 1));
+            debugACL('Inheritance:');
 
             if (!err) allows.reduce((accumulator, currentValue) => {
                 deasyncPromise(myAcl.addRoleParents(currentValue.roles[0], accumulator.roles[0]));
-                console.log('Role:', currentValue.roles[0], 'inherited from:', accumulator.roles[0]);
+                debugACL('Role:', currentValue.roles[0], 'inherited from:', accumulator.roles[0]);
                 return currentValue;
             });
 
-            console.log('*** ACL successfully configured ***');
-
+            debugACL('ACL successfully configured!');
         }
     );
 
     myAcl.addUserRoles('guest123456789abcdefghkl', 'guest', (err) => {
-        if (err) console.log(err);
+        if (err) debugACL(err);
     });
-
 }

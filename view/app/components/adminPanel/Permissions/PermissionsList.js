@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import Permission from "./Permission.js";
 import AddPermissionModal from './AddPermissionModal';
 import ReactDOM from "react-dom";
-// import './PermissionsList.less';
+import './PermissionsList.less';
 
 class PermissionsList extends Component {
 
@@ -31,24 +31,26 @@ class PermissionsList extends Component {
 
     componentWillMount() {
         this.props.onGetRoles();
+        this.props.onGetPermissions('guest');
     }
 
     render() {
         return (
-            <div>
-                Check Role:
-                <select onChange={this.selectRole.bind(this)}>
-                    {this.props.roles.map((role, index) =>
-                        <option key={index} value={role.key}>{role.key}</option>
-                    )}
-                </select>
-
+            <div className="permissionsList">
                 <p className='add'>
                     <input type="text" size="40"/>
                     <button onClick={this.addResource.bind(this, this.state.role)}>Add Resource</button>
                 </p>
+                <p className='add'>
+                    <label>Check Role:</label>
+                    <select onChange={this.selectRole.bind(this)}>
+                        {this.props.roles.map((role, index) =>
+                            <option key={index} value={role.key}>{role.key}</option>
+                        )}
+                    </select>
+                </p>
 
-                <div>
+                <div className="list">
                     {
                         this.props.permissions.map((role, index) =>
                             <Permission key={index} role={this.state.role}

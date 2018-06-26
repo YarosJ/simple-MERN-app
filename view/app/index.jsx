@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import {Route, BrowserRouter} from 'react-router-dom';
 import {Provider} from 'react-redux'
 import {createStore} from 'redux';
+import {ToastContainer, toast} from 'react-toastify';
 
 import reducer from './reducers/';
 import '../styles/index.less';
@@ -26,40 +27,60 @@ ReactDOM.render(
         <Provider store={store}>
             <div>
                 <Route path="/" component={Header}/>
-                {/* HOME */}
+
+                {
+                    /**
+                     * Home group of routes by path  '/'
+                     */
+                }
 
                 <Route exact path="/" component={Slider}/>
-
                 <Route exact path="/" component={ServicesTitle}/>
                 <Route exact path="/" component={Services}/>
                 <Route exact path="/" component={Works}/>
                 <Route exact path="/" component={Offers}/>
-
                 <Route exact path="/" component={TestimonialsCarousel}/>
 
-                {/* PORTFOLIO */}
+                {
+                    /**
+                     * Portfolio group of routes by path  '/portfolio'
+                     */
+                }
 
                 <Route exact path="/portfolio" component={Works}/>
                 <Route exact path="/portfolio" component={Services}/>
 
-                {/* ABOUT */}
+                {
+                    /**
+                     * About group of routes by path  '/about'
+                     */
+                }
 
                 <Route exact path="/about" component={Offers}/>
                 <Route exact path="/about" render={() => <br/>}/>
 
-                {/* CONTACT */}
+                {
+                    /**
+                     * Contact page route
+                     */
+                }
 
                 <Route exact path="/contact" component={TestimonialsCarousel}/>
 
-                {/* LOGIN */}
+                {
+                    /**
+                     * Login/Register routes
+                     */
+                }
 
                 <Route exact path="/login" component={Login}/>
-
-                {/* REGISTER */}
-
                 <Route exact path="/register" component={Register}/>
 
-                {/* ADMIN */}
+                {
+                    /**
+                     * Admin panel group of routes by path  '/admin'
+                     */
+                }
 
                 <div className="admin">
                     <Route path="/admin" component={AdminToolbar}/>
@@ -67,6 +88,7 @@ ReactDOM.render(
                 </div>
 
                 <Footer/>
+                <ToastContainer/>
             </div>
         </Provider>
     </BrowserRouter>,
