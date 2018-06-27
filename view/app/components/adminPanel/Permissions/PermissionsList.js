@@ -38,7 +38,7 @@ class PermissionsList extends Component {
         return (
             <div className="permissionsList">
                 <p className='add'>
-                    <input type="text" size="40"/>
+                    <input type="text" placeholder="/example/:id/ex/" size="40"/>
                     <button onClick={this.addResource.bind(this, this.state.role)}>Add Resource</button>
                 </p>
                 <p className='add'>

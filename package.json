@@ -64,7 +64,7 @@
     "webpack-stream": "^4.0.0"
   },
   "scripts": {
-    "server": "nodemon --exec babel-node --optimize_for_size --max_old_space_size=460 --gc_interval=100 app.js",
+    "server": "nodemon --delay 100000 --exec babel-node app.js",
     "react": "webpack",
     "start": "concurrently \"npm run react\" \"npm run server\""
   },
