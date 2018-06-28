@@ -65,11 +65,16 @@
   },
   "scripts": {
     "server": "nodemon --delay 100000 --exec babel-node app.js",
-    "react": "webpack",
+    "react": "",
     "start": "concurrently \"npm run react\" \"npm run server\""
   },
   "devDependencies": {
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^17.0.0",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.10.0",
     "less": "^3.0.2",
     "less-loader": "^4.1.0",
     "react-addons-css-transition-group": "^15.6.2"

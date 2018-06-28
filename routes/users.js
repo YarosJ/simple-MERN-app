@@ -1,53 +1,45 @@
 import express from 'express';
 import passport from 'passport';
-import usersController from "../controllers/usersController";
+import UsersController from '../controllers/usersController';
 import authenticationMiddleware from '../helpers/authentication/AuthenticationMiddleware';
 
-let _router = (acl) => {
+const _router = (acl) => {
+  const router = express.Router();
+  const controller = new UsersController();
 
-    const router = express.Router();
-    const controller = new usersController();
+  router.get('/', authenticationMiddleware(acl), (req, res) => controller.getUsers(req, res, acl));
 
-    router.get('/', authenticationMiddleware(acl), (req, res) =>
-        controller.GetUsers(req, res, acl));
+  router.post('/register', (req, res) => controller.createUser(req, res, acl));
 
-    router.post('/register', (req, res) =>
-        controller.CreateUser(req, res, acl));
+  router.put('/:id', authenticationMiddleware(acl), (req, res) => controller.updateUser(req, res, acl));
 
-    router.put('/:id', authenticationMiddleware(acl), (req, res) =>
-        controller.UpdateUser(req, res, acl));
+  router.delete('/:id', authenticationMiddleware(acl), (req, res) => controller.deleteUser(req, res, acl));
 
-    router.delete('/:id', authenticationMiddleware(acl), (req, res) =>
-        controller.DeleteUser(req, res, acl));
+  router.post('/login', (req, res, next) => {
+    passport.authenticate('local', (err, user, info) => {
+      if (err) return next(err);
+      if (!user) return res.send(info);
 
-    router.post('/login', function (req, res, next) {
-        passport.authenticate('local', function (err, user, info) {
+      req.logIn(user, (err) => {
+        if (err) return next(err);
+        acl.userRoles(user._id.toString(), (err, roles) => res.send({
+          email: user.email,
+          role: roles[0],
+        }));
+      });
+    })(req, res, next);
+  });
 
-            if (err) return next(err);
-            if (!user) return res.send(info);
+  router.get('/logout', (req, res) => {
+    if (req.isAuthenticated()) {
+      req.logout();
+      res.redirect('/');
+    } else {
+      res.sendStatus(200);
+    }
+  });
 
-            req.logIn(user, function (err) {
-
-                if (err) return next(err);
-
-                acl.userRoles(user._id.toString(), (err, roles) => {
-                    return res.send({email: user.email, role: roles[0]});
-                });
-            });
-
-        })(req, res, next);
-    });
-
-    router.get('/logout', function (req, res) {
-        if (req.isAuthenticated()) {
-            req.logout();
-            res.redirect('/');
-        } else {
-            res.sendStatus(200);
-        }
-    });
-
-    return router;
+  return router;
 };
 
 export default _router;
