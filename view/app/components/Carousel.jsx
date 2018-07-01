@@ -59,7 +59,7 @@ class Carousel extends Component {
     }
   }
 
-  moveTo(switcher) {
+  moveTo = switcher => {
     this.setState({ current: parseInt(switcher.currentTarget.attributes['data-key'].value) });
   }
 
