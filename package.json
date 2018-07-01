@@ -66,7 +66,7 @@
   },
   "scripts": {
     "server": "nodemon --delay 100000 --exec babel-node app.js",
-    "react": "webpack --watch",
+    "react": "",
     "start": "concurrently \"npm run react\" \"npm run server\""
   },
   "devDependencies": {
