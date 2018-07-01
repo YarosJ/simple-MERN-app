@@ -6,15 +6,15 @@ const _router = (acl) => {
   const router = express.Router();
   const roles = new RolesController(acl);
 
-  router.get('/', authenticationMiddleware(acl), (req, res) => roles.GetRoles(req, res));
+  router.get('/', authenticationMiddleware(acl), (req, res) => roles.getRoles(req, res));
 
-  router.get('/:role/rolePermissions', authenticationMiddleware(acl), (req, res) => roles.GetRolePermissions(req, res));
+  router.get('/:role/rolePermissions', authenticationMiddleware(acl), (req, res) => roles.getRolePermissions(req, res));
 
-  router.post('/', authenticationMiddleware(acl), (req, res) => roles.AddAllow(req, res));
+  router.post('/', authenticationMiddleware(acl), (req, res) => roles.addAllow(req, res));
 
-  router.delete('/:role/resources/:resource/permissions/:permission', authenticationMiddleware(acl), (req, res) => roles.DeleteAllow(req, res));
+  router.delete('/:role/resources/:resource/permissions/:permission', authenticationMiddleware(acl), (req, res) => roles.deleteAllow(req, res));
 
-  router.delete('/:role/resources/:resource', authenticationMiddleware(acl), (req, res) => roles.DeleteAllow(req, res));
+  router.delete('/:role/resources/:resource', authenticationMiddleware(acl), (req, res) => roles.deleteAllow(req, res));
 
   return router;
 };

@@ -10,7 +10,23 @@
   border-color: transparent;
 }
 
-#works {
+.container {
+  width: 950px;
+  display: inline-block;
+  margin: auto;
+}
+
+.leftInline {
+  float: left;
+  display: flex;
+}
+
+.rightInline {
+  float: right;
+  display: flex;
+}
+
+.works {
   text-align: center;
   background-color: @dark-grey;
 
@@ -25,7 +41,7 @@
   }
 }
 
-#works-title {
+.worksTitle {
   width: 920px;
   margin: 48px auto 146px;
 
@@ -60,7 +76,7 @@
   }
 }
 
-.works-item {
+.worksItem {
   width: 282px;
   height: 220px;
   float: left;
@@ -94,7 +110,7 @@
     transition: .4s;
   }
 
-  .hover-img-works img:nth-child(2):hover {
+  .hoverImgWorks img:nth-child(2):hover {
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
     filter: alpha(opacity=100);
     -moz-opacity: 1;
@@ -112,7 +128,7 @@
 
 @media (max-width: 1000px) {
 
-  #works {
+  .works {
 
     .items {
       display: block;
@@ -122,7 +138,7 @@
       height: auto;
       width: 80%;
 
-      .works-item {
+      .worksItem {
         margin-bottom: 30px;
         height: auto;
         float: none;
@@ -136,8 +152,8 @@
       }
     }
 
-    .works-item {
-      h4, #works .works-item p {
+    .worksItem {
+      h4, .works .worksItem p {
         width: 70%;
         margin: auto;
       }
@@ -148,7 +164,7 @@
     }
   }
 
-  #works-title {
+  .worksTitle {
     width: auto;
   }
 
@@ -160,7 +176,7 @@
 
 @media (max-width: 610px) {
 
-  #works-title {
+  .worksTitle {
     text-align: center;
     margin-top: 30px;
     margin-bottom: 30px;

@@ -9,12 +9,12 @@ class RolesController {
     this.Role = mongoose.model('Role');
   }
 
-  GetRoles(req, res) {
+  getRoles(req, res) {
     this.Role.find({}, { key: 1 }).then(data => res.send(data))
       .catch(err => debugControllers(err));
   }
 
-  GetRolePermissions(req, res) {
+  getRolePermissions(req, res) {
     this.myAcl.whatResources(req.params.role, (err, resources) => {
       if (err) {
         debugControllers(err);
@@ -22,7 +22,7 @@ class RolesController {
     });
   }
 
-  AddAllow(req, res) {
+  addAllow(req, res) {
     this.myAcl.allow(req.body.role, req.body.resource, req.body.permission, (err) => {
       if (err) {
         debugControllers(err);
@@ -31,7 +31,7 @@ class RolesController {
     });
   }
 
-  DeleteAllow(req, res) {
+  deleteAllow(req, res) {
     this.myAcl.removeAllow(req.params.role, req.params.resource, req.params.permission, (err) => {
       if (err) {
         debugControllers(err);

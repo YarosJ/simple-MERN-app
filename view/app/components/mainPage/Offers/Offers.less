@@ -10,17 +10,25 @@
   border-color: transparent;
 }
 
-#offers {
+.offers {
   background-color: #f4f4f4;
   text-align: center;
   height: 320px;
 
   .container {
     width: 955px;
+    text-align: center;
+    display: inline-block;
+    margin: auto;
+  }
+
+  .offersItem p a, .footerItem p a {
+    color: #3e9dd1;
+    font-weight: 700;
   }
 }
 
-#offers-title {
+.offersTitle {
   margin-top: 34px;
 
   h1 {
@@ -38,7 +46,7 @@
   }
 }
 
-.offers-item {
+.offersItem {
   text-align: left;
   width: 187px;
   height: 138px;
@@ -73,7 +81,7 @@
   }
 }
 
-.offers-item {
+.offersItem {
   &:nth-child(1) {
     margin-right: 36px;
   }
@@ -101,7 +109,7 @@
 
 @media (max-width: 1000px) {
 
-  #offers {
+  .offers {
     height: auto;
 
     .container {
@@ -114,14 +122,14 @@
       display: block;
     }
 
-    .items .offers-item {
+    .items .offersItem {
       margin: auto;
       margin-bottom: 20px;
       width: auto;
       max-width: 230px;
     }
 
-    .items .offers-item {
+    .items .offersItem {
 
       &:nth-child(odd) {
         float: left;
@@ -134,17 +142,17 @@
     }
   }
 
-  #offers-title h3 {
+  .offersTitle h3 {
     width: auto;
   }
 }
 
 @media (max-width: 768px) {
 
-  #offers .container {
+  .offers .container {
     width: 90%;
 
-    .items .offers-item {
+    .items .offersItem {
       float: none;
       max-width: 70%;
     }

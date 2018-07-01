@@ -22,7 +22,7 @@
   border-color: transparent;
 }
 
-#header {
+.header {
   overflow: hidden;
   display: flex;
   height: 78px;
@@ -33,7 +33,7 @@
     height: inherit;
   }
 
-  .left-inline {
+  .leftInline {
     height: 100%;
   }
 }
@@ -45,14 +45,14 @@
   margin: auto;
 }
 
-.container .left-inline {
+.container .leftInline {
   float: left;
   display: flex;
 }
 
 /* ------------------ */
 
-.center-top {
+.centerTop {
   height: 21px;
   display: inline-block;
   margin: auto auto auto 20px;
@@ -62,6 +62,10 @@
     letter-spacing: .2px;
     font: 400 20px "Bree Serif";
     line-height: 1;
+
+    img {
+      vertical-align: top;
+    }
   }
 
   a:first-child {
@@ -69,7 +73,7 @@
   }
 }
 
-.right-inline {
+.rightInline {
   float: right;
   display: flex;
 }
@@ -137,7 +141,7 @@
     }
   }
 
-  .hover-nav:hover {
+  .hoverNav:hover {
     a {
       height: 79px;
       .transition-04s;
@@ -170,7 +174,7 @@
     }
   }
 
-  .hover-nav {
+  .hoverNav {
     padding-left: 0;
   }
 
@@ -183,19 +187,19 @@
   }
 }
 
-.burger-shower {
+.burgerShower {
   display: none;
 }
 
-.admin-header {
+.adminHeader {
   background: #2e3e4e;
 
-  .center-top a {
+  .centerTop a {
     color: #f98560;
   }
 
-  .right-inline:hover {
-    .hover-nav:first-child a {
+  .rightInline:hover {
+    .hoverNav:first-child a {
       background: transparent;
       &:hover {
         color: #f98560;
@@ -204,12 +208,12 @@
     }
   }
 
-  .nav .hover-nav:first-child a {
+  .nav .hoverNav:first-child a {
     color: #f98560;
     background: #161c23;
   }
 
-  .nav .hover-nav:hover a {
+  .nav .hoverNav:hover a {
     color: #f98560;
     background: #161c23;
     transition: background 1s;
@@ -222,17 +226,17 @@
 
 @media (max-width: 1000px) {
 
-  #header {
+  .header {
     height: auto;
     padding-top: 12px;
     padding-bottom: 12px;
 
-    .nav-overlay {
+    .navOverlay {
       height: 60px;
       left: 0;
     }
 
-    &.admin-header .nav-overlay {
+    &.adminHeader .navOverlay {
       background: #2e3e4d;
     }
 
@@ -240,7 +244,7 @@
       width: 95%;
       height: auto;
 
-      .left-inline {
+      .leftInline {
         margin-top: 5px;
         height: auto;
         position: relative;
@@ -257,15 +261,15 @@
         transition-timing-function: ease-in-out;
       }
 
-      .burger-shower:checked ~ ul.nav {
+      .burgerShower:checked ~ ul.nav {
         margin-top: 10px;
         width: 100%;
       }
     }
   }
 
-  .right-inline:hover {
-    .hover-nav:first-child a {
+  .rightInline:hover {
+    .hoverNav:first-child a {
       background: transparent;
       color: #515862;
       &:hover {
@@ -275,7 +279,7 @@
     }
   }
 
-  .nav-overlay {
+  .navOverlay {
     position: absolute;
     top: -10px;
     width: 100%;
@@ -284,7 +288,7 @@
     z-index: 5;
   }
 
-  .nav-burger {
+  .navBurger {
     position: relative;
     z-index: 10;
     width: 30px;
@@ -296,7 +300,7 @@
     transition-timing-function: ease-in-out;
   }
 
-  .burger-shower:checked ~ .nav-burger {
+  .burgerShower:checked ~ .navBurger {
     opacity: .6;
     -webkit-transform: rotateZ(-360deg);
     -ms-transform: rotateZ(-360deg);
@@ -327,7 +331,7 @@
       width: 100%;
     }
 
-    .hover-nav:hover {
+    .hoverNav:hover {
       a {
         height: initial;
         background: #3e9dd1;

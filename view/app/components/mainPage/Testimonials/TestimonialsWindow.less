@@ -1,6 +1,9 @@
-@main-color: #f4f4f4;
 @medium-gray: #515862;
 @light-orange: #f98561;
+@black: #000;
+@white: #fff;
+@main-color: #f4f4f4;
+@light-blue: #3e9dd1;
 
 .transition-04s {
   -webkit-transition: .4s;
@@ -8,7 +11,7 @@
   transition: .4s;
 }
 
-#testimonials_form {
+.testimonialsForm {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -22,7 +25,7 @@
   margin: auto;
 }
 
-#testimonials_form {
+.testimonialsForm {
 
   p:nth-child(2) {
     margin-top: 15px;
@@ -37,13 +40,13 @@
     border: solid 3px;
   }
 
-  .edit-controls {
+  .editControls {
     display: table;
     margin: auto;
     margin-bottom: 10px;
   }
 
-  .form-images {
+  .formImages {
     display: flex;
     margin: auto;
     width: 70%;
@@ -80,5 +83,29 @@
     &:hover {
       border-color: @main-color;
     }
+  }
+}
+
+.editControls {
+  button {
+    border: solid 3px;
+    border-radius: 2px;
+    color: inherit;
+    background: transparent;
+    margin: 2px;
+    display: inline-block;
+  }
+
+  button:hover {
+    opacity: 1;
+    border-color: inherit;
+  }
+
+  button:first-child:hover {
+    background: @light-blue;
+  }
+
+  button:nth-child(2):hover {
+    background: @light-orange;
   }
 }

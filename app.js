@@ -8,6 +8,7 @@ import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import { serverPort, db } from './config.json';
 import passport from './helpers/authentication/Auth';
+import api from './routes/api';
 import users from './routes/users';
 import roles from './routes/roles';
 import testimonials from './routes/testimonials';
@@ -48,6 +49,7 @@ mongoose.connect(process.env.DB || `mongodb://${db.host}:${db.port}/${db.name}`,
 mongoose.connection.on('connected', () => {
   const myAcl = new Acl(new Acl.mongodbBackend(mongoose.connection.db));
 
+  app.use('/api', api(myAcl));
   app.use('/testimonials', testimonials(myAcl));
   app.use('/users', users(myAcl));
   app.use('/roles', roles(myAcl));

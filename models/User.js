@@ -1,38 +1,37 @@
 const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
-const Schema = mongoose.Schema;
-const bcrypt = require('bcryptjs');
 
+const { Schema } = mongoose;
+const bcrypt = require('bcryptjs');
 const passportLocalMongoose = require('passport-local-mongoose');
 
 const UserSchema = new Schema({
   email: {
     type: String,
     unique: true,
-    required: true
+    required: true,
   },
   hashedPassword: {
     type: String,
-    required: true
+    required: true,
   },
-  createdAt: { type: Date }
+  createdAt: { type: Date },
 });
 
 UserSchema.virtual('password')
-    .set(function (password) {
-      this.salt = bcrypt.genSaltSync(10);
-      this.hashedPassword = this.encryptPassword(password);
-    });
+  .set((password) => {
+    this.salt = bcrypt.genSaltSync(10);
+    this.hashedPassword = this.encryptPassword(password);
+  });
 
 UserSchema.methods = {
-
-  encryptPassword: function (password) {
+  encryptPassword(password) {
     return bcrypt.hashSync(password, this.salt);
   },
 
-  validPassword: function (password) {
+  validPassword(password) {
     return bcrypt.compareSync(password, this.hashedPassword);
-  }
+  },
 };
 
 UserSchema.plugin(passportLocalMongoose, { usernameField: 'email' });

@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
-// const debug = require('debug');
-const debug = false;
+const debug = require('debug');
+// const debug = false;
 const BUILD_DIR = path.resolve(__dirname, 'view/public');
 const APP_DIR = path.resolve(__dirname, 'view/app');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
@@ -44,12 +44,25 @@ const config = {
         },
       }, {
         test: /\.less$/,
-        loaders: ['style-loader', 'css-loader', 'less-loader'],
+        use: [
+          { loader: 'style-loader' },
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              minimize: true,
+            }
+          },
+          { loader: 'less-loader' },
+        ]
       }, {
         test: /\.css$/,
         loaders: ['style-loader', 'css-loader'],
       },
     ],
+  },
+  resolve: {
+    extensions: ['.js', '.jsx'],
   },
   devServer: {
     host: 'localhost',
@@ -72,12 +85,5 @@ const config = {
     }),
   ],
 };
-
-setInterval(function () {
-  const used = process.memoryUsage();
-  for (let key in used) {
-    console.log(`${key} ${Math.round(used[key] / 1024 / 1024 * 100) / 100} MB`);
-  }
-}, 2000);
 
 module.exports = config;

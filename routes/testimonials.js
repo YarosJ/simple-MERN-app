@@ -6,13 +6,13 @@ const _router = (acl) => {
   const router = express.Router();
   const controller = new TestimonialsController();
 
-  router.get('/', authenticationMiddleware(acl), (req, res) => controller.GetTestimonials(req, res));
+  router.get('/', authenticationMiddleware(acl), (req, res) => controller.getTestimonials(req, res));
 
-  router.post('/', authenticationMiddleware(acl), (req, res) => controller.CreateTestimonial(req, res));
+  router.post('/', authenticationMiddleware(acl), (req, res) => controller.createTestimonial(req, res));
 
-  router.put('/:id', authenticationMiddleware(acl), (req, res) => controller.UpdateTestimonial(req, res));
+  router.put('/:id', authenticationMiddleware(acl), (req, res) => controller.updateTestimonial(req, res));
 
-  router.delete('/:id', authenticationMiddleware(acl), (req, res) => controller.DeleteTestimonial(req, res));
+  router.delete('/:id', authenticationMiddleware(acl), (req, res) => controller.deleteTestimonial(req, res));
 
   return router;
 };

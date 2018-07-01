@@ -1,0 +1,45 @@
+.none-user-select {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+.margin-padding-0 {
+  margin: 0;
+  padding: 0;
+}
+
+.top-left-right-0 {
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.viewport {
+  width: 100%;
+  display: table;
+  position: relative;
+  overflow: hidden;
+  margin-top: -2px;
+  .none-user-select;
+}
+
+.slidewrapper {
+  position: relative;
+  .margin-padding-0;
+  white-space: nowrap;
+  transition: all 1s;
+}
+
+.slidewrapper ul, .slidewrapper li {
+  .margin-padding-0;
+}
+
+.slidewrapper li {
+  position: relative;
+  width: 100%;
+  list-style: none;
+  display: inline-block;
+}

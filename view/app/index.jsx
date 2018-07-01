@@ -29,10 +29,10 @@ ReactDOM.render(
         <Route path="/" component={Header} />
 
         {
-                    /**
-                     * Home group of routes by path  '/'
-                     */
-                }
+            /**
+             * Home group of routes by path  '/'
+             */
+        }
 
         <Route exact path="/" component={Slider} />
         <Route exact path="/" component={ServicesTitle} />
@@ -42,47 +42,47 @@ ReactDOM.render(
         <Route exact path="/" component={TestimonialsCarousel} />
 
         {
-                    /**
-                     * Portfolio group of routes by path  '/portfolio'
-                     */
-                }
+            /**
+             * Portfolio group of routes by path  '/portfolio'
+             */
+        }
 
         <Route exact path="/portfolio" component={Works} />
         <Route exact path="/portfolio" component={Services} />
 
         {
-                    /**
-                     * About group of routes by path  '/about'
-                     */
-                }
+            /**
+             * About group of routes by path  '/about'
+             */
+        }
 
         <Route exact path="/about" component={Offers} />
         <Route exact path="/about" render={() => <br />} />
 
         {
-                    /**
-                     * Contact page route
-                     */
-                }
+            /**
+             * Contact page route
+             */
+        }
 
         <Route exact path="/contact" component={TestimonialsCarousel} />
 
         {
-                    /**
-                     * Login/Register routes
-                     */
-                }
+            /**
+             * Login/Register routes
+             */
+        }
 
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
 
         {
-                    /**
-                     * Admin panel group of routes by path  '/admin'
-                     */
-                }
+            /**
+             * Admin panel group of routes by path  '/admin'
+             */
+        }
 
-        <div className="admin">
+        <div style={{display: 'flex'}}>
           <Route path="/admin" component={AdminToolbar} />
           <Route path="/admin" render={props => <AdminPanel {...props} {...{ store }} />} />
         </div>
