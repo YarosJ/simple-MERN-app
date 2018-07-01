@@ -19,7 +19,7 @@ const UserSchema = new Schema({
 });
 
 UserSchema.virtual('password')
-  .set((password) => {
+  .set(function (password) {
     this.salt = bcrypt.genSaltSync(10);
     this.hashedPassword = this.encryptPassword(password);
   });

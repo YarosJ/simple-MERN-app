@@ -72,26 +72,18 @@ class UsersController {
     }
   }
 
-  deleteUser(req, res, acl) {
+  async deleteUser(req, res, acl) {
     const userId = req.params.id;
-
-    acl.userRoles(userId, (err, roles) => {
+    try {
+      const roles = await acl.userRoles(userId);
       if (roles.indexOf('superAdmin') === -1) {
-        if (roles.length > 0) {
-          acl.removeUserRoles(userId, roles, (err) => {
-            if (!err) {
-              this.User.findById(userId).then(user => user.remove()
-                .then(() => res.sendStatus(200)));
-            } else {
-              debugControllers(err);
-              res.send({ message: 'Server error' });
-            }
-          });
-        } else {
-          this.User.findById(userId).then(user => user.remove().then(() => res.sendStatus(200)));
-        }
+        if (roles.length > 0) await acl.removeUserRoles(userId, roles);
+        this.User.findById(userId).then(user => user.remove().then(() => res.sendStatus(200)));
       } else res.send({ message: "SuperAdmin can't be deleted" });
-    });
+    } catch (err) {
+      debugControllers(err);
+      res.send({ message: 'Server error' });
+    }
   }
 }
 
