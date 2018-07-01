@@ -1,5 +1,10 @@
 # solv1
 
+Dependencies
+------------
+
+The application requires `npm` version `6.1.0` or higher,  `node.js` version `10.4.1` or higher, Webpack version `4.5.0`, and MongoDB version `3.6.3`.
+
 Installation
 ----------------
 
