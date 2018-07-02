@@ -1,15 +1,24 @@
-import jwt from 'jwt-simple';
+import jwt from 'jsonwebtoken';
+
+const guestId = 'guest123456789abcdefghkl';
 
 export default function authenticationMiddleware(myAcl) {
   return (req, res, next) => {
     let userId;
-    const token = req.get('Authorization') || req.query.token;
+    const token = req.get('Authorization');
     if (req.isAuthenticated()) {
       userId = req.session.passport.user._id;
     } else if (token) {
-      userId = jwt.decode(token, 'secret')._id;
+      try {
+        userId = jwt.verify(token, 'secret')._id;
+      } catch (err) {
+        userId = guestId;
+        if (err.name === 'TokenExpiredError' || err.name === 'JsonWebTokenError') {
+          res.send(err.message);
+        } else res.sendStatus(500);
+      }
     } else {
-      userId = 'guest123456789abcdefghkl';
+      userId = guestId;
     }
 
     myAcl.isAllowed(userId, req.baseUrl + req.route.path, req.method, (err, permissions) => {

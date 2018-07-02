@@ -38,6 +38,7 @@
     "express-session": "^1.15.6",
     "file-loader": "^1.1.11",
     "heroku": "^7.0.35",
+    "jsonwebtoken": "^8.3.0",
     "jwt-simple": "^0.5.1",
     "mongodb": "^2.2.31",
     "mongoose": "^4.13.12",
@@ -66,7 +67,7 @@
   },
   "scripts": {
     "server": "nodemon --delay 100000 --exec babel-node app.js",
-    "react": "",
+    "react": "webpack --watch",
     "start": "concurrently \"npm run react\" \"npm run server\""
   },
   "devDependencies": {

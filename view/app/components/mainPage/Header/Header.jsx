@@ -134,7 +134,7 @@ export default connect(
   dispatch => ({
 
     onLogout: () => {
-      axios.get('/users/logout')
+      axios.get('/logout')
         .then(() => {
           dispatch({ type: 'REMOVE_SESSION' });
         })

@@ -127,7 +127,7 @@ export default connect(
 
   dispatch => ({
     onLogin: (data, _this) => {
-      axios.post('/users/login', data)
+      axios.post('/login', data)
         .then((response) => {
           if (!response.data.message) {
             dispatch({
