@@ -66,9 +66,8 @@
     "webpack-stream": "^4.0.0"
   },
   "scripts": {
-    "server": "nodemon --delay 100000 --exec babel-node app.js",
-    "react": "webpack --watch",
-    "start": "concurrently \"npm run react\" \"npm run server\""
+    "server": "nodemon --delay 10000000 --exec babel-node app.js",
+    "start": "npm run server"
   },
   "devDependencies": {
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
