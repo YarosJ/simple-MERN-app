@@ -1,7 +1,17 @@
 import deasyncPromise from 'deasync-promise';
 
+/**
+ * Configure ACL and seed DB for default roles
+ * @param myAcl
+ */
+
 export default function (myAcl) {
   const debugACL = require('debug')('acl');
+
+  /**
+   * Default permissions for roles
+   * @type {*[]}
+   */
 
   const allows = [
     {
@@ -20,11 +30,11 @@ export default function (myAcl) {
       roles: ['admin'],
       allows: [
         {
-          resources: ['/roles/:role/rolePermissions'], permissions: ['GET'],
+          resources: ['/roles/:role/permissions'], permissions: ['GET'],
         },
         {
-          resources: ['/users/:id', '/testimonials/', '/testimonials/:id',
-            '/roles/', '/roles/:role/resources/:resource/permissions/:permission'],
+          resources: ['/users/:id', '/testimonials/', '/testimonials/:id', '/roles/',
+            '/roles/:role/resources/:resource', '/roles/:role/resources/:resource/permissions/:permission'],
           permissions: ['PUT', 'DELETE', 'POST'],
         },
       ],
@@ -36,6 +46,10 @@ export default function (myAcl) {
       ],
     },
   ];
+
+  /**
+   * Add default permissions to roles and they inheritance
+   */
 
   myAcl.allow(allows, (err) => {
     debugACL('Structure of ACL:');
@@ -52,6 +66,10 @@ export default function (myAcl) {
 
     debugACL('ACL successfully configured!');
   });
+
+  /**
+   * Set id for guest role (for acl middleware)
+   */
 
   myAcl.addUserRoles('guest123456789abcdefghkl', 'guest', (err) => {
     if (err) debugACL(err);

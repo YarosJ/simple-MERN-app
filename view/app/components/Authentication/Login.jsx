@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import axios from 'axios/index';
 import { toast } from 'react-toastify';
 import validateField from '../../../../helpers/Validate';
-import 'react-toastify/dist/ReactToastify.css';
 import styles from './Auth.less';
 
 export class Login extends Component {
@@ -129,21 +128,17 @@ export default connect(
     onLogin: (data, _this) => {
       axios.post('/login', data)
         .then((response) => {
-          if (!response.data.message) {
-            dispatch({
-              type: 'SET_SESSION',
-              payload: {
-                email: response.data.email,
-                role: response.data.role,
-              },
-            });
-            _this.setState({ redirect: true });
-          } else {
-            toast.error(response.data.message);
-          }
+          dispatch({
+            type: 'SET_SESSION',
+            payload: {
+              email: response.data.email,
+              role: response.data.role,
+            },
+          });
+          _this.setState({ redirect: true });
         })
         .catch((error) => {
-          console.log(error);
+          error.response.data.message ? toast.error(error.response.data.message) : toast.error('Something went wrong...');
         });
     },
   }),

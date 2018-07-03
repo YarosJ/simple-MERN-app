@@ -5,38 +5,38 @@ import slide4 from '../../images/slide7.jpg';
 import slide5 from '../../images/slide8.jpg';
 
 const initialState = [
-    {
-        image: slide1,
-        text: "Lorem ipsum..."
-    },
-    {
-        image: slide2,
-        text: "Lorem ipsum..."
-    },
-    {
-        image: slide3,
-        text: "Lorem ipsum..."
-    },
-    {
-        image: slide4,
-        text: "Lorem ipsum..."
-    },
-    {
-        image: slide5,
-        text: "Lorem ipsum..."
-    },
+  {
+	image: slide1,
+	text: "Lorem ipsum..."
+  },
+  {
+	image: slide2,
+	text: "Lorem ipsum..."
+  },
+  {
+	image: slide3,
+	text: "Lorem ipsum..."
+  },
+  {
+	image: slide4,
+	text: "Lorem ipsum..."
+  },
+  {
+	image: slide5,
+	text: "Lorem ipsum..."
+  },
 ];
 
 export default function slides(state = initialState, action) {
 
-    switch (action.type) {
-        case 'ADD_SLIDE':
-            return [
-                ...state,
-                action.payload
-            ];
+  switch (action.type) {
+	case 'ADD_SLIDE':
+	  return [
+		...state,
+		action.payload
+	  ];
 
-        default:
-            return state;
-    }
+	default:
+	  return state;
+  }
 }

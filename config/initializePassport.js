@@ -3,6 +3,12 @@ import passport from '../helpers/authentication/Auth';
 
 const MongoStore = require('connect-mongo')(session);
 
+/**
+ * Configure a passport
+ * @param app
+ * @param mongoose
+ */
+
 export default (app, mongoose) => {
   app.use(session({
     secret: 'rbvuhbrfhjce',

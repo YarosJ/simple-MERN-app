@@ -14,6 +14,10 @@ passport.deserializeUser((id, done) => {
   });
 });
 
+/**
+ * Configure passport for local strategy
+ */
+
 export default passport.use(new LocalStrategy(
   { usernameField: 'email' },
   ((email, password, done) => {

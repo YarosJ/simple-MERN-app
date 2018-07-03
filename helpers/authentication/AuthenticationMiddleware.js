@@ -2,6 +2,12 @@ import jwt from 'jsonwebtoken';
 
 const guestId = 'guest123456789abcdefghkl';
 
+/**
+ * Authorization by session or JWT, depending of the header "Authorization"
+ * @param myAcl
+ * @returns {Function}
+ */
+
 export default function authenticationMiddleware(myAcl) {
   return (req, res, next) => {
     let userId;
@@ -14,8 +20,11 @@ export default function authenticationMiddleware(myAcl) {
       } catch (err) {
         userId = guestId;
         if (err.name === 'TokenExpiredError' || err.name === 'JsonWebTokenError') {
-          res.send(err.message);
-        } else res.sendStatus(500);
+          res.status(400).json(err.message);
+        } else {
+          res.status(500).json(err);
+        }
+        return;
       }
     } else {
       userId = guestId;
@@ -24,7 +33,7 @@ export default function authenticationMiddleware(myAcl) {
     myAcl.isAllowed(userId, req.baseUrl + req.route.path, req.method, (err, permissions) => {
       if (permissions) {
         next();
-      } else if (!res.statusCode) res.sendStatus(403);
+      } else res.sendStatus(401);
     });
   };
 }

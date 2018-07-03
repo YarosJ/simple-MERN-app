@@ -9,6 +9,14 @@ class UsersController {
     this.User = mongoose.model('User1');
   }
 
+  /**
+   * Get all users from DB and roles for
+   * users from access control list
+   * @param req
+   * @param res
+   * @param acl (Access control list)
+   */
+
   getUsers(req, res, acl) {
     this.User.find().then((data) => {
       try {
@@ -16,13 +24,21 @@ class UsersController {
           role: deasyncPromise(acl.userRoles(user._id.toString()))[0],
           ...user._doc,
         }));
-        res.send(result);
+        res.status(200).json(result);
       } catch (err) {
         debugControllers(err);
-        res.send({ message: 'Server error' });
+        res.status(500).json(err);
       }
     });
   }
+
+  /**
+   * Create user by data from request
+   * and add default role for user
+   * @param req
+   * @param res
+   * @param acl (Access control list)
+   */
 
   createUser(req, res, acl) {
     this.User.count().exec((err, count) => {
@@ -37,16 +53,25 @@ class UsersController {
         acl.addUserRoles(data._id.toString(), count === 0 ? 'superAdmin' : data.role, (err) => {
           if (err) {
             debugControllers(err);
-            res.send({ message: 'Server error' });
+            res.status(500).json(err);
           }
-          res.send({ email: data.email, role: data.role });
+          res.status(201).json({ email: data.email, role: data.role });
         });
       }).catch((err) => {
         debugControllers(err);
-        res.send({ message: 'This user is already registered' });
+        res.status(409).json({ message: 'This user is already registered' });
       });
     });
   }
+
+  /**
+   * Update user from request (except role)
+   * or update user role if role exist in req.body
+   * @param req
+   * @param res
+   * @param acl (Access control list)
+   * @returns {Promise<void>}
+   */
 
   async updateUser(req, res, acl) {
     const userId = req.params.id;
@@ -56,21 +81,35 @@ class UsersController {
         await acl.removeUserRoles(userId, roles);
         await acl.addUserRoles(req.params.id, req.body.role);
 
-        res.send({
+        res.status(200).json({
           role: req.body.role,
           _id: userId,
           email: req.body.email,
           createdAt: req.body.createdAt,
         });
       } catch (err) {
-        debugControllers(err);
-        res.send({ message: 'Server error' });
+        if (err.code === 9) {
+          res.sendStatus(404);
+        } else {
+          debugControllers(err);
+          res.status(500).json(err);
+        }
       }
     } else {
       this.User.findOneAndUpdate({ _id: userId }, req.body, { new: true })
-        .then(data => res.send(data));
+        .then((data) => {
+          data ? res.status(200).json(data) : res.sendStatus(404);
+        }).catch(err => res.status(500).json(err));
     }
   }
+
+  /**
+   * Delete user by id if user not superAdmin
+   * @param req
+   * @param res
+   * @param acl (Access control list)
+   * @returns {Promise<void>}
+   */
 
   async deleteUser(req, res, acl) {
     const userId = req.params.id;
@@ -78,11 +117,12 @@ class UsersController {
       const roles = await acl.userRoles(userId);
       if (roles.indexOf('superAdmin') === -1) {
         if (roles.length > 0) await acl.removeUserRoles(userId, roles);
-        this.User.findById(userId).then(user => user.remove().then(() => res.sendStatus(200)));
-      } else res.send({ message: "SuperAdmin can't be deleted" });
+        this.User.findById(userId).then(
+          user => user ? user.remove().then(() => res.sendStatus(200)) : res.sendStatus(404));
+      } else res.status(403).json({ message: "SuperAdmin can't be deleted" });
     } catch (err) {
       debugControllers(err);
-      res.send({ message: 'Server error' });
+      res.status(500).json(err);
     }
   }
 }

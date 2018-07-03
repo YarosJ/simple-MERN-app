@@ -66,9 +66,8 @@ export default connect(
             type: 'ADD_PERMISSION_TO_ROLE',
             payload: response.data,
           });
-        })
-        .catch((error) => {
-          console.log(error);
+        }).catch((error) => {
+          error.response.data.message ? toast.error(error.response.data.message) : toast.error('Something went wrong...');
         });
     },
 
@@ -76,11 +75,10 @@ export default connect(
       const resource = title.replace(new RegExp('/', 'g'), '%2F');
       axios.delete(`/roles/${role}/resources/${resource}/permissions/${method}`)
         .then((response) => {
-          dispatch({ type: 'REMOVE_PERMISSION_FROM_ROLE', payload: response.data });
+          dispatch({ type: 'REMOVE_PERMISSION_FROM_ROLE', payload: {permission: method, resource: title} });
           toast.success('Success!');
-        })
-        .catch((error) => {
-          console.log(error);
+        }).catch((error) => {
+          error.response.data.message ? toast.error(error.response.data.message) : toast.error('Something went wrong...');
         });
     },
   }),

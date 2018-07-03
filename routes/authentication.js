@@ -1,6 +1,13 @@
 import express from 'express';
 import AuthenticationController from '../controllers/authenticationController';
 
+/**
+ * Authentication route
+ * @param acl (Access control list for login action)
+ * @returns {Router|router|*}
+ * @private
+ */
+
 const _router = (acl) => {
   const router = express.Router();
   const controller = new AuthenticationController();

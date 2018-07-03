@@ -78,38 +78,29 @@ export default connect(
     onGetUsers: () => {
       axios.get('/users')
         .then((response) => {
-          if (!response.data.message) {
-            dispatch({ type: 'SET_USERS', payload: response.data });
-          } else toast.error(response.data.message);
+          dispatch({ type: 'SET_USERS', payload: response.data });
         }).catch((error) => {
-          console.log(error);
+          error.response.data.message ? toast.error(error.response.data.message) : toast.error('Something went wrong...');
         });
     },
 
     onUpdateUser: (role, _id) => {
       axios.put(`/users/${_id}`, role)
         .then((response) => {
-          if (!response.data.message) {
-            dispatch({ type: 'UPDATE_USER', payload: response.data });
-          } else toast.error(response.data.message);
-        })
-        .catch((error) => {
-          console.log(error);
+          dispatch({ type: 'UPDATE_USER', payload: response.data });
+        }).catch((error) => {
+          error.response.data.message ? toast.error(error.response.data.message) : toast.error('Something went wrong...');
         });
     },
 
     onDeleteUser: (_id, id) => {
       axios.delete(`/users/${_id}`)
         .then((response) => {
-          if (response.data === 'OK') {
-            dispatch({ type: 'REMOVE_USER', payload: id });
-            toast.success('Success!');
-          } else if (response.data.message) {
-            toast.error(response.data.message);
-          }
+          dispatch({ type: 'REMOVE_USER', payload: id });
+          toast.success('Success!');
         })
         .catch((error) => {
-          console.log(error);
+          error.response.data.message ? toast.error(error.response.data.message) : toast.error('Something went wrong...');
         });
     },
   }),

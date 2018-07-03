@@ -2,6 +2,13 @@ import express from 'express';
 import TestimonialsController from '../controllers/testimonialsController';
 import authenticationMiddleware from '../helpers/authentication/AuthenticationMiddleware';
 
+/**
+ * Testimonials route
+ * @param acl (Access control list for authentication middleware)
+ * @returns {Router|router|*}
+ * @private
+ */
+
 const _router = (acl) => {
   const router = express.Router();
   const controller = new TestimonialsController();

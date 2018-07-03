@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom';
 import Permission from './Permission.jsx';
 import AddPermissionModal from './AddPermissionModal';
 import styles from './PermissionsList.less';
+import { toast } from 'react-toastify';
 
 class PermissionsList extends Component {
   constructor(props) {
@@ -87,16 +88,16 @@ export default connect(
         .then((response) => {
           dispatch({ type: 'SET_ROLES', payload: response.data });
         }).catch((error) => {
-          console.log(error);
+          error.response.data.message ? toast.error(error.response.data.message) : toast.error('Something went wrong...');
         });
     },
 
     onGetPermissions: (role) => {
-      axios.get(`/roles/${role}/rolePermissions`)
+      axios.get(`/roles/${role}/permissions`)
         .then((response) => {
           dispatch({ type: 'SET_PERMISSIONS', payload: Object.entries(response.data) });
         }).catch((error) => {
-          console.log(error);
+          error.response.data.message ? toast.error(error.response.data.message) : toast.error('Something went wrong...');
         });
     },
   }),

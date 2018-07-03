@@ -1,7 +1,21 @@
+
+/**
+ * Get cookie by name from document cookies
+ * @param name
+ * @returns {string}
+ */
+
 export function getCookie(name) {
   const v = document.cookie.match(`(^|;) ?${name}=([^;]*)(;|$)`);
   return v ? v[2] : '';
 }
+
+/**
+ * Set cookie be name for a specified amount of time
+ * @param name
+ * @param value
+ * @param days
+ */
 
 export function setCookie(name, value, days) {
   const d = new Date();

@@ -4,6 +4,12 @@ import users from './users';
 import roles from './roles';
 import testimonials from './testimonials';
 
+/**
+ * Main route
+ * @param app (Application object)
+ * @param acl (Access control list)
+ */
+
 export default (app, acl) => {
   app.use('/', authentication(acl));
   app.use('/testimonials', testimonials(acl));

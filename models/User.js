@@ -5,6 +5,11 @@ const { Schema } = mongoose;
 const bcrypt = require('bcryptjs');
 const passportLocalMongoose = require('passport-local-mongoose');
 
+/**
+ * @description :: A model definition.  Represents a database for users.
+ * @type {*|Mongoose.Schema}
+ */
+
 const UserSchema = new Schema({
   email: {
     type: String,

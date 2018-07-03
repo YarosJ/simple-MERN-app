@@ -41,8 +41,7 @@ export class Register extends Component {
       this.props.onRegister({
         password: this.state.password,
         email: this.state.email,
-      });
-      this.setState({ redirect: true });
+      }, this);
     }
   }
 
@@ -102,15 +101,14 @@ export default connect(
   }),
 
   dispatch => ({
-    onRegister: (data) => {
-      axios.post('/users/register', data)
+    onRegister: (data, _this) => {
+      axios.post('/users', data)
         .then((response) => {
-          if (response.data.message) {
-            toast.error(response.data.message);
-          } else toast.success('Success. You may log in!');
+          _this.setState({ redirect: true });
+          toast.success('Success. You may log in!');
         })
         .catch((error) => {
-          console.log(error);
+          error.response.data.message ? toast.error(error.response.data.message) : toast.error('Something went wrong...');
         });
     },
   }),

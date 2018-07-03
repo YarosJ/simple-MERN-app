@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import ReactDOM from 'react-dom';
 import ModalWindow from '../../ModalWindow';
 import styles from './AddPermissionModal.less';
+import { toast } from 'react-toastify';
 
 class AddPermissionModal extends Component {
   constructor(props) {
@@ -89,7 +90,7 @@ export default connect(
           });
         })
         .catch((error) => {
-          console.log(error);
+          toast.error('Something went wrong...');
         });
     },
   }),

@@ -1,5 +1,10 @@
 const debugSocket = require('debug')('socket');
 
+/**
+ * Indicates the state of socket
+ * @param server
+ */
+
 export default (server) => {
   server.on('connection', (socket) => {
     debugSocket('Connecton established', '\n');
