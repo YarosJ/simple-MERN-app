@@ -17,8 +17,9 @@ export default (app, acl) => {
   app.use('/roles', roles(acl));
 
   app.use((req, res) => {
-    if (req.accepts('json')) {
-	  res.sendStatus(404);
+    const contentType = req.headers['content-type'];
+    if (contentType && contentType.indexOf('application/json') > -1) {
+      res.sendStatus(404);
     } else res.sendFile(path.join(__dirname, '//../view/index.html'));
   });
 };

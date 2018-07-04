@@ -11,7 +11,8 @@ class AuthenticationController {
   }
 
   /**
-   * Logging user action. Depending on the presence of "Authorization" header, log in user
+   * Logging user action.
+   * Depending on the presence of "Authorization" header, create JWT or session
    * @param req
    * @param res
    * @param next
