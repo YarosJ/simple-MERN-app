@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
-// const debug = require('debug');
-const debug = false;
+const debug = require('debug');
+// const debug = false;
 const BUILD_DIR = path.resolve(__dirname, 'view/public');
 const APP_DIR = path.resolve(__dirname, 'view/app');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');

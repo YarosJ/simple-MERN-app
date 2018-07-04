@@ -16,5 +16,9 @@ export default (app, acl) => {
   app.use('/users', users(acl));
   app.use('/roles', roles(acl));
 
-  app.get('*', (req, res) => res.sendFile(path.join(__dirname, '//../view/index.html')));
+  app.use((req, res) => {
+    if (req.accepts('json')) {
+	  res.sendStatus(404);
+    } else res.sendFile(path.join(__dirname, '//../view/index.html'));
+  });
 };

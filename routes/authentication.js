@@ -2,7 +2,7 @@ import express from 'express';
 import AuthenticationController from '../controllers/authenticationController';
 
 /**
- * Authentication route
+ * authentication route
  * @param acl (Access control list for login action)
  * @returns {Router|router|*}
  * @private

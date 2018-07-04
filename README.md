@@ -74,11 +74,11 @@ Cache-Control: no-cache
 Postman-Token: <Postman token>
 ```
 
-Test the api for the resource testimonials:
+__Test the api for the resource testimonials:__
 
-Get all testimonials: `http://solv-express.herokuapp.com/testimonials`
+- Get all testimonials: `http://solv-express.herokuapp.com/testimonials`
 
-Create testimonial: `http://solv-express.herokuapp.com/testimonials/`
+- Create testimonial: `http://solv-express.herokuapp.com/testimonials/`
 
 ```sh
 POST /testimonials/ HTTP/1.1
@@ -96,7 +96,7 @@ Postman-Token: <Postman token>
 }
 ```
 
-Update testimonial: `http://solv-express.herokuapp.com/testimonials/:id`
+- Update testimonial: `http://solv-express.herokuapp.com/testimonials/:id`
 
 ```sh
 PUT /testimonials/:id HTTP/1.1
@@ -112,7 +112,7 @@ Postman-Token: <Postman token>
 }
 ```
 
-Delete testimonial: `http://solv-express.herokuapp.com/testimonials/:id`
+- Delete testimonial: `http://solv-express.herokuapp.com/testimonials/:id`
 
 ```sh
 DELETE /testimonials/:id HTTP/1.1
@@ -123,9 +123,9 @@ Postman-Token: <Postman token>
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
 ```
 
-Test the api for the resource users:
+__Test the api for the resource users:__
 
-Get all users: `http://solv-express.herokuapp.com/users`
+- Get all users: `http://solv-express.herokuapp.com/users`
 
 ```sh
 GET /users HTTP/1.1
@@ -137,7 +137,7 @@ Cache-Control: no-cache
 Postman-Token: <Postman token>
 ```
 
-Create user: `http://solv-express.herokuapp.com/users`
+- Create user: `http://solv-express.herokuapp.com/users`
 
 ```sh
 POST /users HTTP/1.1
@@ -153,7 +153,7 @@ Postman-Token: <Postman token>
 }
 ```
 
-Update user: `http://solv-express.herokuapp.com/users/:id`
+- Update user: `http://solv-express.herokuapp.com/users/:id`
 
 ```sh
 PUT /users/:id HTTP/1.1
@@ -169,7 +169,7 @@ Postman-Token: <Postman token>
 }
 ```
 
-Delete user: `http://solv-express.herokuapp.com/users/:id`
+- Delete user: `http://solv-express.herokuapp.com/users/:id`
 
 ```sh
 DELETE /users/:id HTTP/1.1
@@ -180,7 +180,7 @@ Cache-Control: no-cache
 Postman-Token: <Postman token>
 ```
 
-Test the api for the resource roles:
+__Test the api for the resource roles:__
 
 
 - Get all roles: `http://solv-express.herokuapp.com/roles`

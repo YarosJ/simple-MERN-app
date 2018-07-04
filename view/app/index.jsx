@@ -15,8 +15,8 @@ import Header from './components/mainPage/Header/Header';
 import { Services, ServicesTitle } from './components/mainPage/Services/Services';
 import Works from './components/mainPage/Works/Works';
 import Offers from './components/mainPage/Offers/Offers';
-import Login from './components/Authentication/Login';
-import Register from './components/Authentication/Register';
+import Login from './components/authentication/Login';
+import Register from './components/authentication/Register';
 import AdminPanel from './components/adminPanel/AdminPanel';
 import AdminToolbar from './components/adminPanel/AdminToolbar/AdminToolbar';
 
@@ -87,8 +87,9 @@ ReactDOM.render(
           <Route path="/admin" render={props => <AdminPanel {...props} {...{ store }} />} />
         </div>
 
+		<ToastContainer />
+
         <Footer />
-        <ToastContainer />
       </div>
     </Provider>
   </BrowserRouter>,
