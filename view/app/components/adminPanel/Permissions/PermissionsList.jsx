@@ -12,7 +12,7 @@ class PermissionsList extends Component {
     super(props);
     this.state = {
       permissions: [],
-      role: null,
+      role: 'guest',
     };
   }
 
@@ -33,9 +33,9 @@ class PermissionsList extends Component {
     this.props.onGetPermissions(role);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.onGetRoles();
-    this.props.onGetPermissions('guest');
+    this.props.onGetPermissions(this.state.role);
   }
 
   render() {

@@ -32,9 +32,7 @@ class AdminPanel extends Component {
           <div>
             <Route exact path="/admin/users" component={UsersList} />
             <Route exact path="/admin/employees" component={TestimonialsCarousel} />
-            <Route
-              exact
-              path="/admin/permissions"
+            <Route exact path="/admin/permissions"
               render={props => <PermissionsList {...props} {...{ store: this.props.store }} />}
             />
           </div>

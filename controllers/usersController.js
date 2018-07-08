@@ -1,8 +1,7 @@
 import mongoose from 'mongoose';
 import '../models/Testimonial';
 import deasyncPromise from 'deasync-promise';
-
-const debugControllers = require('debug')('controllers');
+import handleError from '../helpers/HandleError';
 
 class UsersController {
   constructor() {
@@ -18,7 +17,7 @@ class UsersController {
    */
 
   getUsers(req, res, acl) {
-    this.User.find().then((data) => {
+    this.User.find({}, { role: 1, createdAt: 1, email: 1 }).then((data) => {
       try {
         const result = data.map(user => ({
           role: deasyncPromise(acl.userRoles(user._id.toString()))[0],
@@ -26,8 +25,7 @@ class UsersController {
         }));
         res.status(200).json(result);
       } catch (err) {
-        debugControllers(err);
-        res.status(500).json(err);
+        return handleError(err, res, 'user');
       }
     });
   }
@@ -51,16 +49,10 @@ class UsersController {
       user.save().then((data) => {
         data.role = 'user';
         acl.addUserRoles(data._id.toString(), count === 0 ? 'superAdmin' : data.role, (err) => {
-          if (err) {
-            debugControllers(err);
-            res.status(500).json(err);
-          }
+          if (err) return handleError(err, 'user');
           res.status(201).json({ email: data.email, role: data.role });
         });
-      }).catch((err) => {
-        debugControllers(err);
-        res.status(409).json({ message: 'This user is already registered' });
-      });
+      }).catch((err) => handleError(err, res, 'user'));
     });
   }
 
@@ -75,31 +67,24 @@ class UsersController {
 
   async updateUser(req, res, acl) {
     const userId = req.params.id;
-    if (req.body.role) {
-      try {
+    const { role } = req.body;
+    try {
+      const data = await this.User.findOneAndUpdate({ _id: userId }, req.body, { new: true });
+      if (role) {
         const roles = await acl.userRoles(userId);
         await acl.removeUserRoles(userId, roles);
-        await acl.addUserRoles(req.params.id, req.body.role);
-
-        res.status(200).json({
-          role: req.body.role,
-          _id: userId,
-          email: req.body.email,
-          createdAt: req.body.createdAt,
-        });
-      } catch (err) {
-        if (err.code === 9) {
-          res.sendStatus(404);
-        } else {
-          debugControllers(err);
-          res.status(500).json(err);
-        }
+        await acl.addUserRoles(req.params.id, role);
+        data.role = role;
       }
-    } else {
-      this.User.findOneAndUpdate({ _id: userId }, req.body, { new: true })
-        .then((data) => {
-          data ? res.status(200).json(data) : res.sendStatus(404);
-        }).catch(err => res.status(500).json(err));
+      res.status(200).json({
+        _id: data._id,
+        email: data.email,
+        role: data.role,
+        hashedPassword: data.hashedPassword,
+        createdAt: data.createdAt,
+      });
+    } catch (err) {
+      return handleError(err, res, 'user');
     }
   }
 
@@ -117,12 +102,13 @@ class UsersController {
       const roles = await acl.userRoles(userId);
       if (roles.indexOf('superAdmin') === -1) {
         if (roles.length > 0) await acl.removeUserRoles(userId, roles);
-        this.User.findById(userId).then(
-          user => user ? user.remove().then(() => res.sendStatus(200)) : res.sendStatus(404));
+        const user = await this.User.findById(userId);
+        user
+          ? user.remove().then(() => res.status(200).json({ message: 'Success' }))
+          : res.status(404).json({ message: 'This user is not found' });
       } else res.status(403).json({ message: "SuperAdmin can't be deleted" });
     } catch (err) {
-      debugControllers(err);
-      res.status(500).json(err);
+      return handleError(err, res, 'user');
     }
   }
 }

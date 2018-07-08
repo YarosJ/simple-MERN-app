@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Route, BrowserRouter } from 'react-router-dom';
+import { Route, BrowserRouter, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import { ToastContainer } from 'react-toastify';
@@ -19,6 +19,7 @@ import Login from './components/authentication/Login';
 import Register from './components/authentication/Register';
 import AdminPanel from './components/adminPanel/AdminPanel';
 import AdminToolbar from './components/adminPanel/AdminToolbar/AdminToolbar';
+import NotFound from './components/errors/NotFound';
 
 const store = createStore(reducer);
 
@@ -27,67 +28,87 @@ ReactDOM.render(
     <Provider store={store}>
       <div>
         <Route path="/" component={Header} />
+          <Switch>
 
-        {
-            /**
-             * Home group of routes by path  '/'
-             */
-        }
+            {
+                /**
+                 * Home group of routes by path  '/'
+                 */
+            }
 
-        <Route exact path="/" component={Slider} />
-        <Route exact path="/" component={ServicesTitle} />
-        <Route exact path="/" component={Services} />
-        <Route exact path="/" component={Works} />
-        <Route exact path="/" component={Offers} />
-        <Route exact path="/" component={TestimonialsCarousel} />
+            <Route exact path="/" render={() =>
+              <div>
+                <Slider/>
+                <ServicesTitle/>
+                <Services/>
+                <Works/>
+                <Offers/>
+                <TestimonialsCarousel/>
+              </div>
+            } />
 
-        {
-            /**
-             * Portfolio group of routes by path  '/portfolio'
-             */
-        }
+            {
+                /**
+                 * Portfolio group of routes by path  '/portfolio'
+                 */
+            }
 
-        <Route exact path="/portfolio" component={Works} />
-        <Route exact path="/portfolio" component={Services} />
+            <Route exact path="/portfolio" render={() =>
+              <div>
+                <Works/>
+                <Services/>
+              </div>
+            } />
 
-        {
-            /**
-             * About group of routes by path  '/about'
-             */
-        }
+            {
+                /**
+                 * About group of routes by path  '/about'
+                 */
+            }
 
-        <Route exact path="/about" component={Offers} />
-        <Route exact path="/about" render={() => <br />} />
+            <Route exact path="/about" render={() =>
+              <div>
+                <Offers/>
+                <br />
+              </div>
+            } />
 
-        {
-            /**
-             * Contact page route
-             */
-        }
+            {
+                /**
+                 * Contact page route
+                 */
+            }
 
-        <Route exact path="/contact" component={TestimonialsCarousel} />
+            <Route exact path="/contact" component={TestimonialsCarousel} />
 
-        {
-            /**
-             * Login/Register routes
-             */
-        }
+            {
+                /**
+                 * Login/Register routes
+                 */
+            }
 
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/register" component={Register} />
+            <Route exact path="/login" component={Login} />
 
-        {
-            /**
-             * Admin panel group of routes by path  '/admin'
-             */
-        }
+            <Route exact path="/register" component={Register} />
 
-        <div style={{display: 'flex'}}>
-          <Route path="/admin" component={AdminToolbar} />
-          <Route path="/admin" render={props => <AdminPanel {...props} {...{ store }} />} />
-        </div>
+            {
+                /**
+                 * Admin panel group of routes by path  '/admin'
+                 */
+            }
 
-		<ToastContainer />
+            <Route path="/admin" render={props =>
+              <div style={{display: 'flex'}}>
+                <AdminToolbar/>
+                <AdminPanel {...props} {...{ store }} />
+              </div>
+            } />
+
+            <Route path='*' exact={true} component={NotFound} />
+
+          </Switch>
+
+		    <ToastContainer />
 
         <Footer />
       </div>

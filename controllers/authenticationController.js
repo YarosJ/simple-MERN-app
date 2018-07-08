@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import '../models/User';
 import passport from 'passport/lib/index';
 import jwt from 'jsonwebtoken';
+import handleError from '../helpers/HandleError';
 
 const debugControllers = require('debug')('controllers');
 
@@ -11,8 +12,8 @@ class AuthenticationController {
   }
 
   /**
-   * Logging user action.
-   * Depending on the presence of "Authorization" header, create JWT or session
+   * Log in user action.
+   * Depending on the presence of "Authorization" header, create JWT or use session
    * @param req
    * @param res
    * @param next
@@ -39,8 +40,7 @@ class AuthenticationController {
           });
         }
       } catch (err) {
-        debugControllers(err);
-        res.status(500).json(err);
+        return handleError(err, res, 'authorization');
       }
     } else {
       passport.authenticate('local', (err, user, info) => {
@@ -72,10 +72,10 @@ class AuthenticationController {
       res.status(200).json(jwt.sign({ _id: userId }, 'secret', { expiresIn: 60 * 15 }));
     } catch (err) {
       if (err.name === 'TokenExpiredError' || err.name === 'JsonWebTokenError') {
-        res.status(400).json(err.message);
+        res.status(400).json(err);
       } else {
         debugControllers(err);
-        res.status(500).json(err);
+        res.status(500).json({ message: 'Server Error.' });
       }
     }
   }
@@ -91,7 +91,7 @@ class AuthenticationController {
       req.logout();
       res.redirect('/');
     } else {
-      res.sendStatus(200);
+      res.status(200).json({ message: 'Success log out!'});
     }
   }
 }

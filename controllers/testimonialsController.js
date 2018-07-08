@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
 import '../models/Testimonial';
-
-const debugControllers = require('debug')('controllers');
+import handleError from '../helpers/HandleError';
 
 class TestimonialsController {
   constructor() {
@@ -15,11 +14,9 @@ class TestimonialsController {
    */
 
   getTestimonials(req, res) {
-    this.Testimonial.find().then(data => res.status(200).json(data))
-	  .catch((err) => {
-		debugControllers(err);
-		res.status(500).json(err);
-	  });
+    this.Testimonial.find({}, { title: 1, createdAt: 1, body: 1, autor: 1, gender: 1 })
+      .then(data => res.status(200).json(data))
+      .catch(err => handleError(err, res, 'testimonial'));
   }
 
   /**
@@ -38,10 +35,7 @@ class TestimonialsController {
     });
 
     testimonial.save().then(data => res.status(201).json(data))
-      .catch((err) => {
-        debugControllers(err);
-        res.status(500).json(err);
-      });
+      .catch(err => handleError(err, res, 'testimonial'));
   }
 
   /**
@@ -53,12 +47,11 @@ class TestimonialsController {
   updateTestimonial(req, res) {
     this.Testimonial.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
       .then((data) => {
-        data ? res.status(200).json(data) : res.sendStatus(404);
+        data
+          ? res.status(200).json(data)
+          : res.status(404).json({ message: "Testimonial by this id doesn't exist" });
       })
-      .catch((err) => {
-        debugControllers(err);
-        res.status(500).json(err);
-      });
+      .catch(err => handleError(err, res, 'testimonial'));
   }
 
   /**
@@ -69,11 +62,13 @@ class TestimonialsController {
 
   deleteTestimonial(req, res) {
     this.Testimonial.findById(req.params.id).remove()
-	  .then(data => res.status(200).json(data))
-	  .catch((err) => {
-	  	debugControllers(err);
-	  	res.status(500).json(err);
-	  });
+      .then(data => {
+        if (data.result.n === 1 && data.result.ok === 1) {
+          res.status(200).json({ message: 'Success' });
+        } else if (data.result.n === 0) {
+          res.status(404).json({ message: "Testimonial by this id doesn't exist" });
+        } else res.status(500).json({ message: 'Server error' });
+      }).catch(err => handleError(err, res, 'testimonial'));
   }
 }
 

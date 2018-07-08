@@ -37,6 +37,8 @@ Admin password: `1111111`
 Test REST api (the example uses a Postman):
 ------------
 
+__Full api documentation here: `https://yarosj.github.io`__
+
 Api of this application supports the JWT (stateless) and session for authorisation.
 
 Sessions will not be considered because they are not stateless.
@@ -228,17 +230,6 @@ Postman-Token: <Postman token>
 
 ```sh
 DELETE /roles/:role/resources/:resource/permissions/:permission HTTP/1.1
-Host: <Host>
-Authorization: <Access token>
-Content-Type: application/json
-Cache-Control: no-cache
-Postman-Token: <Postman token>
-```
-
-- Delete role resource: `http://solv-express.herokuapp.com/roles/:role/resources/:resource`
-
-```sh
-DELETE /roles/:role/resources/:resource HTTP/1.1
 Host: <Host>
 Authorization: <Access token>
 Content-Type: application/json

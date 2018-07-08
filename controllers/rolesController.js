@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
 import '../models/Role';
-
-const debugControllers = require('debug')('controllers');
+import handleError from '../helpers/HandleError';
 
 class RolesController {
   constructor(Acl) {
@@ -16,11 +15,9 @@ class RolesController {
    */
 
   getRoles(req, res) {
-    this.Role.find({}, { key: 1 }).then(data => res.status(200).json(data))
-      .catch((err) => {
-        debugControllers(err);
-        res.status(500).json(err);
-      });
+    this.Role.find({}, { key: 1, _id: 0 })
+      .then(data => res.status(200).json(data))
+      .catch(err => handleError(err, res, 'role'));
   }
 
   /**
@@ -32,8 +29,7 @@ class RolesController {
   getRolePermissions(req, res) {
     this.myAcl.whatResources(req.params.role, (err, resources) => {
       if (err) {
-        debugControllers(err);
-        res.status(500).json(err);
+        return handleError(err, res, 'role');
       } else res.status(200).json(resources);
     });
   }
@@ -47,8 +43,7 @@ class RolesController {
   addAllow(req, res) {
     this.myAcl.allow(req.body.role, req.body.resource, req.body.permission, (err) => {
       if (err) {
-        debugControllers(err);
-        res.status(500).json(err);
+        return handleError(err, res, 'role');
       } else res.status(200).json(req.body);
     });
   }
@@ -62,10 +57,9 @@ class RolesController {
   deleteAllow(req, res) {
     this.myAcl.removeAllow(req.params.role, req.params.resource, req.params.permission, (err) => {
       if (err) {
-        debugControllers(err);
-        res.status(500).json(err);
+        return handleError(err, res, 'allow');
       } else {
-        res.sendStatus(200);
+        res.status(200).json({ message: 'Success' });
       }
     });
   }
