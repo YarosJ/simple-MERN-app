@@ -31,13 +31,21 @@
  *      "expiredAt": "2018-07-03T17:39:59.000Z"
  *     }
  *
- * @apiError JsonWebTokenError Invalid JSON web token
+ * @apiError JsonWebTokenError Invalid token or token must be provided.
  * @apiErrorExample JsonWebTokenError:
- *      HTTP/1.1 400 Bad Request
+ *     HTTP/1.1 400 Bad Request
  *     {
- *      "name": "JsonWebTokenError",
- *      "message": "invalid signature"
+ *       "name": "JsonWebTokenError",
+ *       "message": "jwt must be provided"
  *     }
+ *
+ * @apiErrorExample JsonWebTokenError:
+ *     HTTP/1.1 400 Bad Request
+ *     {
+ *        "name": "JsonWebTokenError",
+ *        "message": "invalid token"
+ *     }
+ *
  */
 
 // ------------------------------------------------------------------------------------------

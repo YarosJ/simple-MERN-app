@@ -80,7 +80,6 @@ class UsersController {
         _id: data._id,
         email: data.email,
         role: data.role,
-        hashedPassword: data.hashedPassword,
         createdAt: data.createdAt,
       });
     } catch (err) {

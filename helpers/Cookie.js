@@ -11,7 +11,7 @@ export function getCookie(name) {
 }
 
 /**
- * Set cookie be name for a specified amount of time
+ * Set cookie by name for a specified amount of time
  * @param name
  * @param value
  * @param days

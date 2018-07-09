@@ -15,7 +15,7 @@ const _router = (acl) => {
 
   /**
    * @api {get} /roles
-   * Return all roles
+   * Get all roles
    * @apiName GetAll
    * @apiGroup Roles
    * @apiVersion 1.0.0
@@ -54,13 +54,13 @@ const _router = (acl) => {
 
   /**
    * @api {get} /roles/:role/permissions
-   * Return permissions of role
+   * Get all permissions of role
    * @apiName GetRolePermissions
    * @apiGroup Roles
    * @apiVersion 1.0.0
    * @apiPermission depends on the permissions settings in the admin.
    *
-   * @apiSuccess {Array} Permissions Role list of Permissions.
+   * @apiSuccess {Array} Permissions Permissions list of Role.
    * @apiSuccessExample SuccessResponse:
    *     HTTP/1.1 200 OK
    *    {
@@ -101,6 +101,7 @@ const _router = (acl) => {
    * @apiName Create
    * @apiGroup Roles
    * @apiVersion 1.0.0
+   * @apiPermission depends on the permissions settings in the admin.
    *
    * @apiParamExample {String} Request-Example:
    *     {
@@ -120,6 +121,15 @@ const _router = (acl) => {
    *           "DELETE"
    *       ]
    *     }
+   *
+   * @apiError ValidationError Invalid data.
+   * @apiErrorExample ValidationError:
+   *     HTTP/1.1 400 Bad Request--------------------------------------------------------------------------500??regexp
+   *     {
+   *      "message": "Empty field not allowed" -------now ---"An empty update path is not valid."---regexp
+   *     }
+   *
+   * @apiUse UnauthorizedError
    *
    * @apiError ServerError Server error.
    * @apiErrorExample ServerError:
@@ -155,7 +165,7 @@ const _router = (acl) => {
    * @apiErrorExample NotFound:
    *     HTTP/1.1 404 Not Found
    *     {
-   *      "message": "Not found"
+   *      "message": "Resource not found"
    *     }
    *
    * @apiError ServerError Server error.

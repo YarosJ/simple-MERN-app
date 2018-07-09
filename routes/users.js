@@ -15,7 +15,7 @@ const _router = (acl) => {
 
   /**
   * @api {get} /users
-  * Return all users
+  * Get all users
   * @apiName GetAll
   * @apiGroup Users
   * @apiVersion 1.0.0
@@ -83,7 +83,14 @@ const _router = (acl) => {
    * @apiErrorExample ConflictEmail:
    *     HTTP/1.1 409 Conflict
    *     {
-   *      "message": "This user is already registered"
+   *      "message": "This user is already exist"
+   *     }
+   *
+   * @apiError ValidationError Invalid data.
+   * @apiErrorExample ValidationError:
+   *     HTTP/1.1 400 Bad Request--------------------------------------------------------------------------500??regexp
+   *     {
+   *      "message": "User validation failed: email: Path `email` is required."
    *     }
    *
    * @apiError ServerError Server error.
@@ -117,15 +124,17 @@ const _router = (acl) => {
    * @apiSuccessExample SuccessResponse:
    *     HTTP/1.1 200 OK
    *     {
+   *      "_id": "5b41de3a2623e02a4d3f4334"
    *      "email": "example@ex.com",
    *      "role": "user"
+   *      "createdAt": "2018-07-08T09:49:46.359Z"
    *     }
    *
    * @apiError NotFound User by this id doesn't exist.
    * @apiErrorExample NotFound:
    *     HTTP/1.1 404 Not Found
    *     {
-   *      "message": "Not found"
+   *      "message": "This user is not found"
    *     }
    *
    * @apiError ServerError Server error.
@@ -158,11 +167,11 @@ const _router = (acl) => {
    *      "message": "Success"
    *     }
    *
-   * @apiError NotFound User by this id doesn't exist.
+   * @apiError NotFound User by this id is not found.
    * @apiErrorExample NotFound:
    *     HTTP/1.1 404 Not Found
    *     {
-   *      "message": "Not found"
+   *      "message": "This user is not found"
    *     }
    *
    * @apiError Forbidden Not allowed delete SuperAdmin.

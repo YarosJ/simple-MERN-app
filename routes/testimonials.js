@@ -15,7 +15,7 @@ const _router = (acl) => {
 
   /**
    * @api {get} /testimonials
-   * Return all testimonials
+   * Get all testimonials
    * @apiName GetAll
    * @apiGroup Testimonials
    * @apiVersion 1.0.0
@@ -73,12 +73,21 @@ const _router = (acl) => {
    *     HTTP/1.1 201 OK
    *     {
    *      "__v": 0,
-   *      "title": "TEST",
-   *      "body": "sdfsdf sfdgds",
-   *      "autor": "ASDF",
+   *      "title": "Test title",
+   *      "body": "Test body",
+   *      "autor": "Test autor",
    *      "createdAt": "2018-07-07T13:29:38.386Z",
    *      "_id": "5b40c0420d9d33574231ffc4",
    *      "gender": "male"
+   *     }
+   *
+   * @apiUse UnauthorizedError
+   *
+   * @apiError ValidationError Invalid data.
+   * @apiErrorExample ValidationError:
+   *     HTTP/1.1 400 Bad Request--------------------------------------------------------------------------500??regexp
+   *     {
+   *      "message": "Testimonial validation failed: title: Path `title` is required."
    *     }
    *
    * @apiError ServerError Server error.
@@ -125,7 +134,7 @@ const _router = (acl) => {
    * @apiErrorExample NotFound:
    *     HTTP/1.1 404 Not Found
    *     {
-   *      "message": "Not found"
+   *      "message": "Testimonial by this id doesn't exist"
    *     }
    *
    * @apiError ServerError Server error.
@@ -162,7 +171,7 @@ const _router = (acl) => {
    * @apiErrorExample NotFound:
    *     HTTP/1.1 404 Not Found
    *     {
-   *      "message": "Not found"
+   *      "message": "Testimonial by this id doesn't exist"
    *     }
    *
    * @apiError ServerError Server error.

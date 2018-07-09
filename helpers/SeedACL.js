@@ -30,10 +30,10 @@ export default function (myAcl) {
       roles: ['admin'],
       allows: [
         {
-          resources: ['/roles/:role/permissions'], permissions: ['GET'],
+          resources: ['/roles/:role/permissions', '/graphql'], permissions: ['GET'],
         },
         {
-          resources: ['/users/:id', '/testimonials/', '/testimonials/:id', '/roles/',
+          resources: ['/users/:id', '/testimonials/', '/testimonials/:id', '/roles/', '/graphql',
             '/roles/:role/resources/:resource', '/roles/:role/resources/:resource/permissions/:permission'],
           permissions: ['PUT', 'DELETE', 'POST'],
         },

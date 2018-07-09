@@ -23,7 +23,7 @@ const _router = (acl) => {
    *
    * @apiParamExample {json} Request-Example:
    *     {
-   *      "email": "admin@ex.com",
+   *      "email": "example@ex.com",
    *      "password": "1111111"
    *     }
    *
