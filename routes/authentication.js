@@ -84,6 +84,7 @@ const _router = (acl) => {
    *     }
    *
    * @apiUse UnauthorizedError
+   * @apiUse ServerError
    */
 
   router.post('/refresh', (req, res) => controller.refresh(req, res));

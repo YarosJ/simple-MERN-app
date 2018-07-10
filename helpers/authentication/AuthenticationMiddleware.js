@@ -20,7 +20,7 @@ export default function authenticationMiddleware(myAcl) {
       } catch (err) {
         userId = guestId;
         if (err.name === 'TokenExpiredError' || err.name === 'JsonWebTokenError') {
-          res.status(400).json(err.message);
+          res.status(400).json(err);
         } else {
           res.status(500).json(err);
         }
@@ -33,7 +33,7 @@ export default function authenticationMiddleware(myAcl) {
     myAcl.isAllowed(userId, req.baseUrl + req.route.path, req.method, (err, permissions) => {
       if (permissions) {
         next();
-      } else res.sendStatus(401);
+      } else res.status(401).json({ message: 'Unauthorized'});
     });
   };
 }

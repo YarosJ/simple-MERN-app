@@ -16,7 +16,7 @@ const _router = (acl) => {
   /**
    * @api {get} /testimonials
    * Get all testimonials
-   * @apiName GetAll
+   * @apiName List
    * @apiGroup Testimonials
    * @apiVersion 1.0.0
    *
@@ -42,13 +42,7 @@ const _router = (acl) => {
    *        },
    *     ]
    *
-   * @apiError ServerError Server error.
-   * @apiErrorExample ServerError:
-   *     HTTP/1.1 500 Internal Server Error
-   *     {
-   *      "message": "<Error>"
-   *     }
-   *
+   * @apiUse ServerError
    */
 
   router.get('/', authenticationMiddleware(acl), (req, res) => controller.getTestimonials(req, res));
@@ -59,6 +53,7 @@ const _router = (acl) => {
    * @apiName Create
    * @apiGroup Testimonials
    * @apiVersion 1.0.0
+   * @apiPermission depends on the permissions settings in the admin.
    *
    * @apiParamExample {String} Request-Example:
    *     {
@@ -85,25 +80,19 @@ const _router = (acl) => {
    *
    * @apiError ValidationError Invalid data.
    * @apiErrorExample ValidationError:
-   *     HTTP/1.1 400 Bad Request--------------------------------------------------------------------------500??regexp
+   *     HTTP/1.1 400 Bad Request
    *     {
    *      "message": "Testimonial validation failed: title: Path `title` is required."
    *     }
    *
-   * @apiError ServerError Server error.
-   * @apiErrorExample ServerError:
-   *     HTTP/1.1 500 Internal Server Error
-   *     {
-   *      "message": "<Error>"
-   *     }
-   *
+   * @apiUse ServerError
    */
 
   router.post('/', authenticationMiddleware(acl), (req, res) => controller.createTestimonial(req, res));
 
   /**
    * @api {put} /testimonials/:id
-   * Update testimonial by id
+   * Update testimonial
    * @apiName Update
    * @apiGroup Testimonials
    * @apiVersion 1.0.0
@@ -137,22 +126,15 @@ const _router = (acl) => {
    *      "message": "Testimonial by this id doesn't exist"
    *     }
    *
-   * @apiError ServerError Server error.
-   * @apiErrorExample ServerError:
-   *     HTTP/1.1 500 Internal Server Error
-   *     {
-   *      "message": "<Error>"
-   *     }
-   *
    * @apiUse UnauthorizedError
-   *
+   * @apiUse ServerError
    */
 
   router.put('/:id', authenticationMiddleware(acl), (req, res) => controller.updateTestimonial(req, res));
 
   /**
    * @api {delete} /testimonials/:id
-   * Delete testimonial by id
+   * Delete testimonial
    * @apiName Delete
    * @apiGroup Testimonials
    * @apiVersion 1.0.0
@@ -174,15 +156,8 @@ const _router = (acl) => {
    *      "message": "Testimonial by this id doesn't exist"
    *     }
    *
-   * @apiError ServerError Server error.
-   * @apiErrorExample ServerError:
-   *     HTTP/1.1 500 Internal Server Error
-   *     {
-   *      "message": "<Error>"
-   *     }
-   *
    * @apiUse UnauthorizedError
-   *
+   * @apiUse ServerError
    */
 
   router.delete('/:id', authenticationMiddleware(acl), (req, res) => controller.deleteTestimonial(req, res));

@@ -16,7 +16,7 @@ const _router = (acl) => {
   /**
   * @api {get} /users
   * Get all users
-  * @apiName GetAll
+  * @apiName List
   * @apiGroup Users
   * @apiVersion 1.0.0
   * @apiPermission depends on the permissions settings in the admin.
@@ -45,15 +45,8 @@ const _router = (acl) => {
   *       },
   *     ]
   *
-  * @apiError ServerError Server error.
-  * @apiErrorExample ServerError:
-  *     HTTP/1.1 500 Internal Server Error
-  *     {
-  *      "message": "<Error>"
-  *     }
-  *
   * @apiUse UnauthorizedError
-  *
+  * @apiUse ServerError
   */
 
   router.get('/', authenticationMiddleware(acl), (req, res) => controller.getUsers(req, res, acl));
@@ -88,25 +81,19 @@ const _router = (acl) => {
    *
    * @apiError ValidationError Invalid data.
    * @apiErrorExample ValidationError:
-   *     HTTP/1.1 400 Bad Request--------------------------------------------------------------------------500??regexp
+   *     HTTP/1.1 400 Bad Request
    *     {
    *      "message": "User validation failed: email: Path `email` is required."
    *     }
    *
-   * @apiError ServerError Server error.
-   * @apiErrorExample ServerError:
-   *     HTTP/1.1 500 Internal Server Error
-   *     {
-   *      "message": "<Error>"
-   *     }
-   *
+   * @apiUse ServerError
    */
 
   router.post('/', (req, res) => controller.createUser(req, res, acl));
 
   /**
    * @api {put} /users/:id
-   * Update user by id
+   * Update user
    * @apiName Update
    * @apiGroup Users
    * @apiVersion 1.0.0
@@ -137,22 +124,15 @@ const _router = (acl) => {
    *      "message": "This user is not found"
    *     }
    *
-   * @apiError ServerError Server error.
-   * @apiErrorExample ServerError:
-   *     HTTP/1.1 500 Internal Server Error
-   *     {
-   *      "message": "<Error>"
-   *     }
-   *
    * @apiUse UnauthorizedError
-   *
+   * @apiUse ServerError
    */
 
   router.put('/:id', authenticationMiddleware(acl), (req, res) => controller.updateUser(req, res, acl));
 
   /**
    * @api {delete} /users/:id
-   * Delete user by id
+   * Delete user
    * @apiName Delete
    * @apiGroup Users
    * @apiVersion 1.0.0
@@ -181,15 +161,8 @@ const _router = (acl) => {
    *      "message": "SuperAdmin can't be deleted"
    *     }
    *
-   * @apiError ServerError Server error.
-   * @apiErrorExample ServerError:
-   *     HTTP/1.1 500 Internal Server Error
-   *     {
-   *      "message": "<Error>"
-   *     }
-   *
    * @apiUse UnauthorizedError
-   *
+   * @apiUse ServerError
    */
 
   router.delete('/:id', authenticationMiddleware(acl), (req, res) => controller.deleteUser(req, res, acl));

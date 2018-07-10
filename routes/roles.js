@@ -16,7 +16,7 @@ const _router = (acl) => {
   /**
    * @api {get} /roles
    * Get all roles
-   * @apiName GetAll
+   * @apiName List
    * @apiGroup Roles
    * @apiVersion 1.0.0
    * @apiPermission depends on the permissions settings in the admin.
@@ -39,23 +39,16 @@ const _router = (acl) => {
    *       }
    *     ]
    *
-   * @apiError ServerError Server error.
-   * @apiErrorExample ServerError:
-   *     HTTP/1.1 500 Internal Server Error
-   *     {
-   *      "message": "<Error>"
-   *     }
-   *
    * @apiUse UnauthorizedError
-   *
+   * @apiUse ServerError
    */
 
   router.get('/', authenticationMiddleware(acl), (req, res) => roles.getRoles(req, res));
 
   /**
    * @api {get} /roles/:role/permissions
-   * Get all permissions of role
-   * @apiName GetRolePermissions
+   * Get permissions of role
+   * @apiName Get
    * @apiGroup Roles
    * @apiVersion 1.0.0
    * @apiPermission depends on the permissions settings in the admin.
@@ -82,22 +75,15 @@ const _router = (acl) => {
    *      ]
    *    }
    *
-   * @apiError ServerError Server error.
-   * @apiErrorExample ServerError:
-   *     HTTP/1.1 500 Internal Server Error
-   *     {
-   *      "message": "<Error>"
-   *     }
-   *
    * @apiUse UnauthorizedError
-   *
+   * @apiUse ServerError
    */
 
   router.get('/:role/permissions', authenticationMiddleware(acl), (req, res) => roles.getRolePermissions(req, res));
 
   /**
    * @api {post} /role
-   * Add resource and permission from request to role
+   * Add resource and permissions to role
    * @apiName Create
    * @apiGroup Roles
    * @apiVersion 1.0.0
@@ -124,20 +110,13 @@ const _router = (acl) => {
    *
    * @apiError ValidationError Invalid data.
    * @apiErrorExample ValidationError:
-   *     HTTP/1.1 400 Bad Request--------------------------------------------------------------------------500??regexp
+   *     HTTP/1.1 400 Bad Request
    *     {
-   *      "message": "Empty field not allowed" -------now ---"An empty update path is not valid."---regexp
+   *      "message": "Empty field is not allowed"
    *     }
    *
    * @apiUse UnauthorizedError
-   *
-   * @apiError ServerError Server error.
-   * @apiErrorExample ServerError:
-   *     HTTP/1.1 500 Internal Server Error
-   *     {
-   *      "message": "<Error>"
-   *     }
-   *
+   * @apiUse ServerError
    */
 
   router.post('/', authenticationMiddleware(acl), (req, res) => roles.addAllow(req, res));
@@ -168,15 +147,8 @@ const _router = (acl) => {
    *      "message": "Resource not found"
    *     }
    *
-   * @apiError ServerError Server error.
-   * @apiErrorExample ServerError:
-   *     HTTP/1.1 500 Internal Server Error
-   *     {
-   *      "message": "<Error>"
-   *     }
-   *
    * @apiUse UnauthorizedError
-   *
+   * @apiUse ServerError
    */
 
   router.delete('/:role/resources/:resource/permissions/:permission', authenticationMiddleware(acl), (req, res) => roles.deleteAllow(req, res));

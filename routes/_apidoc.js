@@ -11,6 +11,19 @@
 // Current Errors.
 // ------------------------------------------------------------------------------------------
 
+/**
+ * @apiDefine ServerError
+ * @apiVersion 1.0.0
+ *
+ * @apiHeader {String} ServerError Server error.
+ *
+ * @apiErrorExample ServerError:
+ *     HTTP/1.1 500 Internal Server Error
+ *     {
+ *        "message": "Server error"
+ *     }
+ *
+ */
 
 // ------------------------------------------------------------------------------------------
 // Current Permissions.
