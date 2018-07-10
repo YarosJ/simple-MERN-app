@@ -62,7 +62,7 @@ const _router = (acl) => {
 
   /**
    * @api {post} /refresh
-   * Refresh access token by refresh token
+   * Refresh access token (by refresh token)
    * @apiName Refresh
    * @apiGroup Authentication
    * @apiVersion 1.0.0
