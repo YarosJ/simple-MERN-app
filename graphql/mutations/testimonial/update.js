@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { GraphQLNonNull } from 'graphql';
+import { GraphQLNonNull, GraphQLID } from 'graphql';
 import { testimonialType, testimonialInputType } from '../../types/testimonial';
 
 const testimonialModel = mongoose.model('Testimonial');
@@ -7,18 +7,19 @@ const testimonialModel = mongoose.model('Testimonial');
 export default {
   type: testimonialType,
   args: {
+    id: {
+      name: 'ID',
+      type: new GraphQLNonNull(GraphQLID),
+    },
     data: {
       name: 'data',
       type: new GraphQLNonNull(testimonialInputType),
     },
   },
   resolve(root, params) {
-    const testimonial = new testimonialModel(params.data);
-
-    const newTestimonial = testimonial.save().then(data => { return data; });
-    if (!newTestimonial) {
-      throw new Error('Error adding testimonial');
-    }
-    return newTestimonial;
+    return testimonialModel.findByIdAndUpdate(params.id, {
+      $set: { ...params.data },
+    }, { new: true })
+      .catch(err => new Error('Couldn\'t Update Testimonial data, ', err));
   },
 };

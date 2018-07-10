@@ -15,8 +15,7 @@
  * @apiDefine ServerError
  * @apiVersion 1.0.0
  *
- * @apiHeader {String} ServerError Server error.
- *
+ * @apiError {String} ServerError Server error.
  * @apiErrorExample ServerError:
  *     HTTP/1.1 500 Internal Server Error
  *     {
