@@ -1,13 +1,20 @@
-# Express.js RESTful/GraphQL SPA React.js application.
+# Express.js RESTful/GraphQL React.js SPA.
 
 This is a simple single page application with registration and admin panel that manages access to resources. The resources in this application are recommendations (displayed in the carousel), users and pages of site.
 
-Dependencies:
+## Navigation:
+
+* [Dependencies](#dependencies)
+* [Installation](#installation)
+* [Test REST api](#rest-api)
+* [Test GraphQL api](#graphql-api)
+
+[Dependencies:](#dependencies)
 ------------
 
 The application requires `npm` version `6.1.0` or higher,  `node.js` version `10.4.1` or higher, Webpack version `4.5.0`, and MongoDB version `3.6.3`.
 
-Installation:
+[Installation:](#installation)
 ----------------
 
 The first step is to install dependencies:
@@ -19,7 +26,7 @@ $ npm i
 Then perform build and launch the application:
 
 ```sh
-DEBUG_COLORS=true DEBUG=app,controllers,auth,acl seedDB=true NODE_ENV=production npm start
+$ DEBUG_COLORS=true DEBUG=app,controllers,auth,acl seedDB=true NODE_ENV=production npm start
 ```
 
 `NODE_ENV`, `DEBUG_COLORS`, `DEBUG` and `seedDB` is optional parameters
@@ -34,7 +41,7 @@ Admin email: `example@ex.com`
 
 Admin password: `1111111`
 
-Test REST api (the example uses a Postman):
+[Test REST api (the example uses a Postman):](#rest-api)
 ------------
 
 __Full api documentation here: https://yarosj.github.io/solvRestApiDoc__
@@ -236,6 +243,201 @@ Content-Type: application/json
 Cache-Control: no-cache
 Postman-Token: <Postman token>
 ```
+
+[Test GraphQL api:](#graphql-api)
+------------
+
+__Full api documentation here: https://yarosj.github.io/solvGraphQLApiDoc__
+
+GraphQl api of this application supports the same as rest jwt authorization.
+
+__The graphQL schema is shown below:__
+
+- Queries:
+
+    User(id: ID!): User
+    
+        User {
+            _id: ID!
+            email: String
+            password: String
+            role: String
+            createdAt: String
+        }
+    
+    Users: [User]
+    
+        User {
+            _id: ID!
+            email: String
+            password: String
+            role: String
+            createdAt: String
+        }
+    
+    Testimonial(id: ID!): Testimonial
+    
+        Testimonial {
+            _id: ID!
+            title: String
+            body: String
+            gender: String
+            autor: String
+        }
+    
+    Testimonials: [Testimonial]
+    
+        Testimonial {
+            _id: ID!
+            title: String
+            body: String
+            gender: String
+            autor: String
+        }
+    
+    Roles: [Role]
+    
+        Role {
+            role: String
+            resources: JSON
+        }
+    
+    Role(role: String!): Role
+    
+        Role {
+            role: String
+            resources: JSON
+        }
+
+- Mutations:
+
+    addUser(data: UserInput!): User
+
+        UserInput {
+            email: String
+            password: String
+            role: String
+            createdAt: String
+        }
+    
+        User {
+            _id: ID!
+            email: String
+            password: String
+            role: String
+            createdAt: String
+        }
+    
+    removeUser(id: ID!): User
+   
+        User {
+            _id: ID!
+            email: String
+            password: String
+            role: String
+            createdAt: String
+        }
+        
+    updateUser(id: ID! data: UserInput!): User
+    
+        UserInput {
+            email: String
+            password: String
+            role: String
+            createdAt: String
+        }
+    
+        User {
+            _id: ID!
+            email: String
+            password: String
+            role: String
+            createdAt: String
+        }
+    
+    addTestimonial(data: TestimonialInput!): Testimonial
+    
+        TestimonialInput {
+            title: String
+            body: String
+            gender: String
+            autor: String
+        }
+    
+        Testimonial {
+            _id: ID!
+            title: String
+            body: String
+            gender: String
+            autor: String
+        }
+    
+    removeTestimonial(id: ID!): Testimonial
+    
+        Testimonial {
+            _id: ID!
+            title: String
+            body: String
+            gender: String
+            autor: String
+        }
+    
+    updateTestimonial(id: ID! data: TestimonialInput!): Testimonial
+    
+        TestimonialInput {
+            title: String
+            body: String
+            gender: String
+            autor: String
+        }
+    
+        Testimonial {
+            _id: ID!
+            title: String
+            body: String
+            gender: String
+            autor: String
+        }
+    
+    addPermissions(data: RoleInput!): Role
+    
+        RoleInput {
+            role: String!
+            resources: [String]
+            permissions: [String]
+        }
+    
+        Role {
+            role: String
+            resources: JSON
+        }
+    
+    removePermissions(role: String! permissions: [String]! resources: [String]): Role
+    
+        Role {
+            role: String
+            resources: JSON
+        }
+    
+    newToken(data: AuthenticationInput!): Authentication
+    
+        AuthenticationInput {
+            email: String
+            password: String
+            refreshToken: String
+        }
+    
+        Authentication {
+            accessToken: String
+            refreshToken: String
+        }
+    
+    refreshToken(refreshToken: String!): Authentication
+    
+        Authentication {
+            accessToken: String
+            refreshToken: String
+        }
 
 ## License
 
