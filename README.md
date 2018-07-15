@@ -1,4 +1,4 @@
-# Express.js RESTful SPA React.js application.
+# Express.js RESTful/GraphQL SPA React.js application.
 
 This is a simple single page application with registration and admin panel that manages access to resources. The resources in this application are recommendations (displayed in the carousel), users and pages of site.
 

@@ -68,8 +68,8 @@ class AuthenticationController {
 
   refresh(req, res) {
     try {
-      const userId = jwt.verify(req.get('Authorization'), 'secret')._id;
-      res.status(200).json(jwt.sign({ _id: userId }, 'secret', { expiresIn: 60 * 15 }));
+      const userId = jwt.verify(req.get('Authorization'), 'abvkhvbajhvabdfbvah')._id;
+      res.status(200).json(jwt.sign({ _id: userId }, 'abvkhvbajhvabdfbvah', { expiresIn: 60 * 15 }));
     } catch (err) {
       if (err.name === 'TokenExpiredError' || err.name === 'JsonWebTokenError') {
         res.status(400).json(err);

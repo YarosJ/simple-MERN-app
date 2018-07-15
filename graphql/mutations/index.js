@@ -1,6 +1,7 @@
 import userMutation from './user';
 import roleMutation from './role';
 import testimonialMutation from './testimonial';
+import authenticationMutation from './authentication';
 
 export default (acl) => {
   const exportRoleMutation = roleMutation(acl);
@@ -9,5 +10,6 @@ export default (acl) => {
     ...exportUserMutation,
     ...testimonialMutation,
     ...exportRoleMutation,
+    ...authenticationMutation,
   };
 };

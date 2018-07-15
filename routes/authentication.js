@@ -32,7 +32,7 @@ const _router = (acl) => {
    * @apiSuccessExample SuccessResponse:
    *     HTTP/1.1 200 OK
    *     {
-   *       "acessToken": "<JWT>",
+   *       "accessToken": "<JWT>",
    *       "refreshToken": "<JWT>"
    *     }
    *
