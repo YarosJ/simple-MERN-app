@@ -37,7 +37,7 @@ Admin password: `1111111`
 Test REST api (the example uses a Postman):
 ------------
 
-__Full api documentation here: https://yarosj.github.io__
+__Full api documentation here: https://yarosj.github.io/solvRestApiDoc__
 
 Api of this application supports the JWT (stateless) and session for authorisation.
 
