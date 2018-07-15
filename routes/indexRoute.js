@@ -1,12 +1,11 @@
 import path from 'path';
+import graphqlHTTP from 'express-graphql';
 import authentication from './authentication';
 import users from './users';
 import roles from './roles';
 import testimonials from './testimonials';
-
-import graphqlHTTP from 'express-graphql';
-import schema from '../graphql';
-import authenticationMiddleware from "../helpers/authentication/AuthenticationMiddleware";
+import gSchema from '../graphql';
+import authenticationMiddleware from '../helpers/authentication/AuthenticationMiddleware';
 
 /**
  * Main route
@@ -23,6 +22,8 @@ export default (app, acl) => {
   /**
    * GraphQL api route
    */
+
+  const schema = gSchema(acl);
 
   app.all('/graphql', authenticationMiddleware(acl), graphqlHTTP(() => ({
     schema,

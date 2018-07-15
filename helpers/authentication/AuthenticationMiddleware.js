@@ -16,7 +16,7 @@ export default function authenticationMiddleware(myAcl) {
       userId = req.session.passport.user._id;
     } else if (token) {
       try {
-        userId = jwt.verify(token, 'secret')._id;
+        userId = jwt.verify(token, 'abvkhvbajhvabdfbvah')._id;
       } catch (err) {
         userId = guestId;
         if (err.name === 'TokenExpiredError' || err.name === 'JsonWebTokenError') {

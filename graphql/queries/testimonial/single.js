@@ -1,6 +1,8 @@
+import mongoose from "mongoose";
 import { GraphQLID, GraphQLNonNull } from 'graphql';
 import { testimonialType } from '../../types/testimonial';
-import testimonialModel from '../../../models/Testimonial';
+
+const testimonialModel = mongoose.model('Testimonial');
 
 export default {
   type: testimonialType,

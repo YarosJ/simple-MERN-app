@@ -1,24 +1,29 @@
-import {
-  GraphQLNonNull,
-} from 'graphql';
-
+import mongoose from 'mongoose';
+import { GraphQLNonNull } from 'graphql';
 import { userType, userInputType } from '../../types/user';
-import UserModel from '../../../models/User';
 
-export default {
-  type: userType,
-  args: {
-    data: {
-      name: 'data',
-      type: new GraphQLNonNull(userInputType)
-    }
-  },
-  resolve(root, params) {
-    const uModel = new UserModel(params.data);
-    const newUser = uModel.save();
-    if (!newUser) {
-      throw new Error('Error adding user');
-    }
-    return newUser
-  }
-}
+const UserModel = mongoose.model('User1');
+
+export default (acl) => {
+  return {
+    type: userType,
+    args: {
+      data: {
+        name: 'data',
+        type: new GraphQLNonNull(userInputType),
+      },
+    },
+    async resolve(root, params) {
+      const count = await UserModel.count();
+      params.data.createdAt = new Date();
+      const user = new UserModel(params.data);
+      const data = await user.save();
+
+      data.role = 'user';
+
+      await acl.addUserRoles(data._id.toString(), count === 0 ? 'superAdmin' : data.role);
+
+      return { email: data.email, role: data.role, _id: data._id, createdAt: data.createdAt };
+    },
+  };
+};

@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import { GraphQLNonNull } from 'graphql';
 import { testimonialType, testimonialInputType } from '../../types/testimonial';
 
-const testimonialModel = mongoose.model('Testimonial');
+const TestimonialModel = mongoose.model('Testimonial');
 
 export default {
   type: testimonialType,
@@ -13,9 +13,9 @@ export default {
     },
   },
   resolve(root, params) {
-    const testimonial = new testimonialModel(params.data);
+    const testimonial = new TestimonialModel(params.data);
 
-    const newTestimonial = testimonial.save().then(data => { return data; });
+    const newTestimonial = testimonial.save().then(data => data);
     if (!newTestimonial) {
       throw new Error('Error adding testimonial');
     }

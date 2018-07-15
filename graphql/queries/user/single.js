@@ -1,19 +1,22 @@
-import {
-  GraphQLID,
-  GraphQLNonNull
-} from 'graphql';
+import mongoose from "mongoose";
+import { GraphQLID, GraphQLNonNull } from 'graphql';
 import { userType } from '../../types/user';
-import userModel from '../../../models/User';
 
-export default {
-  type: userType,
-  args: {
-    id: {
-      name: 'ID',
-      type: new GraphQLNonNull(GraphQLID),
+const userModel = mongoose.model('User1');
+
+export default (acl) => {
+  return {
+    type: userType,
+    args: {
+      id: {
+        name: 'ID',
+        type: new GraphQLNonNull(GraphQLID),
+      },
     },
-  },
-  resolve(root, params) {
-    return userModel.findById(params.id).exec();
-  },
-};
+    async resolve(root, params) {
+      const roles = await acl.userRoles(params.id);
+      const user = await userModel.findById(params.id);
+      return { email: user.email, role: roles[0], _id: params.id, createdAt: user.createdAt };
+    },
+  }
+}

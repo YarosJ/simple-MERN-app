@@ -31,11 +31,11 @@ class AuthenticationController {
           res.status(400).json({ message: 'Incorrect password.' });
         } else {
           const userId = user._id.toString();
-          const refreshToken = jwt.sign({ _id: userId }, 'secret', { expiresIn: 1440 * 6 });
+          const refreshToken = jwt.sign({ _id: userId }, 'abvkhvbajhvabdfbvah', { expiresIn: 1440 * 6 });
           const data = await this.User.findOneAndUpdate({ _id: userId },
             { refreshToken }, { new: true });
           res.status(200).json({
-            acessToken: jwt.sign({ _id: data._id.toString() }, 'secret', { expiresIn: 60 * 15 }),
+            acessToken: jwt.sign({ _id: data._id.toString() }, 'abvkhvbajhvabdfbvah', { expiresIn: 60 * 15 }),
             refreshToken,
           });
         }
