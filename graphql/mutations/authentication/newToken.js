@@ -21,11 +21,11 @@ export default {
       throw new Error('Incorrect password');
     } else {
       const userId = user._id.toString();
-      const refreshToken = jwt.sign({ _id: userId }, 'abvkhvbajhvabdfbvah', { expiresIn: 1440 * 6 });
+      const refreshToken = jwt.sign({ _id: userId }, 'abvkhvbajhvabdfbvah', { expiresIn: 420000 });
       const data = await UserModel.findOneAndUpdate({ _id: userId },
         { refreshToken }, { new: true });
       return {
-        accessToken: jwt.sign({ _id: data._id.toString() }, 'abvkhvbajhvabdfbvah', { expiresIn: 60 * 15 }),
+        accessToken: jwt.sign({ _id: data._id.toString() }, 'abvkhvbajhvabdfbvah', { expiresIn: 900 }),
         refreshToken,
       };
     }

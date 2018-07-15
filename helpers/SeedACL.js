@@ -37,6 +37,13 @@ export default function (myAcl) {
             '/roles/:role/resources/:resource', '/roles/:role/resources/:resource/permissions/:permission'],
           permissions: ['PUT', 'DELETE', 'POST'],
         },
+        {
+          resources: ['User', 'Users', 'addUser', 'removeUser', 'updateUser',
+            'Testimonial', 'Testimonials', 'addTestimonial', 'removeTestimonial', 'updateTestimonial',
+            'Roles', 'Role', 'addPermissions', 'removePermissions',
+            'newToken', 'refreshToken', '__schema'],
+          permissions: ['graphQL'],
+        },
       ],
     },
     {

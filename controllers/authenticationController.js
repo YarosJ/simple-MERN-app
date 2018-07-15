@@ -31,11 +31,11 @@ class AuthenticationController {
           res.status(400).json({ message: 'Incorrect password.' });
         } else {
           const userId = user._id.toString();
-          const refreshToken = jwt.sign({ _id: userId }, 'abvkhvbajhvabdfbvah', { expiresIn: 1440 * 6 });
+          const refreshToken = jwt.sign({ _id: userId }, 'abvkhvbajhvabdfbvah', { expiresIn: 420000 });
           const data = await this.User.findOneAndUpdate({ _id: userId },
             { refreshToken }, { new: true });
           res.status(200).json({
-            acessToken: jwt.sign({ _id: data._id.toString() }, 'abvkhvbajhvabdfbvah', { expiresIn: 60 * 15 }),
+            acessToken: jwt.sign({ _id: data._id.toString() }, 'abvkhvbajhvabdfbvah', { expiresIn: 900 }),
             refreshToken,
           });
         }
@@ -69,7 +69,7 @@ class AuthenticationController {
   refresh(req, res) {
     try {
       const userId = jwt.verify(req.get('Authorization'), 'abvkhvbajhvabdfbvah')._id;
-      res.status(200).json(jwt.sign({ _id: userId }, 'abvkhvbajhvabdfbvah', { expiresIn: 60 * 15 }));
+      res.status(200).json(jwt.sign({ _id: userId }, 'abvkhvbajhvabdfbvah', { expiresIn: 900 }));
     } catch (err) {
       if (err.name === 'TokenExpiredError' || err.name === 'JsonWebTokenError') {
         res.status(400).json(err);

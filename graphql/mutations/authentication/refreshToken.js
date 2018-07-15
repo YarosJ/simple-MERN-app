@@ -12,6 +12,6 @@ export default {
   },
   async resolve(root, params) {
     const userId = jwt.verify(params.refreshToken, 'abvkhvbajhvabdfbvah')._id;
-    return { accessToken: jwt.sign({ _id: userId }, 'abvkhvbajhvabdfbvah', { expiresIn: 60 * 15 }) };
+    return { accessToken: jwt.sign({ _id: userId }, 'abvkhvbajhvabdfbvah', { expiresIn: 900 }) };
   },
 };

@@ -1,6 +1,15 @@
 import jwt from 'jsonwebtoken';
-
 const guestId = 'guest123456789abcdefghkl';
+
+/**
+ * Returns GraphQL action from string
+ * @param str
+ * @returns {string}
+ */
+
+function getGraphQLAction(str) {
+  return str.split(/{|\(/)[1].replace(/\s+/g, '');
+}
 
 /**
  * Authorization by session or JWT, depending of the header "Authorization"
@@ -11,6 +20,7 @@ const guestId = 'guest123456789abcdefghkl';
 export default function authenticationMiddleware(myAcl) {
   return (req, res, next) => {
     let userId;
+    const { query } = req.body;
     const token = req.get('Authorization');
     if (req.isAuthenticated()) {
       userId = req.session.passport.user._id;
@@ -30,10 +40,12 @@ export default function authenticationMiddleware(myAcl) {
       userId = guestId;
     }
 
-    myAcl.isAllowed(userId, req.baseUrl + req.route.path, req.method, (err, permissions) => {
-      if (permissions) {
-        next();
-      } else res.status(401).json({ message: 'Unauthorized'});
-    });
+    myAcl.isAllowed(userId,
+      query ? getGraphQLAction(query) : req.baseUrl + req.route.path,
+      query ? 'graphQL' : req.method, (err, permissions) => {
+        if (permissions) {
+          next();
+        } else res.status(401).json({ message: 'Unauthorized' });
+      });
   };
 }
