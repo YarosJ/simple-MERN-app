@@ -6,8 +6,8 @@ This is a simple single page application with registration and admin panel that 
 
 * [Dependencies](#dependencies)
 * [Installation](#installation)
-* [Test REST api](#rest-api)
-* [Test GraphQL api](#graphql-api)
+* [Test REST api](#restApi)
+* [Test GraphQL api](#graphqlApi)
 
 [Dependencies:](#dependencies)
 ------------
@@ -41,7 +41,7 @@ Admin email: `example@ex.com`
 
 Admin password: `1111111`
 
-[Test REST api (the example uses a Postman):](#rest-api)
+[Test REST api (the example uses a Postman):](#restApi)
 ------------
 
 __Full api documentation here: https://yarosj.github.io/solvRestApiDoc__
@@ -244,7 +244,7 @@ Cache-Control: no-cache
 Postman-Token: <Postman token>
 ```
 
-[Test GraphQL api:](#graphql-api)
+[Test GraphQL api:](#graphqlApi)
 ------------
 
 __Full api documentation here: https://yarosj.github.io/solvGraphQLApiDoc__
