@@ -6,8 +6,8 @@ This is a simple single page application with registration and admin panel that 
 
 * [Dependencies](#dependencies)
 * [Installation](#installation)
-* [Test REST api](#restApi)
-* [Test GraphQL api](#graphqlApi)
+* [Test REST api](#test-rest-api-the-example-uses-a-postman)
+* [Test GraphQL api](#test-graphql-api)
 
 [Dependencies:](#dependencies)
 ------------
